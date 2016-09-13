@@ -3,3 +3,11 @@ FRIENDS MODEL
  	- # purchases
  	- avg star rating
  	- # hours purchased
+
+for 9/12
+- set up associations
+
+for 9/13
+- seed file
+- test routes (Postman)
+- 
