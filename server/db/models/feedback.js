@@ -14,6 +14,17 @@ module.exports = db.define('feedback', {
     title: {
         type: Sequelize.TEXT
     }
+}, {
+    // OPTIONS
+    classMethods: {
+        findByFriendId: function(id) {
+            return this.findAll({
+                where: {
+                    friendId: id
+                }
+            })
+        }
+    }
 });
 
 

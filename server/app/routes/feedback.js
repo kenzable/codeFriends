@@ -33,14 +33,14 @@ router.post('/', function (req, res, next) {
 });
 //Feedback.belongsTo(User); in index.js
 
-router.get('/:id', function (req, res, next) {
-	Feedback.findById(req.params.id)
-	.then(function (feedback) {
-		if (!feedback) throw HTTP_Error(404, 'feedback not found');
-		res.json(feedback);
-	})
-	.catch(next);
-});
+// router.get('/:id', function (req, res, next) {
+// 	Feedback.findById(req.params.id)
+// 	.then(function (feedback) {
+// 		if (!feedback) throw HTTP_Error(404, 'feedback not found');
+// 		res.json(feedback);
+// 	})
+// 	.catch(next);
+// });
 
 router.delete('/:id', function (req, res, next) {
 	Feedback.destroy({
