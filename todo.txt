@@ -9,8 +9,9 @@ for 9/12
 
 for 9/13
 - make a signup page for testing
+	- get login page running
 - seed file
 - test routes (Postman)
 - lay out states, directives, etc >> start building
-- /friends/:friendsId/feedback
-- 
+- GUI
+- brainstorm product detail
