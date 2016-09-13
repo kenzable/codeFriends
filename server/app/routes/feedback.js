@@ -1,6 +1,6 @@
 'use strict';
 var router = require('express').Router();
-var HTTP_Error = require('../utils').HTTP_Error;
+// var HTTP_Error = require('../utils').HTTP_Error;
 module.exports = router;
 
 var Feedback = require('../../db/models/feedback.js');
@@ -47,7 +47,7 @@ router.delete('/:id', function (req, res, next) {
 		where: {id: req.params.id}
 	})
 	.then(function(feedbackDestroyed) {
-		if (!feedbackDestroyed) throw HTTP_Error(404, 'feedback not destroyed');
+		if (!feedbackDestroyed) res.sendStatus(400);// throw HTTP_Error(404, 'feedback not destroyed');
 		res.sendStatus(204);
 	})
 	.catch(next);

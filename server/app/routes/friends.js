@@ -7,7 +7,7 @@ module.exports = router;
 
 
 // Get all friends
-router.get('/friends', function(req, res, next) {
+router.get('/', function(req, res, next) {
 	Friend.findAll()
 	.then(function(allFriends) {
 		if (allFriends) res.json(allFriends);
@@ -17,19 +17,19 @@ router.get('/friends', function(req, res, next) {
 });
 
 // Create new friend
-router.post('/friends', function(req, res, next) {
+router.post('/', function(req, res, next) {
 	Friend.create({
 		where: req.body
 	})
 	.then(function(createdFriend) {
-		if (createdFriend) res.redirect('/friends/createdFriend.id');
+		if (createdFriend) res.redirect('/createdFriend.id');
 		else res.send('Friend was not created');
 	})
 	.catch(next);
 });
 
 // Get specific friend
-router.get('/friends/:friendId', function(req, res, next) {
+router.get('/:friendId', function(req, res, next) {
 	Friend.findById(req.params.friendId)
 	.then(function(foundFriend) {
 		if (foundFriend) res.json(foundFriend);
@@ -39,7 +39,7 @@ router.get('/friends/:friendId', function(req, res, next) {
 });
 
 // Modify a friend's details
-router.put('/friends/:friendId', function(req, res, next) {
+router.put('/:friendId', function(req, res, next) {
 	Friend.findById(req.params.friendId)
 	.then(function(foundFriend) {
 		if (foundFriend) {
@@ -56,7 +56,7 @@ router.put('/friends/:friendId', function(req, res, next) {
 });
 
 // Delete a friend
-router.delete('/friends/:friendId', function(req, res, next) {
+router.delete('/:friendId', function(req, res, next) {
 	Friend.destroy({
 		where: {
 			id: req.params.friendId
@@ -70,7 +70,7 @@ router.delete('/friends/:friendId', function(req, res, next) {
 });
 
 // feedback
-router.get('/friends/:friendId/feedback', function(req, res, next) {
+router.get('/:friendId/feedback', function(req, res, next) {
 	Feedback.findByFriendId(req.params.friendId)
 	.then(function(feedback) {
 		if (feedback) res.status(200).json(feedback);

@@ -1,6 +1,6 @@
 'use strict';
 var router = require('express').Router();
-var HTTP_Error = require('../utils').HTTP_Error;
+// var HTTP_Error = require('../utils').HTTP_Error;
 module.exports = router;
 
 var Order = require('../../db/models/order.js');
@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
 	Order.findById(req.params.id)
 	.then(function(order) {
-		if (!order) throw HTTP_Error(404, 'order not found');
+		if (!order) res.sendStatus(400); //throw HTTP_Error(404, 'order not found');
 		res.json(order);
 	})
 	.catch(next);
@@ -27,7 +27,7 @@ router.delete('/:id', function (req, res, next) {
 		where: {id: req.params.id}
 	})
 	.then(function(orderDestroyed) {
-		if (!orderDestroyed) throw HTTP_Error(404, 'order not destroyed');
+		if (!orderDestroyed) res.sendStatus(400); //throw HTTP_Error(404, 'order not destroyed');
 		res.sendStatus(204);
 	})
 	.catch(next);
