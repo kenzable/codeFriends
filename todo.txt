@@ -1,0 +1,5 @@
+FRIENDS MODEL
+ - virtuals for ratings/popularity
+ 	- # purchases
+ 	- avg star rating
+ 	- # hours purchased
