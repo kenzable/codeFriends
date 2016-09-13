@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Friend = require('../../db/models/friend.js');
+var Feedback = require('../../db/models/feedback.js');
 
 module.exports = router;
 
@@ -23,8 +24,6 @@ router.post('/friends', function(req, res, next) {
 	.then(function(createdFriend) {
 		if (createdFriend) res.redirect('/friends/createdFriend.id');
 		else res.send('Friend was not created');
-	}, function() {
-		res.sendStatus(500);
 	})
 	.catch(next);
 });
@@ -35,8 +34,6 @@ router.get('/friends/:friendId', function(req, res, next) {
 	.then(function(foundFriend) {
 		if (foundFriend) res.json(foundFriend);
 		else res.sendStatus(404);
-	}, function() {
-		res.sendStatus(500);
 	})
 	.catch(next);
 });
@@ -54,8 +51,6 @@ router.put('/friends/:friendId', function(req, res, next) {
 			})
 		}
 		else res.sendStatus(404);
-	}, function() {
-		res.sendStatus(500);
 	})
 	.catch(next);
 });
@@ -70,11 +65,24 @@ router.delete('/friends/:friendId', function(req, res, next) {
 	.then(function(destroyedFriend) {
 		if (destroyedFriend) res.sendStatus(204);
 		else res.send('Why would you want to delete me??');
-	}, function() {
-		res.sendStatus(500);
 	})
 	.catch(next);
 });
+
+// feedback
+router.get('/friends/:friendId/feedback', function(req, res, next) {
+	Feedback.findByFriendId(req.params.friendId)
+	.then(function(feedback) {
+		if (feedback) res.status(200).json(feedback);
+		else res.send('No friend reviews!');
+	})
+	.catch(next);
+})
+
+
+
+
+
 
 
 
