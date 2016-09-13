@@ -13,5 +13,6 @@ for 9/13
 - seed file
 - test routes (Postman)
 - lay out states, directives, etc >> start building
+- /friends/:friendsId/feedback
 - GUI
 - brainstorm product detail
