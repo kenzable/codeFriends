@@ -5,9 +5,12 @@ FRIENDS MODEL
  	- # hours purchased
 
 for 9/12
-- set up associations
+- set up model associations
 
 for 9/13
+- make a signup page for testing
 - seed file
 - test routes (Postman)
-- 
+- lay out states, directives, etc >> start building
+- /friends/:friendsId/feedback
+-
