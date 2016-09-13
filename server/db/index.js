@@ -9,3 +9,4 @@ var User = require('./models/user');
 // e.g. User.hasMany(Reports)
 
 User.hasMany(Order)
+Feedback.belongsTo(User)
