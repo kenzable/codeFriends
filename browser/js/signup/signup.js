@@ -3,7 +3,7 @@ app.config(function($stateProvider) {
 		url: '/signup',
 		templateUrl: 'js/signup/signup.html',
 		controller: 'SignUpCtrl'
-	})
+	});
 });
 
 // NEED TO USE FORM VALIDATIONS FOR EMAIL, ADDRESS, ETC
@@ -25,11 +25,11 @@ app.controller('SignUpCtrl', function($scope, $state, $http, AuthService) {
 				AuthService.login(signUpInfo)
 				.then(function() {
 					$state.go('home');
-				})
+				});
 			})
 			.catch(function() {
 				$scope.error = 'Invalid signup credentials.';
 			})
-		}
+		};
 	}
 });

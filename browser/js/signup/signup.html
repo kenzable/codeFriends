@@ -1,10 +1,4 @@
-<form id="signup-form" name="signUpForm" ng-submit="signUpForm.$valid && sendSignUp(signUp)">
-
-    <!-- DEAL WITH OAUTH FOR FB, TWITTER, GOOGLE -->
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
-
+<form id="signup-form" name="signupForm" ng-submit=""> <!-- need to work on ng-submit -->
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" ng-model="signUp.name" class="form-control" id="name" placeholder="Enter your name">
@@ -34,5 +28,4 @@
     <button type="submit" class="btn btn-default" ng-click="sendSignUp(signUp)">Submit</button>
     <div class="signup-error" ng-show=error>{{ error }}</div>
 </form>
-
 

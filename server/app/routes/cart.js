@@ -12,6 +12,13 @@ router.get('/', function(req, res, next){
   .catch(next);
 });
 
+router.post('/', function(req, res, next){
+  Cart.create(req.body)
+  .then(function(cart){
+    req.user.addCart(cart);
+  })
+});
+
 router.post('/purchase', function(req, res, next){
 //Will refactor this once I review the cart model!
 //also need to figure out how we're getting cart items from client side
