@@ -58,16 +58,39 @@ module.exports = function (app, db) {
 
     // POST signup route to handle new members
     app.post('/signup', function(req, res, next) {
-        User.findOrCreate(req.body)
-        .spread(function(user, wasCreated) {
-            req.logIn(user, function(err) {
-                if (err) return next(err);
-                res.status(200).send({
-                    user: user.sanitize()
+
+        var authCb = function(err, user) {
+            if (err) return next(err);
+            if (!user) {
+                var error = new Error('Signup info is whack.');
+                error.status = 401;
+                return next(error);
+            }
+
+            User.findOrCreate({ where: req.body })
+            .spread(function(user, wasCreated) {
+                req.logIn(user, function(err) {
+                    if (err) return next(err);
+                    res.status(200).send({
+                        user: user.sanitize()
+                    });
                 });
-            });
-        })
-        .catch(next);
+            })
+            .catch(next);
+        }
+
+        // User.findOrCreate({ where: req.body })
+        // .spread(function(user, wasCreated) {
+        //     req.logIn(user, function(err) {
+        //         if (err) return next(err);
+        //         res.status(200).send({
+        //             user: user.sanitize()
+        //         });
+        //     });
+        // })
+        // .catch(next);
+
+        passport.authenticate('local', authCb)(req, res, next);
     });
 
 };
