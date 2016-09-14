@@ -13,6 +13,7 @@ app.controller('CartController', function ($scope, CartFactory, $log) {
   $scope.getUserCart = function(){
     CartFactory.getUserCart()
     .then(function(cart){
+      console.log(cart);
       $scope.items = cart.items;
       $scope.total = cart.total;
     })
@@ -22,6 +23,7 @@ app.controller('CartController', function ($scope, CartFactory, $log) {
     CartFactory.addFriendToCart(friendId)
     .then(function(friend){
       $scope.added = friend;
+      $scope.total = CartFactory.getTotal();
     })
     .catch($log.error);
   }

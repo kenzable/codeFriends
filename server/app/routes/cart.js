@@ -15,8 +15,9 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res, next){
   Cart.create(req.body)
   .then(function(cart){
-    req.user.addCart(cart);
+    res.json(cart);
   })
+  .catch(next);
 });
 
 router.post('/purchase', function(req, res, next){

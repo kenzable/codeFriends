@@ -13,8 +13,8 @@ app.factory('CartFactory', function($http, $log){
 
   function calculateTotal(itemsArray){
     return itemsArray.reduce(function(a, b){
-      return a.price + b.price;
-    });
+      return a + b.price;
+    }, 0);
   }
 
   function makeJSON(array){
@@ -30,10 +30,11 @@ app.factory('CartFactory', function($http, $log){
       return $http.get('/api/cart')
       .then(function(response){
         if (typeof response.data === 'object') {
-          cachedCartItems = cachedCartItems.concat(response.data.items);
+          cachedCartItems = cachedCartItems.concat(response.data);
           //update local storage to relect the cached values
+          cachedCartTotal = calculateTotal(cachedCartItems)
           localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-          localStorage.setItem('cartTotal', calculateTotal(cachedCartItems));
+          localStorage.setItem('cartTotal', cachedCartTotal);
         }
         return {items: cachedCartItems, total: cachedCartTotal};
       })
