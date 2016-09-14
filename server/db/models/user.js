@@ -8,8 +8,8 @@ var db = require('../_db');
 module.exports = db.define('user', {
     email: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
+        // unique: true
     },
     password: {
         type: Sequelize.STRING,
