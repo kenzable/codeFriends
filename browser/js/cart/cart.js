@@ -7,26 +7,23 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('CartController', function ($scope, CartFactory, $log) {
-  $scope.cartTotal = localStorage.cartTotal || 0;
+  $scope.items = CartFactory.getItems();
+  $scope.total = CartFactory.getTotal();
 
   $scope.getUserCart = function(){
     CartFactory.getUserCart()
-    .then(function(items){
-      $scope.items = items;
+    .then(function(cart){
+      $scope.items = cart.items;
+      $scope.total = cart.total;
     })
     .catch($log.error)
   }
   $scope.addToCart = function(friendId){
-    CartFactory.getFriend(friendId)
+    CartFactory.addFriendToCart(friendId)
     .then(function(friend){
-      var currentTotal = localStorage.getItem('cartTotal');
-      var newTotal = currentTotal ? +currentTotal + friend.price : friend.price;
-      localStorage.setItem('cartTotal', newTotal);
-      $scope.cartTotal = newTotal;
-
-
-
-
+      $scope.added = friend;
     })
+    .catch($log.error);
   }
+  $scope.saveCart = CartFactory.saveCart;
 });
