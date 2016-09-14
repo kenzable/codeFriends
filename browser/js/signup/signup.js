@@ -1,29 +1,35 @@
-app.config(function ($stateProvider) {
-
-    $stateProvider.state('signup', {
-        url: '/signup',
-        templateUrl: 'js/login/signup.html',
-        controller: 'SingupCtrl'
-    });
-
+app.config(function($stateProvider) {
+	$stateProvider.state('signup', {
+		url: '/signup',
+		templateUrl: 'js/signup/signup.html',
+		controller: 'SignUpCtrl'
+	});
 });
 
-app.controller('SingupCtrl', function ($scope, AuthService, $state) {
+// NEED TO USE FORM VALIDATIONS FOR EMAIL, ADDRESS, ETC
+app.controller('SignUpCtrl', function($scope, $state, $http, AuthService) {
+	// Get from ng-model in signup.html
+	$scope.signUp = {};
+	$scope.checkInfo = {};
+	$scope.error = null;
 
-    // $scope.signup = {};
-    // $scope.error = null;
+	$scope.sendSignUp = function(signUpInfo) {
+		$scope.error = null;
 
-    // $scope.sendLogin = function (loginInfo) {
-
-    //     $scope.error = null;
-
-    //     AuthService.login(loginInfo).then(function () {
-    //         $state.go('home');
-    //     }).catch(function () {
-    //         $scope.error = 'Invalid login credentials.';
-    //     });
-
-    // };
-
-    
+		if ($scope.signUp.password !== $scope.checkInfo.passwordConfirm) {
+			$scope.error = 'Passwords do not match, please re-enter password.';
+		}
+		else {
+			$http.post('/signup', signUpInfo)
+			.then(function() {
+				AuthService.login(signUpInfo)
+				.then(function() {
+					$state.go('home');
+				});
+			})
+			.catch(function() {
+				$scope.error = 'Invalid signup credentials.';
+			})
+		};
+	}
 });
