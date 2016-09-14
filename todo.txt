@@ -6,8 +6,12 @@ FRIENDS MODEL
 
 
 for 9/13
+<<<<<<< HEAD
+=======
+- make a signup page for testing
+>>>>>>> f76100ebaf080280248cd4fd982149c8ee010c30
 - seed file
-- test routes (Postman)
+- test auth routes (signup)
 - lay out states, directives, etc >> start building
 - GUI
 - brainstorm product detail

@@ -15,9 +15,6 @@ module.exports = db.define('user', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    address: {
-        type: Sequelize.STRING
-    },
     name: {
         type: Sequelize.STRING,
         allowNull: false

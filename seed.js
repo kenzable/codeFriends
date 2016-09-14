@@ -26,31 +26,33 @@ var Friend = db.model('friend');
 var Order = db.model('order');
 var Promise = require('sequelize').Promise;
 
-// var seedUsers = function () {
+var seedUsers = function () {
 
-//     var users = [
-//         {
-//             email: 'testing@fsa.com',
-//             password: 'password'
-//         },
-//         {
-//             email: 'obama@gmail.com',
-//             password: 'potus'
-//         }
-//     ];
+    var users = [
+        {
+            email: 'testing@fsa.com',
+            password: 'password',
+            name: 'Testing'
+        },
+        {
+            email: 'obama@gmail.com',
+            password: 'potus',
+            name: 'Obama'
+        }
+    ];
 
-//     var creatingUsers = users.map(function (userObj) {
-//         return User.create(userObj);
-//     });
+    var creatingUsers = users.map(function (userObj) {
+        return User.create(userObj);
+    });
 
-//     return Promise.all(creatingUsers);
+    return Promise.all(creatingUsers);
 
-// };
+};
 
 db.sync({ force: true })
-    // .then(function () {
-    //     return seedUsers();
-    // })
+    .then(function () {
+        return seedUsers();
+    })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
         process.exit(0);

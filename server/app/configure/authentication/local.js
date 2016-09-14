@@ -56,4 +56,26 @@ module.exports = function (app, db) {
 
     });
 
+    // POST signup route to handle new members
+    app.post('/signup', function(req, res, next) {
+
+        User.findOrCreate({ where: req.body })
+        .spread(function(user) {
+            req.logIn(user, function(err) {
+                if (err) return next(err);
+                res.status(200).send({
+                    user: user.sanitize()
+                });
+            });
+        })
+        .catch(next);
+    });
+
 };
+
+
+
+
+
+
+
