@@ -69,7 +69,7 @@ router.delete('/:friendId', function(req, res, next) {
 	.catch(next);
 });
 
-// feedback
+// Feedback for one friend
 router.get('/:friendId/feedback', function(req, res, next) {
 	Feedback.findByFriendId(req.params.friendId)
 	.then(function(feedback) {
