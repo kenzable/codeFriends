@@ -30,6 +30,6 @@ app.controller('SignUpCtrl', function($scope, $state, $http, AuthService) {
 			.catch(function() {
 				$scope.error = 'Invalid signup credentials.';
 			})
-		};
+		}
 	}
 });
