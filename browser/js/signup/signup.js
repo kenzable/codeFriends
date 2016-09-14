@@ -7,7 +7,7 @@ app.config(function($stateProvider) {
 });
 
 // NEED TO USE FORM VALIDATIONS FOR EMAIL, ADDRESS, ETC
-app.controller('SignUpCtrl', function($scope, $state, $http, $rootScope) {
+app.controller('SignUpCtrl', function($scope, $state, $http, AuthService) {
 	// Get from ng-model in signup.html
 	$scope.signUp = {};
 	$scope.checkInfo = {};
@@ -21,9 +21,11 @@ app.controller('SignUpCtrl', function($scope, $state, $http, $rootScope) {
 		}
 		else {
 			$http.post('/signup', signUpInfo)
-			.then(function(SanitizedUser) {
-				// $rootScope.user = SanitizedUser;
-				$state.go('home');
+			.then(function() {
+				AuthService.login(signUpInfo)
+				.then(function() {
+					$state.go('home');
+				})
 			})
 			.catch(function() {
 				$scope.error = 'Invalid signup credentials.';
