@@ -32,6 +32,12 @@ app.controller('CartController', function ($scope, CartFactory, $log) {
       $scope.total = cart.total;
   }
   $scope.saveCart = CartFactory.saveCart;
+
+   $scope.deleteItem = function(friendId){
+    var cart = CartFactory.deleteItem(friendId);
+      $scope.items = cart.items;
+      $scope.total = cart.total;
+  }
   $scope.purchase = function(){
     CartFactory.purchase()
     .then(function(order){
