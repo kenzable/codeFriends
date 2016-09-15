@@ -1,15 +1,38 @@
 app.factory('ProductFactory', function($http, $log){
 
   return {
-    getFriend: function(friendId){
+
+    getAllFriends: function() {
+      return $http.get('/api/friends')
+      .then(function(response) {
+        return response.data;
+      })
+      .catch($log.error);
+    },
+
+    getFriend: function(friendId) {
       return $http.get('/api/friends/' + friendId)
       .then(function(response){
-        var friend = response.data;
-        return friend
+        return response.data;
       })
       .catch($log.error)
-    } // end of getFriend
+    },
 
-  } //end of return
+    // friendRating: function
+
+    getReviews: function(friendId) {
+      return $http.get('/api/friends/' + friendId + '/feedback')
+      .then(function(response) {
+        return response.data;
+      })
+      .catch($log.error)
+    },
+
+    // getRating: function(friendId) {
+
+    // }
+
+
+  }; //end of return
 
 });
