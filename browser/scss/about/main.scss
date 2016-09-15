@@ -2,6 +2,7 @@
 
   margin: 0 auto;
   width: 90%;
+  text-align: center;
   @include clearfix;
 
   p {
@@ -34,5 +35,11 @@
       margin: 0 auto;
     }
   }
-
+  #team {
+    margin: auto;
+    padding-top: 30px;
+    text-align: center;
+    font-family: georgia;
+    font-size: 20px;
+  }
 }
