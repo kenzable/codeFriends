@@ -32,7 +32,7 @@ app.controller('ProductController', function ($scope, ProductFactory, CartFactor
     })
     .catch($log.error);
 
-    $scope.getNumReviews = ProductFactory.getNumReviews;
+    $scope.getNumReviews = ProductFactory.getNumReviews(1);
 
 
     $scope.addToCart = function(friendId){
