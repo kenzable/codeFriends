@@ -6,6 +6,13 @@ app.config(function ($stateProvider) {
     });
 });
 
+app.config(function ($stateProvider) {
+    $stateProvider.state('cart.checkout', {
+        url: '/checkout',
+        templateUrl: 'js/checkout/checkout.html'
+    });
+});
+
 app.controller('CartController', function ($scope, CartFactory, $log) {
   $scope.items = CartFactory.getItems();
   $scope.total = CartFactory.getTotal();
