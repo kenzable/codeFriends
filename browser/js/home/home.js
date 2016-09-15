@@ -6,6 +6,14 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('CarouselCtrl', function ($scope, $log, ProductFactory) {
+
+  $scope.tags = [
+    { text: 'just' },
+    { text: 'some' },
+    { text: 'cool' },
+    { text: 'tags' }
+  ];
+
   $scope.myInterval = 5000;
   $scope.noWrapSlides = false;
   $scope.active = 0;
