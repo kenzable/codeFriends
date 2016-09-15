@@ -10,12 +10,12 @@
                 <div class="tab-content">
                     <div id="stripe" class="tab-pane fade in active">
                         <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
-                        <form accept-charset="UTF-8" action="/" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_bQQaTxnaZlzv4FnnuZ28LFHccVSaj" id="payment-form" method="post">
-                            <div style="margin:0;padding:0;display:inline">
+                        <form accept-charset="UTF-8" action="/complete" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_bQQaTxnaZlzv4FnnuZ28LFHccVSaj" id="payment-form" method="get">
+<!--                             <div style="margin:0;padding:0;display:inline">
                                 <input name="utf8" type="hidden" value="✓" />
                                 <input name="_method" type="hidden" value="PUT" />
                                 <input name="authenticity_token" type="hidden" value="qLZ9cScer7ZxqulsUWazw4x3cSEzv899SP/7ThPCOV8=" />
-                            </div>
+                            </div> not a great way to use Stripe. security issues with the authenticity token -->
                             <br>
                             <div class='form-row'>
                                 <div class='form-group required'>
@@ -84,5 +84,3 @@
 </div>
 </form>
 </div>
-<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
-<script src='/checkout.js' type='text/javascript'></script>
