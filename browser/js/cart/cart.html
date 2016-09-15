@@ -5,6 +5,7 @@
   <button ng-click="clearCart()">clear cart</button>
   <button ng-click="saveCart()">save cart</button>
   <button ng-click="purchase()">purchase</button>
+  <a ui-sref="cart.checkout">checkout</a>
 </section>
 
 
@@ -44,6 +45,7 @@
         </tr>
         </tbody>
     </table>
+    <div ui-view></div>
 </div>
 
 <style>
