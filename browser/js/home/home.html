@@ -6,16 +6,21 @@
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">codeFriends</p>
+
+                <!-- MAY CHANGE THIS FOR TAGS -->
                 <div class="list-group">
                     <a href="#" class="list-group-item">Category 1</a>
                     <a href="#" class="list-group-item">Category 2</a>
                     <a href="#" class="list-group-item">Category 3</a>
                 </div>
+
             </div>
             <div class="col-md-9">
-                <div class="row carousel-holder">
+
+                <!-- Carousel -->
+                <div class="row carousel-holder" ng-controller="CarouselCtrl">
                     <div class="col-md-12">
-                        <div ng-controller="CarouselDemoCtrl">
+                        <div>
                             <div style="height: 305px">
                                 <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
                                     <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
@@ -30,61 +35,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <!-- use NG-REPEAT HERE for friends -->
+
+                <!-- Individual product thumbnails -->
+                <div class="row" ng-controller="ProductController">
+                    <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="friend in allFriends">
+                        <!-- use NG-REPEAT HERE for each friend -->
                         <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
+                            <img src="{{friend.imageUrl}}" alt="{{friend.name}}">
                             <div class="caption">
-                                <h4 class="pull-right">$24.99</h4>
-                                <h4><a ui-sref="product">First Product</a>
+                                <h4 class="pull-right">${{ friend.price }}</h4>
+                                <h4><a ui-sref="product">{{ friend.name }}</a>
                                 </h4>
-                                <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
+                                <p>{{ friend.description.length > 96 ? friend.description.substring(0,95) + '...' : friend.description }}</p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right">15 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$64.99</h4>
-                                <h4><a href="#">Second Product</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">12 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$74.99</h4>
-                                <h4><a href="#">Third Product</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">31 reviews</p>
+                                <!-- FIX THIS: # reviews and star rating -->
+                                <p class="pull-right">{{ getReviews(friend.id) }} {{}}</p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -96,12 +62,15 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
     <!-- /.container -->
     <div class="container">
         <hr>
+
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -112,6 +81,7 @@
         </footer>
     </div>
     <!-- /.container -->
+
     <!-- jQuery -->
     <script src="/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->

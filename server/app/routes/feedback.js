@@ -6,15 +6,15 @@ module.exports = router;
 var Feedback = require('../../db/models/feedback.js');
 var User = require('../../db/models/user.js');
 
-router.get('/', function (req, res, next) {
-	Feedback.findAll()
-	.then(function(allFeedback) {
-		res.json(allFeedback);
-	})
-	.catch(next);
+// router.get('/', function (req, res, next) {
+// 	Feedback.findAll()
+// 	.then(function(allFeedback) {
+// 		res.json(allFeedback);
+// 	})
+// 	.catch(next);
+// });
 
-});
-
+// Write new feedback for specific friend
 router.post('/', function (req, res, next) {
     User.findById({
         where: {id: req.user.id}
@@ -29,9 +29,8 @@ router.post('/', function (req, res, next) {
         res.sendStatus(200);
     })
     .catch(next);
-
 });
-//Feedback.belongsTo(User); in index.js
+
 
 // router.get('/:id', function (req, res, next) {
 // 	Feedback.findById(req.params.id)
@@ -42,9 +41,11 @@ router.post('/', function (req, res, next) {
 // 	.catch(next);
 // });
 
-router.delete('/:id', function (req, res, next) {
+
+// Delete review for a particular friend
+router.delete('/:feedbackId', function (req, res, next) {
 	Feedback.destroy({
-		where: {id: req.params.id}
+		where: {id: req.params.feedbackId}
 	})
 	.then(function(feedbackDestroyed) {
 		if (!feedbackDestroyed) res.sendStatus(400);// throw HTTP_Error(404, 'feedback not destroyed');

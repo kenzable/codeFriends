@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CarouselDemoCtrl', function ($scope) {
+app.controller('CarouselCtrl', function ($scope, $log, ProductFactory) {
   $scope.myInterval = 5000;
   $scope.noWrapSlides = false;
   $scope.active = 0;
