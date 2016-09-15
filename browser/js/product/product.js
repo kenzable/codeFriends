@@ -24,7 +24,15 @@ app.config(function ($stateProvider) {
 
 
 app.controller('ProductController', function ($scope, ProductFactory, $log) {
- 
-  $scope.product = ProductFactory.getFriend(1);
- 
+    ProductFactory.getAllFriends()
+    .then(function(allFriends) {
+        $scope.allFriends = allFriends;
+    })
+    .catch($log.error);
+
+    // ProductFactory.getReviews()
+    // .then(function(friend) {
+
+    // })
+
 });
