@@ -49,13 +49,14 @@
                                 <p>{{ friend.description.length > 96 ? friend.description.substring(0,95) + '...' : friend.description }}</p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right">15 reviews</p>
+                                <!-- FIX THIS: # reviews and star rating -->
+                                <p class="pull-right">{{ getReviews(friend.id) }} {{}}</p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                             </div>
                         </div>

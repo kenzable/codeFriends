@@ -30,9 +30,6 @@ app.controller('ProductController', function ($scope, ProductFactory, $log) {
     })
     .catch($log.error);
 
-    // ProductFactory.getReviews()
-    // .then(function(friend) {
-
-    // })
+    $scope.getReviews = ProductFactory.getReviews;
 
 });
