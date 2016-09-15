@@ -1,5 +1,56 @@
 <section id="cart">
-  <p>items: {{items}}, total: {{total}}, added: {{added}}</p>
-  <input type=text ng-model="itemId">
+  <input type=text ng-model="itemId"> Item
   <button ng-click="addToCart(itemId)">Add To Cart</button>
+  <button ng-click="getUserCart()">get user cart</button>
+  <button ng-click="clearCart()">clear cart</button>
+  <button ng-click="saveCart()">save cart</button>
+  <button ng-click="purchase()">purchase</button>
 </section>
+
+
+<div class="alert alert-warning" role="alert" ng-show="items.length === 0">
+    Your cart is empty
+</div>
+
+
+<div class="table-responsive col-lg-12" ng-show="items.length > 0" >
+
+    <table class="table table-striped cart">
+
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Hours</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td>{{ total | currency }}</td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr ng-repeat="item in items">
+            <td><span ng-click="deleteItem(item.friendId)" class="glyphicon glyphicon-remove"></span></td>
+
+            <td>{{ item.name }}</td>
+            <td>{{ item.hours }}</td>
+            <td>{{ item.price | currency}}</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .ngCart.cart span[ng-click] {
+        cursor: pointer;
+    }
+    .ngCart.cart .glyphicon.disabled {
+        color:#aaa;
+    }
+</style>

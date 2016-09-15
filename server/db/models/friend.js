@@ -31,24 +31,25 @@ module.exports = db.define('friend', {
 		type: Sequelize.STRING
 	},
 	tags: {
-		type: Sequelize.ARRAY(Sequelize.TEXT)
+		type: Sequelize.ARRAY(Sequelize.STRING)
 	}
 }, {
-	hooks: {
-		beforeValidate: {
-			setTags: function(tags) {
-				if (typeof(tags) === 'string') {
-					var tagArr = tags.split(',').map(function(tag) {
-						return tag.trim();
-					})
-					this.setDataValue('tags', tagArr);
-				}
-				else {
-					this.setDataValue('tags', tags);
-				}
-			}
-		}
-	},
+	// KEEP IF WE ARE HAVING USERS INPUT THEIR OWN TAGS
+	// hooks: {
+	// 	beforeValidate: {
+	// 		setTags: function(tags) {
+	// 			if (typeof(tags) === 'string') {
+	// 				var tagArr = tags.split(',').map(function(tag) {
+	// 					return tag.trim();
+	// 				})
+	// 				this.setDataValue('tags', tagArr);
+	// 			}
+	// 			else {
+	// 				this.setDataValue('tags', tags);
+	// 			}
+	// 		}
+	// 	}
+	// },
 	classMethods: {
 		findFriendsByTag: function(tag) {
 			return this.findAll({

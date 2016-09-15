@@ -13,7 +13,13 @@ module.exports = db.define('order', {
         allowNull: false
     },
     items: {
-        type: Sequelize.ARRAY(Sequelize.TEXT),
-        allowNull: false
+      type: Sequelize.JSON,
+      allowNull: false,
+      get: function() {
+          return JSON.parse(this.getDataValue('items'));
+      },
+      set: function(val) {
+          return this.setDataValue('items', JSON.stringify(val));
+      }
     }
 });

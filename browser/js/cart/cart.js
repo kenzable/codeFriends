@@ -20,10 +20,31 @@ app.controller('CartController', function ($scope, CartFactory, $log) {
   }
   $scope.addToCart = function(friendId){
     CartFactory.addFriendToCart(friendId)
-    .then(function(friend){
-      $scope.added = friend;
+    .then(function(cart){
+      $scope.items = cart.items;
+      $scope.total = cart.total;
     })
     .catch($log.error);
   }
+  $scope.clearCart = function(){
+    var cart = CartFactory.clearCart();
+      $scope.items = cart.items;
+      $scope.total = cart.total;
+  }
   $scope.saveCart = CartFactory.saveCart;
+
+   $scope.deleteItem = function(friendId){
+    var cart = CartFactory.deleteItem(friendId);
+      $scope.items = cart.items;
+      $scope.total = cart.total;
+  }
+  $scope.purchase = function(){
+    CartFactory.purchase()
+    .then(function(order){
+      $scope.newOrder = order;
+      $scope.items = CartFactory.getItems();
+      $scope.total = CartFactory.getTotal();
+    })
+    .catch($log.error);
+  };
 });

@@ -12,8 +12,7 @@ var Order = require('./models/order');
 // if we had more models, we could associate them in this file
 // e.g. User.hasMany(Reports)
 
-User.hasMany(Order);
+Order.belongsTo(User);
 Feedback.belongsTo(User);
 Friend.hasMany(Feedback);
 Cart.belongsTo(User);
-
