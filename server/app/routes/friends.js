@@ -20,22 +20,15 @@ router.get('/', function(req, res, next) {
 						friendId: friend.id
 					}
 				})
-				.then(function(feedback) {
-					// console.log('FEEDBACK', feedback);
-					for (var i = 0; i < feedback.length; i++) {
-						allFriends[i].dataValues.numRevs = feedback.count;
-					}
-					console.log('FRIENDS', allFriends);
-					// return allFriends;
-					return allFriends;
-				})
-				.catch(next);
-			})
-			.then(function(allFriends) {
-				res.json(allFriends);
 			})
 		}
 		else res.sendStatus(404);
+	})
+	.then(function(feedback) {
+		for (var i = 0; i < feedback.length; i++) {
+			allFriends[i].dataValues.numRevs = feedback[i].count;
+		}
+		res.json(allFriends);
 	})
 	.catch(next);
 });
