@@ -1,0 +1,20 @@
+'use strict';
+var router = require('express').Router(); // eslint-disable-line new-cap
+var feedbackRouter = require('./feedback');
+var cartRouter = require('./cart');
+var friendsRouter = require('./friends');
+var ordersRouter = require('./orders');
+var usersRouter = require('./users')
+
+router.use('/feedback', feedbackRouter);
+router.use('/cart', cartRouter);
+router.use('/orders', ordersRouter);
+router.use('/friends', friendsRouter);
+router.use('/users', usersRouter);
+
+// Make sure this is after all of
+// the registered routes!
+router.use(function (req, res) {
+    res.status(404).end();
+});
+module.exports = router;
