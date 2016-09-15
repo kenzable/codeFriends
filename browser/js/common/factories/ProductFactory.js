@@ -20,10 +20,10 @@ app.factory('ProductFactory', function($http, $log){
 
     // friendRating: function
 
-    getReviews: function(friendId) {
+    getNumReviews: function(friendId) {
       return $http.get('/api/friends/' + friendId + '/feedback')
       .then(function(response) {
-        return response.data;
+        return response.data.count;
       })
       .catch($log.error)
     },
