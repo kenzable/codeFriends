@@ -31,6 +31,7 @@ app.controller('ProductController', function ($scope, ProductFactory, CartFactor
     })
     .catch($log.error);
 
+
     $scope.getReviews = ProductFactory.getReviews;
 
     $scope.addToCart = function(friendId){
