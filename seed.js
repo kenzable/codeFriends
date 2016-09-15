@@ -2,7 +2,7 @@
 
 var chalk = require('chalk');
 var Promise = require('sequelize').Promise;
-var faker = require('./Faker/faker');
+var faker = require('./Faker.js/faker');
 
 var db = require('./server/db');
 var User = db.model('user');
