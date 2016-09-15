@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Friend = require('../../db/models/friend.js');
 var Feedback = require('../../db/models/feedback.js');
+// var Promise = require('sequelize').Promise;
 
 module.exports = router;
 

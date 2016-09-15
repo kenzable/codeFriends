@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize');
 
 var db = require('../_db');
-// var Feedback = require('')
+// var Feedback = db.model('feedback');
 
 
 module.exports = db.define('friend', {
@@ -34,6 +34,7 @@ module.exports = db.define('friend', {
 		type: Sequelize.ARRAY(Sequelize.STRING)
 	}
 }, {
+	// OPTIONS HERE
 	// KEEP IF WE ARE HAVING USERS INPUT THEIR OWN TAGS
 	// hooks: {
 	// 	beforeValidate: {
@@ -59,4 +60,20 @@ module.exports = db.define('friend', {
 			})
 		}
 	}
+	// instanceMethods: {
+	// 	getReviews: function() {
+	// 		return Feedback.findAndCountAll({	// returns .count and .rows
+	// 			where: {
+	// 				friendId: this.id
+	// 			}
+	// 		})
+	// 	}
+	// }
 });
+
+
+
+
+
+
+

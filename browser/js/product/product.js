@@ -25,24 +25,23 @@ app.config(function ($stateProvider) {
 
 
 app.controller('ProductController', function ($scope, ProductFactory, CartFactory, $log) {
+    
     ProductFactory.getAllFriends()
     .then(function(allFriends) {
         $scope.allFriends = allFriends;
     })
     .catch($log.error);
 
-    $scope.getReviews = ProductFactory.getReviews;
+    $scope.getNumReviews = ProductFactory.getNumReviews;
 
     $scope.addToCart = function(friendId){
         CartFactory.addFriendToCart(friendId)
         .then(function(cart){
           $scope.items = cart.items;
           $scope.total = cart.total;
-          
         })
         .catch($log.error);
     }
-
 
 
 });

@@ -18,7 +18,7 @@ module.exports = db.define('feedback', {
     // OPTIONS
     classMethods: {
         findByFriendId: function(id) {
-            return this.findAll({
+            return this.findAndCountAll({   // returns .count and .rows
                 where: {
                     friendId: id
                 }
@@ -26,6 +26,3 @@ module.exports = db.define('feedback', {
         }
     }
 });
-
-
-//association between feedback and friend
