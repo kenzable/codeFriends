@@ -6,16 +6,23 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.config(function ($stateProvider) {
-    $stateProvider.state('cart.checkout', {
-        url: '/checkout',
-        templateUrl: 'js/checkout/checkout.html'
-    });
-});
-
-app.controller('CartController', function ($scope, CartFactory, $log) {
+app.controller('CartController', function ($scope, CartFactory, $log, $rootScope) {
   $scope.items = CartFactory.getItems();
   $scope.total = CartFactory.getTotal();
+
+  $rootScope.$on('auth-login-success', function(){
+    CartFactory.getUserCart()
+    .then(function(cart){
+      $scope.items = cart.items;
+      $scope.total = cart.total;
+    })
+    .catch($log.error);
+  });
+
+  $rootScope.$on('auth-logout-success', function(){
+    $scope.items = CartFactory.getItems();
+    $scope.total = CartFactory.getTotal();
+  });
 
   $scope.getUserCart = function(){
     CartFactory.getUserCart()
