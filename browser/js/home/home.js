@@ -15,7 +15,8 @@ app.controller('CarouselDemoCtrl', function ($scope) {
   $scope.addSlide = function() {
     var newWidth = 600 + slides.length + 1;
     slides.push({
-      image: '//unsplash.it/' + newWidth + '/300',
+      // image: '//unsplash.it/' + newWidth + '/300',
+      image: '//www.codermatch.me/assets/Coder-w-Buddy-5a83fd5702cf67f5e93704b6c5316203.svg',
       text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
       id: currIndex++
     });
