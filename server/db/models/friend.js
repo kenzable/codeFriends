@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize');
 
 var db = require('../_db');
-// var Category = require('')
+var Feedback = require('')
 
 
 module.exports = db.define('friend', {
