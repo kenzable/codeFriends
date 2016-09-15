@@ -23,8 +23,19 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('ProductController', function ($scope, ProductFactory, $log) {
+app.controller('ProductController', function ($scope, ProductFactory, CartFactory, $log) {
  
   $scope.product = ProductFactory.getFriend(1);
- 
+
+
+    $scope.addToCart = function(friendId){
+    CartFactory.addFriendToCart(friendId)
+    .then(function(cart){
+      $scope.items = cart.items;
+      $scope.total = cart.total;
+      
+    })
+    .catch($log.error);
+  }
+
 });

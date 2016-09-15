@@ -6,6 +6,8 @@ app.config(function ($stateProvider) {
     });
 });
 
+
+
 app.controller('CartController', function ($scope, CartFactory, $log, $rootScope) {
   $scope.items = CartFactory.getItems();
   $scope.total = CartFactory.getTotal();
