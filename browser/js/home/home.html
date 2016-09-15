@@ -38,7 +38,6 @@
                 <!-- Individual product thumbnails -->
                 <div class="row" ng-controller="ProductController">
                     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="friend in allFriends">
-                        <!-- use NG-REPEAT HERE for each friend -->
                         <div class="thumbnail">
                             <img src="{{friend.imageUrl}}" alt="{{friend.name}}">
                             <div class="caption">
@@ -49,7 +48,7 @@
                             </div>
                             <div class="ratings">
                                 <!-- FIX THIS: # reviews and star rating -->
-                                <p class="pull-right">15 Reviews</p>
+                                <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs > 1 ? 'Reviews' : 'Review' }}</p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>

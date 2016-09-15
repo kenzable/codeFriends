@@ -2,17 +2,33 @@ var express = require('express');
 var router = express.Router();
 var Friend = require('../../db/models/friend.js');
 var Feedback = require('../../db/models/feedback.js');
-// var Promise = require('sequelize').Promise;
+var Promise = require('sequelize').Promise;
 
 module.exports = router;
 
 
 // Get all friends
 router.get('/', function(req, res, next) {
+	var allFriends;
 	Friend.findAll()
-	.then(function(allFriends) {
-		if (allFriends) res.json(allFriends);
+	.then(function(friends) {
+		if (friends) {
+			allFriends = friends;
+			return Promise.map(allFriends, function(friend) {
+				return Feedback.findAndCount({
+					where: {
+						friendId: friend.id
+					}
+				})
+			})
+		}
 		else res.sendStatus(404);
+	})
+	.then(function(feedback) {
+		for (var i = 0; i < feedback.length; i++) {
+			allFriends[i].dataValues.numRevs = feedback[i].count;
+		}
+		res.json(allFriends);
 	})
 	.catch(next);
 });
