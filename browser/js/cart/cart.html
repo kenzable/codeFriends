@@ -1,8 +1,6 @@
 <section id="cart">
-  <p>items: {{items}}, total: {{total}}, added: {{newOrder}}</p>
   <input type=text ng-model="itemId"> Item
-  <input type=text ng-model="qty"> QTY
-  <button ng-click="addToCart(itemId, qty)">Add To Cart</button>
+  <button ng-click="addToCart(itemId)">Add To Cart</button>
   <button ng-click="getUserCart()">get user cart</button>
   <button ng-click="clearCart()">clear cart</button>
   <button ng-click="saveCart()">save cart</button>
@@ -22,15 +20,13 @@
         <thead>
         <tr>
             <th></th>
-            <th></th>
+            <th>Name</th>
             <th>Hours</th>
-            <th>Amount</th>
             <th>Total</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-            <td></td>
             <td></td>
             <td></td>
             <td>Total:</td>
@@ -42,8 +38,9 @@
             <td><span ng-click="deleteItem(item.friendId)" class="glyphicon glyphicon-remove"></span></td>
 
             <td>{{ item.name }}</td>
+            <td>{{ item.hours }}</td>
             <td>{{ item.price | currency}}</td>
-          
+
         </tr>
         </tbody>
     </table>

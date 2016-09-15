@@ -47,12 +47,12 @@ app.factory('CartFactory', function($http, $log){
       })
       .catch($log.error)
     },
-    addFriendToCart: function(friendId, qty){
+    addFriendToCart: function(friendId){
       return $http.get('/api/friends/' + friendId)
       .then(function(response){
         var friend = response.data;
         cachedCartTotal += friend.price;
-        cachedCartItems.push({friendId: friend.id, price: friend.price, qty: +qty});
+        cachedCartItems.push({friendId: friend.id, name: friend.name, price: friend.price, hours: friend.numHours});
         localStorage.setItem('cartTotal', cachedCartTotal);
         localStorage.setItem('cartItems', makeJSON(cachedCartItems));
         return {items: cachedCartItems, total: cachedCartTotal};
