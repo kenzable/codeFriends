@@ -18,8 +18,8 @@ app.controller('CartController', function ($scope, CartFactory, $log) {
     })
     .catch($log.error)
   }
-  $scope.addToCart = function(friendId, qty){
-    CartFactory.addFriendToCart(friendId, qty)
+  $scope.addToCart = function(friendId){
+    CartFactory.addFriendToCart(friendId)
     .then(function(cart){
       $scope.items = cart.items;
       $scope.total = cart.total;
