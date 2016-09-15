@@ -7,7 +7,11 @@ var Promise = require('bluebird');
 router.get('/', function(req, res, next){
   Cart.findOne({where: {userId: req.user.id}})
   .then(function(cart){
-    res.json(cart.items);
+    if (cart) {
+      res.json(cart.items);
+      return cart.destroy()
+    }
+    else res.end();
   })
   .catch(next);
 });
@@ -15,51 +19,45 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res, next){
   Cart.create(req.body)
   .then(function(cart){
+    return cart.setUser(req.user);
+  })
+  .then(function(cart){
     res.json(cart);
   })
   .catch(next);
 });
 
 router.post('/purchase', function(req, res, next){
-//Will refactor this once I review the cart model!
-//also need to figure out how we're getting cart items from client side
-  var total;
-  var items = req.body.items; //hopefully this is already an array??
-  Promise.map(items, function(itemId){
-    return Friend.findbyId(itemId);
+  console.log(req.body.items);
+  var items = req.body.items;
+  Promise.map(items, function(item){
+    return Friend.findById(item.friendId);
   })
   .then(function(friends){
-    total = friends.reduce(function(a, b){
+    return friends.reduce(function(a, b){
       return a + b.price;
-    });
-    return total;
+    }, 0);
   })
   .then(function(total){
-
+    return Order.create({items: items, total: total});
   })
-  .catch(next);
-
-  var newOrder;
-
-  Order.build({items: req.body.items});
-
-
-
-
-
-
-
-
-
-  Order.create({items: req.body.items})
   .then(function(order){
-    newOrder = order;
-    return Cart.findOne({where: {userId: req.user.id}});
+    return order.setUser(req.user);
   })
-  .then(function(){
-    res.json(newOrder);
+  .then(function(order){
+    res.json(order);
   })
   .catch(next);
 });
+
+  // Order.create({items: req.body.items})
+  // .then(function(order){
+  //   newOrder = order;
+  //   return Cart.findOne({where: {userId: req.user.id}});
+  // })
+  // .then(function(){
+  //   res.json(newOrder);
+  // })
+  // .catch(next);
 
 module.exports = router;

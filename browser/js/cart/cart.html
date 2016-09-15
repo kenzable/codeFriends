@@ -1,6 +1,10 @@
 <section id="cart">
-  <p>items: {{items}}, total: {{total}}, added: {{added}}</p>
-  <input type=text ng-model="itemId">
-  <button ng-click="addToCart(itemId)">Add To Cart</button>
+  <p>items: {{items}}, total: {{total}}, added: {{newOrder}}</p>
+  <input type=text ng-model="itemId"> Item
+  <input type=text ng-model="qty"> QTY
+  <button ng-click="addToCart(itemId, qty)">Add To Cart</button>
   <button ng-click="getUserCart()">get user cart</button>
+  <button ng-click="clearCart()">clear cart</button>
+  <button ng-click="saveCart()">save cart</button>
+  <button ng-click="purchase()">purchase</button>
 </section>
