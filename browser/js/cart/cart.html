@@ -1,9 +1,9 @@
 <section id="cart">
   <input type=text ng-model="itemId"> Item
   <button ng-click="addToCart(itemId)">Add To Cart</button>
-  <button ng-click="getUserCart()">get user cart</button> 
+<!--   <button ng-click="getUserCart()">get user cart</button> 
   <button ng-click="saveCart()">save cart</button>
-  <button ng-click="purchase()">purchase</button>
+  <button ng-click="purchase()">purchase</button> -->
 
 </section>
 
@@ -46,8 +46,8 @@
     </table>
 
     <section id="cart">
-    <button ng-click="clearCart()">clear cart</button>
-      <a ui-sref="cart.checkout">checkout</a>
+    <button type="button" class="btn btn-primary" ng-click="clearCart()">clear cart</button>
+    <button type="button" class="btn btn-primary" ui-sref="cart.checkout">checkout</button>
     </section>
 
     <div ui-view></div>

@@ -34,6 +34,7 @@ app.controller('ProductController', function ($scope, ProductFactory, CartFactor
 
     $scope.getNumReviews = ProductFactory.getNumReviews;
 
+
     $scope.addToCart = function(friendId){
         CartFactory.addFriendToCart(friendId)
         .then(function(cart){
