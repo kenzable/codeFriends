@@ -6,9 +6,23 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartController', function ($scope, CartFactory, $log) {
+app.controller('CartController', function ($scope, CartFactory, $log, $rootScope) {
   $scope.items = CartFactory.getItems();
   $scope.total = CartFactory.getTotal();
+
+  $rootScope.$on('auth-login-success', function(){
+    CartFactory.getUserCart()
+    .then(function(cart){
+      $scope.items = cart.items;
+      $scope.total = cart.total;
+    })
+    .catch($log.error);
+  });
+
+  $rootScope.$on('auth-logout-success', function(){
+    $scope.items = CartFactory.getItems();
+    $scope.total = CartFactory.getTotal();
+  });
 
   $scope.getUserCart = function(){
     CartFactory.getUserCart()
@@ -18,8 +32,8 @@ app.controller('CartController', function ($scope, CartFactory, $log) {
     })
     .catch($log.error)
   }
-  $scope.addToCart = function(friendId, qty){
-    CartFactory.addFriendToCart(friendId, qty)
+  $scope.addToCart = function(friendId){
+    CartFactory.addFriendToCart(friendId)
     .then(function(cart){
       $scope.items = cart.items;
       $scope.total = cart.total;

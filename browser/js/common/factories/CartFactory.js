@@ -47,12 +47,12 @@ app.factory('CartFactory', function($http, $log){
       })
       .catch($log.error)
     },
-    addFriendToCart: function(friendId, qty){
+    addFriendToCart: function(friendId){
       return $http.get('/api/friends/' + friendId)
       .then(function(response){
         var friend = response.data;
         cachedCartTotal += friend.price;
-        cachedCartItems.push({friendId: friend.id, price: friend.price, qty: +qty});
+        cachedCartItems.push({friendId: friend.id, name: friend.name, price: friend.price, hours: friend.numHours});
         localStorage.setItem('cartTotal', cachedCartTotal);
         localStorage.setItem('cartItems', makeJSON(cachedCartItems));
         return {items: cachedCartItems, total: cachedCartTotal};
@@ -61,9 +61,8 @@ app.factory('CartFactory', function($http, $log){
     },
     saveCart: function(){
       return $http.post('/api/cart', {items: cachedCartItems})
-      .then(function(response){
-        console.log(response.data);
-        return response.data;
+      .then(function(){
+        clearCart();
       })
       .catch($log.error);
     },
@@ -78,9 +77,10 @@ app.factory('CartFactory', function($http, $log){
       return {items: cachedCartItems, total: cachedCartTotal};
     },
     deleteItem: function(friendId){
-      cachedCartItems = cachedCartItems.filter(function(item){
-        return item.friendId !== friendId;
+      var index = cachedCartItems.findIndex(function(item){
+        return item.friendId === friendId;
       });
+      cachedCartItems.splice(index, 1);
       cachedCartTotal = calculateTotal(cachedCartItems);
       localStorage.setItem('cartTotal', cachedCartTotal);
       localStorage.setItem('cartItems', makeJSON(cachedCartItems));
