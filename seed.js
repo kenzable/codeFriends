@@ -11,70 +11,121 @@ var Cart = db.model('cart');
 var Order = db.model('order');
 var Feedback = db.model('feedback');
 
-var randomEmail = faker.Internet.email();
-var randomWord = faker.Lorem.words();
-var randomName = faker.Name.findName();
-var randomNum = faker.random.number(100);
-var randomHandles = faker.Name.firstName();
-
-// var randomDescription = faker.Lorem.paragraph();
-// var randomImg = faker.Image.animals();
-
 
 var seedUser = function() {
-	var user = {
-		email: randomEmail,
-		password: 'randomWord',
-		name: randomName,
-		age: randomNum,
-		twitter_id: randomHandles,
-		facebook_id: randomHandles,
-		google_id: randomHandles
-	}
-
+	var createUser = function() {
+		var user = {
+			email: faker.Internet.email(),
+			password: 'thing',
+			name: faker.Name.findName(),
+			age: faker.random.number(100),
+			twitter_id: faker.Name.firstName(),
+			facebook_id: faker.Name.firstName(),
+			google_id: faker.Name.firstName()
+		}
+		return user;
+	};
 	var UserPromises = [];
+
 	for (var i = 0; i < 15; i++) {
-		UserPromises.push(User.create(user))
-	}
+		UserPromises.push(User.create(createUser()));
+	};
 
 	return UserPromises;
 };
 
-// var seedFriend = function() {
-// 	var friend = {
-// 		name: randomName,
-// 		description: randomDescription,
-// 		numHours: randomNum,
-// 		price: randomNum,
-// 		imageUrl: randomImg,
-// 		tags: randomWord
-// 	}
-// };
+var seedFriend = function() {
+	var createFriend = function() {
+		var friend = {
+			name: faker.Name.lastName(),
+			description: faker.Lorem.paragraph(),
+			numHours: faker.random.number(24),
+			price: faker.random.number(1000),
+			imageUrl: faker.Image.animals(),
+			tags: faker.Lorem.words()
+		}
+		return friend;
+	};
+	var FriendPromises = [];
 
-// var seedCart = function() {
+	for (var i = 0; i < 20; i++) {
+		FriendPromises.push(Friend.create(createFriend()));
+	};
 
-// };
+	return FriendPromises;	
+};
 
-// var seedOrder = function() {
+var seedCart = function() {
+	var createCart = function() {
+		var numItems = faker.random.number(10);
+		var cart = { items: [] };
 
-// };
+		for (var i =0; i < numItems; i++) {
+			cart.items.push(faker.random.number(100000))
+		};
 
-// var seedFeedback = function() {
+		return cart;
+	};
+	var CartPromises = [];
 
-// };
+	for (var i = 0; i < 20; i++) {
+		CartPromises.push(Cart.create(createCart()));
+	};
 
-// WILL HAVE TO CONCAT RETURNED PROMISE ARRAYS TO SEED ALL MODELS
-var seedPromises = seedUser();
+	return CartPromises;	
+};
+
+var seedOrder = function() {
+	var createOrder = function() {
+		var numItems = faker.random.number(10) + 1;
+		var order = {
+			total: faker.random.number(1000000),
+			items: []
+		};
+
+		for (var i =0; i < numItems; i++) {
+			order.items.push(faker.random.number(10000))
+		};
+
+		return order;
+	};
+	var OrderPromises = [];
+
+	for (var i = 0; i < 20; i++) {
+		OrderPromises.push(Order.create(createOrder()));
+	};
+
+	return OrderPromises;
+};
+
+var seedFeedback = function() {
+	var createFeedback = function() {
+		var feedback = {
+			title: faker.Lorem.sentence(),
+			rating: faker.random.number(5),
+			review: faker.Lorem.paragraph()
+		};
+		return feedback;
+	};
+	var FeedbackPromises = [];
+
+	for (var i = 0; i < 20; i++) {
+		FeedbackPromises.push(Feedback.create(createFeedback()));
+	};
+
+	return FeedbackPromises;
+};
+
 
 db.sync({ force: true })
 .then(function() {
-	Promise.all(seedPromises);
+	return Promise.all(seedUser().concat(seedFriend(), seedCart(), seedOrder(), seedFeedback()));
 })
 .then(function() {
 	console.log(chalk.green('seed successful'));
 })
 .catch(function(err) {
-	console.error(chalk.red(err));
+	console.log(chalk.red(err));
 });
 
 
