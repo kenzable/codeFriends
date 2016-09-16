@@ -27,6 +27,7 @@ router.get('/', function(req, res, next) {
 	.then(function(feedback) {
 		for (var i = 0; i < feedback.length; i++) {
 			allFriends[i].dataValues.numRevs = feedback[i].count;
+			console.log('FEEDBACK ROWS', feedback[i].rows)
 		}
 		res.json(allFriends);
 	})

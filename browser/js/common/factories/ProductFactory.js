@@ -20,13 +20,13 @@ app.factory('ProductFactory', function($http, $log){
 
     // friendRating: function
 
-    getNumReviews: function(friendId) {
-      return $http.get('/api/friends/' + friendId + '/feedback')
-      .then(function(response) {
-        return response.data.count;
-      })
-      .catch($log.error)
-    },
+    // getNumReviews: function(friendId) {
+    //   return $http.get('/api/friends/' + friendId + '/feedback')
+    //   .then(function(response) {
+    //     return response.data.count;
+    //   })
+    //   .catch($log.error)
+    // },
 
     // getRating: function(friendId) {
 
