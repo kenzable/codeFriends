@@ -27,37 +27,4 @@ router.post('/', function(req, res, next){
   .catch(next);
 });
 
-router.post('/purchase', function(req, res, next){
-  console.log(req.body.items);
-  var items = req.body.items;
-  Promise.map(items, function(item){
-    return Friend.findById(item.friendId);
-  })
-  .then(function(friends){
-    return friends.reduce(function(a, b){
-      return a + b.price;
-    }, 0);
-  })
-  .then(function(total){
-    return Order.create({items: items, total: total});
-  })
-  .then(function(order){
-    return order.setUser(req.user);
-  })
-  .then(function(order){
-    res.json(order);
-  })
-  .catch(next);
-});
-
-  // Order.create({items: req.body.items})
-  // .then(function(order){
-  //   newOrder = order;
-  //   return Cart.findOne({where: {userId: req.user.id}});
-  // })
-  // .then(function(){
-  //   res.json(newOrder);
-  // })
-  // .catch(next);
-
 module.exports = router;

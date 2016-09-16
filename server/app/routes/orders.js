@@ -4,6 +4,8 @@ var router = require('express').Router();
 module.exports = router;
 
 var Order = require('../../db/models/order.js');
+var Friend = require('../../db/models/friend.js');
+var Promise = require('bluebird');
 
 router.get('/', function (req, res, next) {
 	Order.findAll()
@@ -12,6 +14,29 @@ router.get('/', function (req, res, next) {
 	})
 	.catch(next);
 });
+
+router.post('/purchase', function(req, res, next){
+  var items = req.body.items;
+  Promise.map(items, function(item){
+    return Friend.findById(item.friendId);
+  })
+  .then(function(friends){
+    return friends.reduce(function(a, b){
+      return a + b.price;
+    }, 0);
+  })
+  .then(function(total){
+    return Order.create({items: items, total: total});
+  })
+  .then(function(order){
+    return order.setUser(req.user);
+  })
+  .then(function(order){
+    res.json(order);
+  })
+  .catch(next);
+});
+
 
 router.get('/:id', function (req, res, next) {
 	Order.findById(req.params.id)
