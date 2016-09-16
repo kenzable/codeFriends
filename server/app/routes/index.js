@@ -7,7 +7,7 @@ var ordersRouter = require('./orders');
 var usersRouter = require('./users')
 
 router.use('/feedback', feedbackRouter);
-router.use('/cart', cartRouter);
+router.use('/userCart', cartRouter);
 router.use('/orders', ordersRouter);
 router.use('/friends', friendsRouter);
 router.use('/users', usersRouter);
