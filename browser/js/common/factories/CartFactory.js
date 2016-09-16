@@ -32,14 +32,12 @@ app.factory('CartFactory', function($http, $log){
       }
       else return 0;
     },
-    getUserCart: function(){
+    getSavedItems: function(){
       return $http.get('/api/userCart')
       .then(function(response){
-        if (typeof response.data === 'object') {
-          cachedCartItems = cachedCartItems.concat(response.data);
-          //update local storage to relect the cached values
-          localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-        }
+        var cart = response.data;
+        cachedCartItems = cachedCartItems.concat(cart.items);
+        localStorage.setItem('cartItems', makeJSON(cachedCartItems));
       })
       .catch($log.error)
     },
@@ -78,7 +76,8 @@ app.factory('CartFactory', function($http, $log){
       .catch($log.error);
     },
     updateQty: function(itemId, diff){
-      var item = cachedCartItems[getItemIndex(itemId)];
+      var index = getItemIndex(itemId)
+      var item = cachedCartItems[index];
       item.qty += diff;
       if (item.qty === 0) {
         cachedCartItems.splice(index, 1);
