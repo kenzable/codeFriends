@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, CartFactory) {
 
     $scope.login = {};
     $scope.error = null;
@@ -19,6 +19,9 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
 
         AuthService.login(loginInfo)
         .then(function () {
+            return CartFactory.getSavedItems();
+        })
+        .then(function(){
             $state.go('home');
         })
         .catch(function () {
