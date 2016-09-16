@@ -14,18 +14,18 @@ Auth.isAdmin = function (req) {
 };
 
 Auth.isSelf = function (req) {
-  return req.user && req.user.id == req.requestedUser.id;
+  return req.user && req.user.id === req.requestedUser.id;
 };
 
 Auth.isAuthor = function (req) {
-  return req.user && req.user.id == req.story.author_id;
+  return req.user && req.user.id === req.story.author_id;
 };
 
 Auth.assert = function (assertion, status) {
   return function (req, res, next) {
     if (assertion(req)) next();
     else next(HttpError(status || 403));
-  }
+  };
 };
 
 Auth.assertAuthenticated = Auth.assert(Auth.isAuthenticated, 401);
