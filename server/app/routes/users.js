@@ -38,6 +38,7 @@ router.put('/:id', Auth.assertAuthenticated, function (req, res, next) {
 
 router.delete('/:id', Auth.assertAuthenticated, function (req, res, next) {
 
+
 	User.destroy({where: {id: req.params.id}})
 	.then(function (numDestroyed) {
 		if (!numDestroyed) throw Error('no user destroyed');
