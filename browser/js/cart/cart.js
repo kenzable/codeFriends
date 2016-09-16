@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('cart.checkout', {
         url: '/checkout',
         controller: 'CartController',
-        templateUrl: 'js/checkout/userInfo.html'
+        templateUrl: 'js/checkout/checkout.html'
     });
 });
 
@@ -27,6 +27,7 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
     .then(updateCartScope)
     .catch($log.error);
   });
+
 
   $rootScope.$on('auth-logout-success', updateCartScope);
 

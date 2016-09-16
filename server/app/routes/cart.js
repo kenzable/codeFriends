@@ -31,6 +31,7 @@ router.post('/purchase', function(req, res, next){
   console.log(req.body.items);
   var items = req.body.items;
   Promise.map(items, function(item){
+    console.log('inside the map');
     return Friend.findById(item.friendId);
   })
   .then(function(friends){
@@ -39,10 +40,12 @@ router.post('/purchase', function(req, res, next){
     }, 0);
   })
   .then(function(total){
+    console.log('total', total);
     return Order.create({items: items, total: total});
   })
   .then(function(order){
-    return order.setUser(req.user);
+    console.log('order', order);
+    return req.user.addOrder(order);
   })
   .then(function(order){
     res.json(order);
