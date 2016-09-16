@@ -1,0 +1,27 @@
+<div class="table-responsive col-lg-12">
+    <table id="allfriends" class="table table-striped cart">
+    	<thead>
+	    <tr>
+	        <th>Delete the friend</th>
+	        <th></th>
+	        <th>friend ID  </th>
+	        <th>Name</th>
+	        <th>Price</th>
+	        <th># of Hours</th>
+	        <th>Tags</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+        <tr ng-repeat="friend in allFriends">
+        	<td>
+        		<span ng-click="deleteAFriend(friend.id)" class="btn btn-default btn-sm glyphicon glyphicon-remove"></span>
+	        <td>
+            <td>{{ friend.id }}</td>
+            <td>{{ friend.name }}<br><img src="{{ friend.imageUrl }}" width="50" height="50"></td>
+            <td>{{ friend.price }}</td>
+            <td>{{ friend.numHours }}</td>
+            <td>{{ friend.tags }}</td>
+        </tr>
+        <tbody>
+    </table>
+</div>
