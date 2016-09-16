@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('cart.checkout', {
         url: '/checkout',
         controller: 'CartController',
-        templateUrl: 'js/checkout/checkout.html'
+        templateUrl: 'js/checkout/userInfo.html'
     });
 });
 
