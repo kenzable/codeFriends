@@ -5,7 +5,7 @@ var Friend = require('../../db').model('friend');
 var Promise = require('bluebird');
 
 router.get('/', function(req, res, next){
-  Cart.findOne({where: {userId: req.user.id}})
+  Cart.findOrCreate({where: {userId: req.user.id}})
   .then(function(cart){
     if (cart) {
       res.json(cart.items);

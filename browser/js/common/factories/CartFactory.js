@@ -16,7 +16,7 @@ app.factory('CartFactory', function($http, $log){
 
   function calculateTotal(itemsArray){
     return itemsArray.reduce(function(a, b){
-      return a + b.price;
+      return a + (b.price * b.qty);
     }, 0);
   }
 
@@ -34,7 +34,7 @@ app.factory('CartFactory', function($http, $log){
 
   return {
     getUserCart: function(){
-      return $http.get('/api/cart')
+      return $http.get('/api/userCart')
       .then(function(response){
         if (typeof response.data === 'object') {
           cachedCartItems = cachedCartItems.concat(response.data);
@@ -43,24 +43,22 @@ app.factory('CartFactory', function($http, $log){
           localStorage.setItem('cartItems', makeJSON(cachedCartItems));
           localStorage.setItem('cartTotal', cachedCartTotal);
         }
-        return {items: cachedCartItems, total: cachedCartTotal};
       })
       .catch($log.error)
     },
-    addFriendToCart: function(friendId){
+    addFriendToCart: function(friendId, qty){
       return $http.get('/api/friends/' + friendId)
       .then(function(response){
         var friend = response.data;
         cachedCartTotal += friend.price;
-        cachedCartItems.push({friendId: friend.id, name: friend.name, price: friend.price, hours: friend.numHours});
+        cachedCartItems.push({cartId: (cachedCartItems.length + 1), friendId: friend.id, name: friend.name, price: friend.price, hours: friend.numHours, qty: +qty});
         localStorage.setItem('cartTotal', cachedCartTotal);
         localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-        return {items: cachedCartItems, total: cachedCartTotal};
       })
       .catch($log.error);
     },
     saveCart: function(){
-      return $http.post('/api/cart', {items: cachedCartItems})
+      return $http.post('/api/userCart', {items: cachedCartItems})
       .then(function(){
         clearCart();
       })
@@ -74,26 +72,31 @@ app.factory('CartFactory', function($http, $log){
     },
     clearCart: function(){
       clearCart();
-      return {items: cachedCartItems, total: cachedCartTotal};
     },
-    deleteItem: function(friendId){
+    deleteItem: function(cartId){
       var index = cachedCartItems.findIndex(function(item){
-        return item.friendId === friendId;
+        return item.cartId === cartId;
       });
       cachedCartItems.splice(index, 1);
       cachedCartTotal = calculateTotal(cachedCartItems);
       localStorage.setItem('cartTotal', cachedCartTotal);
       localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-
-      return {items: cachedCartItems, total: cachedCartTotal};
     },
     purchase: function(){
       return $http.post('/api/cart/purchase', {items: cachedCartItems})
       .then(function(response){
         clearCart();
-        return response.data;
       })
       .catch($log.error);
+    },
+    updateQty: function(cartId, diff){
+      var index = cachedCartItems.findIndex(function(item){
+        return item.cartId === cartId;
+      });
+      cachedCartItems[index].qty += diff;
+      cachedCartTotal = calculateTotal(cachedCartItems);
+      localStorage.setItem('cartTotal', cachedCartTotal);
+      localStorage.setItem('cartItems', makeJSON(cachedCartItems));
     }
   }
 });
