@@ -21,12 +21,14 @@
         <tr>
             <th></th>
             <th>Name</th>
+            <th>Quantity</th>
             <th>Hours</th>
             <th>Total</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td>Total:</td>
@@ -38,6 +40,10 @@
             <td><span ng-click="deleteItem(item.friendId)" class="glyphicon glyphicon-remove"></span></td>
 
             <td>{{ item.name }}</td>
+            <td><span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.getQuantity()==1}"
+                      ng-click="item.setQuantity(-1, true)"></span>&nbsp;&nbsp;
+                {{ item.length | number }}&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-plus" ng-click="updateQty(item.cartId, 1)"></span></td>
             <td>{{ item.hours }}</td>
             <td>{{ item.price | currency}}</td>
 
