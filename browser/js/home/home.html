@@ -1,6 +1,6 @@
 <section id="home">
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" ng-controller="ProductController">
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">codeFriends</p>
@@ -36,7 +36,7 @@
                 <tags-input ng-model="tags"></tags-input>
 
                 <!-- Individual product thumbnails -->
-                <div class="row" ng-controller="ProductController">
+                <div class="row">
                     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="friend in allFriends">
                         <div class="thumbnail">
                             <img src="{{friend.imageUrl}}" alt="{{friend.name}}">

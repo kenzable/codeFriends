@@ -23,9 +23,8 @@ app.config(function ($stateProvider) {
 });
 
 
-
 app.controller('ProductController', function ($scope, ProductFactory, CartFactory, $log, $stateParams) {
-    
+
     ProductFactory.getAllFriends()
     .then(function(allFriends) {
         $scope.allFriends = allFriends;
