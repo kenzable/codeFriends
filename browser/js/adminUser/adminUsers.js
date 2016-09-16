@@ -46,32 +46,37 @@ app.controller('AdminController', function ($scope, AdminUserFactory, $log, Admi
 
 
 
-    ProductFactory.getAllFriends()
+
+
+    AdminFriendsFactory.getAllFriends()
     .then(function (allFriends) {
         $scope.allFriends = allFriends;
     })
     .catch($log.error);
 
 
-    $scope.deleteAFriend = function(friendId){
-        AdminFriendsFactory.deleteAFriend(friendId)
-        .then(function (deleted) {
-            return deleted;
-        })
-        .catch($log.error);
-    }
+    $scope.deleteAFriend = AdminFriendsFactory.deleteAFriend;
 
 });
 
 
 app.factory('AdminUserFactory', function($http, $log){
+    var cachedUsers = [];
+
+
+    function getItemIndex(id){
+        return cachedUsers.findIndex(function(user){
+          return user.id === id;
+        });
+    }
 
   return {
 
     getAllUsers: function() {
       return $http.get('/api/users')
       .then(function(response) {
-        return response.data;
+        angular.copy(response.data, cachedUsers);
+        return cachedUsers;
       })
       .catch($log.error);
     },
@@ -79,6 +84,7 @@ app.factory('AdminUserFactory', function($http, $log){
     deleteAUser: function(userId) {
         return $http.delete('/api/users/' + userId)
         .then(function(response) {
+            cachedUsers.splice(getItemIndex(userId), 1);
             return response.data;
         })
         .catch($log.error);
