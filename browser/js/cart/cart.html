@@ -43,7 +43,7 @@
             <td><span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.getQuantity()==1}"
                       ng-click="item.setQuantity(-1, true)"></span>&nbsp;&nbsp;
                 {{ item.length | number }}&nbsp;&nbsp;
-                <span class="glyphicon glyphicon-plus" ng-click="item.setQuantity(1, true)"></span></td>
+                <span class="glyphicon glyphicon-plus" ng-click="updateQty(item.cartId, 1)"></span></td>
             <td>{{ item.hours }}</td>
             <td>{{ item.price | currency}}</td>
 
