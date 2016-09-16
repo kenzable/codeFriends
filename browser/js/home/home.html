@@ -42,7 +42,7 @@
                             <img src="{{friend.imageUrl}}" alt="{{friend.name}}">
                             <div class="caption">
                                 <h4 class="pull-right">${{ friend.price }}</h4>
-                                <h4><a ui-sref="product">{{ friend.name }}</a>
+                                <h4><a ui-sref="product({friendId: friend.id})">{{ friend.name }}</a>
                                 </h4>
                                 <p>{{ friend.description.length > 96 ? friend.description.substring(0,95) + '...' : friend.description }}</p>
                             </div>
