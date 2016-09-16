@@ -1,28 +1,28 @@
 var router = require('express').Router(); // eslint-disable-line new-cap
 var Cart = require('../../db').model('cart');
+var Cart = require('../../db').model('cart');
 var Order = require('../../db').model('order');
 var Friend = require('../../db').model('friend');
 var Promise = require('bluebird');
 
 router.get('/', function(req, res, next){
-  Cart.findOne({where: {userId: req.user.id}})
-  .then(function(cart){
-    if (cart) {
-      res.json(cart.items);
-      return cart.destroy()
+  Cart.findOrCreate({where: {userId: req.user.id}})
+  .spread(function(cart, created){
+    if (created) {
+      cart.setUser(req.user);
     }
-    else res.end();
+    res.status(201).json(cart);
   })
   .catch(next);
 });
 
 router.post('/', function(req, res, next){
-  Cart.create(req.body)
+  req.user.getCart()
   .then(function(cart){
-    return cart.setUser(req.user);
+    return cart.update(req.body);
   })
-  .then(function(cart){
-    res.json(cart);
+  .then(function(){
+    res.sendStatus(200);
   })
   .catch(next);
 });

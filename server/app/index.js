@@ -27,7 +27,6 @@ module.exports = function (db) {
         } else {
             next(null);
         }
-
     });
 
     app.get('/*', function (req, res) {
