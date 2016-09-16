@@ -6,7 +6,6 @@ app.config(function ($stateProvider) {
     });
 });
 
-
 app.config(function ($stateProvider) {
     $stateProvider.state('cart.checkout', {
         url: '/checkout',
@@ -15,60 +14,46 @@ app.config(function ($stateProvider) {
     });
 });
 
-
 app.controller('CartController', function ($scope, CartFactory, $log, $rootScope) {
-  $scope.items = CartFactory.getItems();
-  $scope.total = CartFactory.getTotal();
+  function updateCartScope() {
+    $scope.items = CartFactory.getItems();
+    $scope.total = CartFactory.getTotal();
+  }
+
+  updateCartScope();
 
   $rootScope.$on('auth-login-success', function(){
     CartFactory.getUserCart()
-    .then(function(cart){
-      $scope.items = cart.items;
-      $scope.total = cart.total;
-    })
+    .then(updateCartScope)
     .catch($log.error);
   });
 
-  $rootScope.$on('auth-logout-success', function(){
-    $scope.items = CartFactory.getItems();
-    $scope.total = CartFactory.getTotal();
-  });
+  $rootScope.$on('auth-logout-success', updateCartScope);
 
-  $scope.getUserCart = function(){
-    CartFactory.getUserCart()
-    .then(function(cart){
-      $scope.items = cart.items;
-      $scope.total = cart.total;
-    })
-    .catch($log.error)
-  }
-  $scope.addToCart = function(friendId){
-    CartFactory.addFriendToCart(friendId)
-    .then(function(cart){
-      $scope.items = cart.items;
-      $scope.total = cart.total;
-    })
+  $scope.addToCart = function(friendId, qty){
+    CartFactory.addFriendToCart(friendId, qty)
+    .then(updateCartScope)
     .catch($log.error);
   }
+
   $scope.clearCart = function(){
-    var cart = CartFactory.clearCart();
-      $scope.items = cart.items;
-      $scope.total = cart.total;
+    CartFactory.clearCart();
+    updateCartScope();
   }
-  $scope.saveCart = CartFactory.saveCart;
 
-   $scope.deleteItem = function(friendId){
-    var cart = CartFactory.deleteItem(friendId);
-      $scope.items = cart.items;
-      $scope.total = cart.total;
+   $scope.deleteItem = function(cartId){
+    CartFactory.deleteItem(cartId);
+    updateCartScope();
   }
+
   $scope.purchase = function(){
     CartFactory.purchase()
-    .then(function(order){
-      $scope.newOrder = order;
-      $scope.items = CartFactory.getItems();
-      $scope.total = CartFactory.getTotal();
-    })
+    .then(updateCartScope)
+    .catch($log.error);
+  };
+  $scope.updateQty = function(cartId, diff){
+    CartFactory.updateQty(cartId, diff)
+    .then(updateCartScope)
     .catch($log.error);
   };
 });

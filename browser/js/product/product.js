@@ -25,7 +25,7 @@ app.config(function ($stateProvider) {
 
 
 app.controller('ProductController', function ($scope, ProductFactory, CartFactory, $log, $stateParams) {
-    
+
     ProductFactory.getAllFriends()
     .then(function(allFriends) {
         $scope.allFriends = allFriends;
@@ -42,15 +42,13 @@ app.controller('ProductController', function ($scope, ProductFactory, CartFactor
     })
     .catch($log.error);
 
-    $scope.addToCart = function(friendId){
-        CartFactory.addFriendToCart(friendId)
-        .then(function(cart){
-          $scope.items = cart.items;
-          $scope.total = cart.total;
-        })
-        .catch($log.error);
-    }
-
+  $scope.addToCart = function(friendId, qty){
+    CartFactory.addFriendToCart(friendId, qty)
+    .then(function(){
+        $scope.added = true;
+    })
+    .catch($log.error);
+  }
 
 });
 
