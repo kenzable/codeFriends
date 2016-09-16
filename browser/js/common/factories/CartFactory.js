@@ -5,43 +5,40 @@ app.factory('CartFactory', function($http, $log){
     else return [];
   }
 
-  function getCartTotal(){
-    var currentTotal = localStorage.getItem('cartTotal');
-    if (currentTotal) return JSON.parse(currentTotal);
-    else return 0;
-  }
-
   var cachedCartItems = getCartItems();
-  var cachedCartTotal = getCartTotal();
-
-  function calculateTotal(itemsArray){
-    return itemsArray.reduce(function(a, b){
-      return a + (b.price * b.qty);
-    }, 0);
-  }
 
   function makeJSON(array){
   //convert the items array into a json string of an array-like object
     return JSON.stringify(Object.assign({length: array.length}, array));
   }
 
+  function getItemIndex(itemId){
+    return cachedCartItems.findIndex(function(item){
+      return item.itemId === itemId;
+    });
+  }
+
   function clearCart(){
     cachedCartItems = [];
-    cachedCartTotal = 0;
     localStorage.removeItem('cartItems');
-    localStorage.removeItem('cartTotal');
   }
 
   return {
+    getCartTotal: function() {
+      if (cachedCartItems.length) {
+        return cachedCartItems.reduce(function(a, b){
+          return a + (b.price * b.qty);
+        }, 0);
+      }
+      else return 0;
+    },
     getUserCart: function(){
       return $http.get('/api/userCart')
       .then(function(response){
         if (typeof response.data === 'object') {
           cachedCartItems = cachedCartItems.concat(response.data);
           //update local storage to relect the cached values
-          cachedCartTotal = calculateTotal(cachedCartItems)
           localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-          localStorage.setItem('cartTotal', cachedCartTotal);
         }
       })
       .catch($log.error)
@@ -50,9 +47,8 @@ app.factory('CartFactory', function($http, $log){
       return $http.get('/api/friends/' + friendId)
       .then(function(response){
         var friend = response.data;
-        cachedCartTotal += friend.price;
-        cachedCartItems.push({cartId: (cachedCartItems.length + 1), friendId: friend.id, name: friend.name, price: friend.price, hours: friend.numHours, qty: +qty});
-        localStorage.setItem('cartTotal', cachedCartTotal);
+        cachedCartItems.push({itemId: (cachedCartItems.length + 1), friendId: friend.id, name: friend.name, price: friend.price,
+          hours: friend.numHours, qty: +qty});
         localStorage.setItem('cartItems', makeJSON(cachedCartItems));
       })
       .catch($log.error);
@@ -67,36 +63,31 @@ app.factory('CartFactory', function($http, $log){
     getItems: function(){
       return cachedCartItems;
     },
-    getTotal: function(){
-      return cachedCartTotal;
-    },
     clearCart: function(){
       clearCart();
     },
-    deleteItem: function(cartId){
-      var index = cachedCartItems.findIndex(function(item){
-        return item.cartId === cartId;
-      });
-      cachedCartItems.splice(index, 1);
-      cachedCartTotal = calculateTotal(cachedCartItems);
-      localStorage.setItem('cartTotal', cachedCartTotal);
+    deleteItem: function(itemId){
+      cachedCartItems.splice(getItemIndex(itemId), 1);
       localStorage.setItem('cartItems', makeJSON(cachedCartItems));
     },
     purchase: function(){
       return $http.post('/api/cart/purchase', {items: cachedCartItems})
-      .then(function(response){
+      .then(function(){
         clearCart();
       })
       .catch($log.error);
     },
-    updateQty: function(cartId, diff){
-      var index = cachedCartItems.findIndex(function(item){
-        return item.cartId === cartId;
-      });
-      cachedCartItems[index].qty += diff;
-      cachedCartTotal = calculateTotal(cachedCartItems);
-      localStorage.setItem('cartTotal', cachedCartTotal);
+    updateQty: function(itemId, diff){
+      var item = cachedCartItems[getItemIndex(itemId)];
+      item.qty += diff;
+      if (item.qty === 0) {
+        cachedCartItems.splice(index, 1);
+      }
       localStorage.setItem('cartItems', makeJSON(cachedCartItems));
+    },
+    getItemTotal(itemId){
+      var item = cachedCartItems[getItemIndex(itemId)];
+      return item.price * item.qty;
     }
   }
 });
