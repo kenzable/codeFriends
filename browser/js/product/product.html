@@ -2,44 +2,42 @@
   <div class="row">
    <div class="col-md-6">
 
-     <img src="https://s3.amazonaws.com/bloc-global-assets/almanac-assets/bootcamps/logos/000/002/671/original/grace-hopper-academy.jpg?1467187331">
+     <!-- resize this! /000/002/671/ (???) -->
+     <img src="{{ friend.imageUrl }}">
 
    </div>
    <div class="col-md-6">
-<!--    	<notification></notification> -->
+	<!--    	<notification></notification> -->
 	 <div class="row">
 	  <div class="col-md-12">
-	   <h1>Friend</h1>
+	   <h1>{{ friend.name }}</h1>
 	 </div>
 	</div><!-- end row-->
 
 	<div class="row">
 	 <div class="col-md-3">
+
+	 	<pre>{{ avgRating }}</pre>
+        <span class="glyphicon" ng-repeat="star in getStars(friend.avgRating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }" aria-hidden="true"></span>
+	  
+	  <!-- <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 	  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 	  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 	  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>  
+	  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>  --> 
 	 </div>
 	
 	</div><!-- end row -->
 
 	<div class="row">
 	 <div class="col-md-12 bottom-rule">
-	  <h2 class="product-name"> Name: {{friend.name}} </h2>
+	  <h2 class="product-name"> Description: <p>{{friend.description}}</p></h2>
 	 </div>
 	</div><!-- end row -->
 
 	<div class="row">
 	 <div class="col-md-12 bottom-rule">
-	  <h2 class="product-age"> Age: {{friend.age}} </h2>
-	 </div>
-	</div><!-- end row -->
-
-
-	<div class="row">
-	 <div class="col-md-12 bottom-rule">
-	  <h2 class="product-tag"> Tag: {{friend.tag}}</h2>
+	  <h2 class="product-tag"> Tag(s): <a ng-repeat="tag in friend.tags"> {{tag}}{{ $last ? '' : ','}}</a></h2>
 	 </div>
 	</div><!-- end row -->
 
@@ -60,18 +58,18 @@
    </div>
   </div><!-- end row -->
 
-<!-- NAVIGATION -->
-<nav class="navbar navbar-inverse" role="navigation">
-    <ul class="nav navbar-nav">
-        <li><a ui-sref="product.description">Description</a></li>
-        <li><a ui-sref="product.review">Reviews</a></li>
-    </ul>
-</nav>
+	<!-- NAVIGATION -->
+	<nav class="navbar navbar-inverse" role="navigation">
+	    <ul class="nav navbar-nav">
+	        <li><a ui-sref="product.description">Description</a></li>
+	        <li><a ui-sref="product.review">Reviews</a></li>
+	    </ul>
+	</nav>
 
 	<div ui-view></div>
 
 
- </div><!-- end container -->
+</div><!-- end container -->
 
 
 

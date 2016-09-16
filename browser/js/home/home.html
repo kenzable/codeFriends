@@ -47,15 +47,11 @@
                                 <p>{{ friend.description.length > 96 ? friend.description.substring(0,95) + '...' : friend.description }}</p>
                             </div>
                             <div class="ratings">
-                                <!-- FIX THIS: # reviews and star rating -->
-                                <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs > 1 ? 'Reviews' : 'Review' }}</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs === 1 ? 'Review' : 'Reviews' }}</p>
+                                <p class="star-rating">
+                                    <span class="glyphicon" ng-repeat="star in getStars(friend.avgRating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
                                 </p>
+
                             </div>
                         </div>
                     </div>

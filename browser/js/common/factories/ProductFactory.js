@@ -16,6 +16,26 @@ app.factory('ProductFactory', function($http, $log){
         return response.data;
       })
       .catch($log.error)
+    },
+
+    getStars: function(rating) {
+        var starArr = [];
+        for (var i = 0; i < rating; i++) {
+            starArr.push(true)
+        }
+        for (var j = 0; j < 5 - rating; j++) {
+            starArr.push(false);
+        }
+        return starArr;
+    },
+
+    getFriendReviews: function(friendId) {
+      return $http.get('/api/friends/' + friendId + '/feedback')
+      .then(function(response) {
+        // console.log('getting friend reviews http')
+        return response.data;
+      })
+      .catch($log.error);
     }
 
   }; //end of return

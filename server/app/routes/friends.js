@@ -22,12 +22,27 @@ router.get('/', function(req, res, next) {
 				})
 			})
 		}
-		else res.sendStatus(404);
+		else { res.sendStatus(404) }
 	})
 	.then(function(feedback) {
 		for (var i = 0; i < feedback.length; i++) {
+			// Get number of reviews
 			allFriends[i].dataValues.numRevs = feedback[i].count;
-			console.log('FEEDBACK ROWS', feedback[i].rows)
+
+			// Get average rating
+			var friendRating = feedback[i].rows.map(function(row) {
+				return row.dataValues.rating;
+			});
+
+			var avgRating;
+
+			if (friendRating.length) {
+				var sum = friendRating.reduce(function(a, b) { return a + b});
+				avgRating = Math.floor(sum / friendRating.length);
+			}
+			else { avgRating = 0 }
+
+			allFriends[i].dataValues.avgRating = avgRating;
 		}
 		res.json(allFriends);
 	})
