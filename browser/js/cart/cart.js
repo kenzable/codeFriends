@@ -22,12 +22,6 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
 
   updateCartScope();
 
-  $rootScope.$on('auth-login-success', function(){
-    CartFactory.getUserCart()
-    .then(updateCartScope)
-    .catch($log.error);
-  });
-
   $rootScope.$on('auth-logout-success', updateCartScope);
 
   $scope.addToCart = function(friendId, qty){
