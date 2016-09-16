@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('product', {
-        url: '/product',
+        url: '/product/:friendId',
         controller: 'ProductController',
         templateUrl: 'js/product/product.html'
     });
@@ -24,7 +24,7 @@ app.config(function ($stateProvider) {
 
 
 
-app.controller('ProductController', function ($scope, ProductFactory, CartFactory, $log) {
+app.controller('ProductController', function ($scope, ProductFactory, CartFactory, $log, $stateParams) {
     
     ProductFactory.getAllFriends()
     .then(function(allFriends) {
@@ -34,6 +34,13 @@ app.controller('ProductController', function ($scope, ProductFactory, CartFactor
 
     $scope.getNumReviews = ProductFactory.getNumReviews;
 
+    $scope.id = $stateParams.friendId
+
+    ProductFactory.getFriend($scope.id)
+    .then(function(friend) {
+        $scope.friend = friend;
+    })
+    .catch($log.error);
 
     $scope.addToCart = function(friendId){
         CartFactory.addFriendToCart(friendId)
