@@ -16,8 +16,6 @@ Order.belongsTo(User);
 Feedback.belongsTo(User);
 Friend.hasMany(Feedback);
 Cart.belongsTo(User);
-<<<<<<< HEAD
 User.hasMany(Order);
-=======
 User.hasOne(Cart);
->>>>>>> 61c7abf2e25275fcdad7fc8db5e4a0628b77c129
+

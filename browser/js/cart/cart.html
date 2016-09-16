@@ -38,7 +38,7 @@
         </tr>
         </tfoot>
         <tbody>
-        <tr ng-repeat="item in items">
+        <tr ng-repeat="item in items track by item.itemId">
             <td><span ng-click="deleteItem(item.itemId)" class="glyphicon glyphicon-remove"></span></td>
 
             <td>{{ item.name }}</td>
