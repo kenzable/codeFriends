@@ -17,7 +17,7 @@ app.config(function ($stateProvider) {
 app.controller('CartController', function ($scope, CartFactory, $log, $rootScope) {
   function updateCartScope() {
     $scope.items = CartFactory.getItems();
-    $scope.total = CartFactory.getTotal();
+    $scope.total = CartFactory.getCartTotal();
   }
 
   updateCartScope();
@@ -41,8 +41,8 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
     updateCartScope();
   }
 
-   $scope.deleteItem = function(cartId){
-    CartFactory.deleteItem(cartId);
+   $scope.deleteItem = function(itemId){
+    CartFactory.deleteItem(itemId);
     updateCartScope();
   }
 
@@ -51,9 +51,10 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
     .then(updateCartScope)
     .catch($log.error);
   };
-  $scope.updateQty = function(cartId, diff){
-    CartFactory.updateQty(cartId, diff)
+  $scope.updateQty = function(itemId, diff){
+    CartFactory.updateQty(itemId, diff)
     .then(updateCartScope)
     .catch($log.error);
   };
+  $scope.getItemTotal = CartFactory.getItemTotal;
 });
