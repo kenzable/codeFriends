@@ -1,0 +1,27 @@
+<div class="table-responsive col-lg-12">
+    <table id="allorders" class="table table-striped cart">
+    	<thead>
+	    <tr>
+	        <th>Delete the order</th>
+	        <th></th>
+	        <th>Order ID  </th>
+	        <th>Items</th>
+	        <th>Total</th>
+	        <th>User ID</th>
+	        <th>CreatedAt</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+        <tr ng-repeat="order in allOrders">
+        	<td>
+        		<span ng-click="deleteAnOrder(order.id)" class="btn btn-default btn-sm glyphicon glyphicon-remove"></span>
+	        <td>
+            <td>{{ order.id }}</td>
+            <td>{{ order.items }}</td>
+            <td>${{ order.total }}</td>
+            <td>{{ order.userId }}</td>
+            <td>{{ order.createdAt }}</td>
+        </tr>
+        <tbody>
+    </table>
+</div>
