@@ -17,26 +17,27 @@ router.get('/', function (req, res, next) {
 
 router.post('/purchase', function(req, res, next){
   var items = req.body.items;
-  Promise.map(items, function(item){
-    return Friend.findById(item.friendId);
+  var order = Order.build({items: items});
+
+  order.calculateTotal()
+  .then(function(orderTotal){
+    order.total = orderTotal;
+    return order.save();
   })
-  .then(function(friends){
-    return friends.reduce(function(a, b){
-      return a + b.price;
-    }, 0);
-  })
-  .then(function(total){
-    return Order.create({items: items, total: total});
-  })
-  .then(function(order){
+  .then(function(){
     return order.setUser(req.user);
   })
-  .then(function(order){
+  .then(function(){
+    if (req.user) return req.user.getCart();
+  })
+  .then(function(cart){
+    if (cart) return cart.destroy();
+  })
+  .then(function(){
     res.json(order);
   })
   .catch(next);
 });
-
 
 router.get('/:id', function (req, res, next) {
 	Order.findById(req.params.id)
