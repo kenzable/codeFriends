@@ -1,18 +1,5 @@
 app.config(function ($stateProvider) {
 
-    $stateProvider.state('admin', {
-        url: '/admin',
-        templateUrl: 'js/adminUser/admin.html',
-        controller: 'AdminController',
-        data: {
-            authenticate: true
-        }
-    });
-
-});
-
-app.config(function ($stateProvider) {
-
     $stateProvider.state('admin.users', {
         url: '/user-management',
         templateUrl: 'js/adminUser/adminUsers.html',
@@ -25,39 +12,6 @@ app.config(function ($stateProvider) {
     });
 
 });
-
-
-app.controller('AdminController', function ($scope, AdminUserFactory, $log, AdminFriendsFactory, AdminOrdersFactory) {
-    
-    AdminUserFactory.getAllUsers()
-    .then(function (allUsers) {
-        $scope.allUsers = allUsers;
-    })
-    .catch($log.error);
-
-    $scope.deleteAUser = AdminUserFactory.deleteAUser;
-
-
-    AdminFriendsFactory.getAllFriends()
-    .then(function (allFriends) {
-        $scope.allFriends = allFriends;
-    })
-    .catch($log.error);
-
-    $scope.deleteAFriend = AdminFriendsFactory.deleteAFriend;
-
-
-    AdminOrdersFactory.getAllOrders()
-    .then(function (allOrders) {
-        $scope.allOrders = allOrders
-    })
-    .catch($log.error);
-
-
-    $scope.deleteAnOrder = AdminOrdersFactory.deleteAnOrder;
-
-});
-
 
 app.factory('AdminUserFactory', function($http, $log){
     var cachedUsers = [];
@@ -87,7 +41,5 @@ app.factory('AdminUserFactory', function($http, $log){
         })
         .catch($log.error);
     }
-
   };
-
 });
