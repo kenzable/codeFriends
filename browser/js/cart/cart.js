@@ -14,14 +14,13 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartController', function ($scope, CartFactory, $log, $rootScope) {
+app.controller('CartController', function ($scope, CartFactory, $log, $rootScope, $state) {
   function updateCartScope() {
     $scope.items = CartFactory.getItems();
     $scope.total = CartFactory.getCartTotal();
   }
 
   updateCartScope();
-
 
   $rootScope.$on('auth-logout-success', updateCartScope);
 
@@ -43,13 +42,14 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
 
   $scope.purchase = function(){
     CartFactory.purchase()
-    .then(updateCartScope)
+    .then(function(){
+      $state.go('complete');
+    })
     .catch($log.error);
   };
   $scope.updateQty = function(itemId, diff){
-    CartFactory.updateQty(itemId, diff)
-    .then(updateCartScope)
-    .catch($log.error);
+    CartFactory.updateQty(itemId, diff);
+    updateCartScope();
   };
   $scope.getItemTotal = CartFactory.getItemTotal;
 });
