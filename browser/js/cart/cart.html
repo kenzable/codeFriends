@@ -13,7 +13,7 @@
 </div>
 
 
-<div class="table-responsive col-lg-12" ng-show="items.length > 0" >
+<div class="table-responsive col-lg-12" ng-if="items.length > 0" >
 
     <table class="table table-striped cart">
 
@@ -42,12 +42,14 @@
             <td><span ng-click="deleteItem(item.itemId)" class="glyphicon glyphicon-remove"></span></td>
 
             <td>{{ item.name }}</td>
-            <td><span class="glyphicon glyphicon-minus" 
+
+            <td><span class="glyphicon glyphicon-minus"
+
                       ng-click="updateQty(item.itemId, -1)"></span>&nbsp;&nbsp;
                 {{ item.qty | number }}&nbsp;&nbsp;
 
                 <span class="glyphicon glyphicon-plus" ng-click="updateQty(item.itemId, 1)"></span></td>
-           
+
             <td>{{ item.hours }}</td>
             <td>{{ item.price | currency}}</td>
             <td>{{ getItemTotal(item.itemId) | currency}}</td>

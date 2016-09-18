@@ -1,13 +1,10 @@
 'use strict';
 var Sequelize = require('sequelize');
 var db = require('../_db');
+var Promise = require('bluebird');
+var Friend = db.model('friend');
 
 module.exports = db.define('order', {
-    // date: {
-    //     type: Sequelize.DATE,
-    //     defaultValue: Sequelize.NOW
-    //     // default values for dates => current time
-    // },
     total: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -22,4 +19,20 @@ module.exports = db.define('order', {
           return this.setDataValue('items', JSON.stringify(val));
       }
     }
-});
+  },
+  {
+    instanceMethods: {
+      calculateTotal: function(){
+        var items = this.items;
+        return Promise.map(items, function(item){
+          return Friend.findById(item.friendId);
+        })
+        .then(function(friends){
+          return friends.reduce(function(a, b, i){
+            return a + (b.price * items[i].qty);
+          }, 0);
+        })
+        .catch(console.error.bind(console));
+      }
+    }
+  });
