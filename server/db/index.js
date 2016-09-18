@@ -1,6 +1,5 @@
 'use strict';
 var db = require('./_db');
-module.exports = db;
 
 // eslint-disable-next-line no-unused-vars
 var User = require('./models/user');
@@ -19,3 +18,4 @@ Cart.belongsTo(User);
 User.hasMany(Order);
 User.hasOne(Cart);
 
+module.exports = db;
