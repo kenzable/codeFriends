@@ -73,7 +73,7 @@ app.factory('CartFactory', function($http, $log){
     purchase: function(){
       return $http.post('/api/orders/purchase', {items: cachedCartItems})
       .then(function(data){
-        console.log(data);
+        console.log("data:::::");
         clearCart();
       })
       .catch($log.error);
