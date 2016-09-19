@@ -40,12 +40,3 @@ app.factory('ProductFactory', function($http, $log){
   }; //end of return
 
 });
-
-
-
-
-
-
-
-
-

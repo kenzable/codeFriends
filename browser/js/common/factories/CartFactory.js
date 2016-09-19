@@ -37,12 +37,14 @@ app.factory('CartFactory', function($http, $log){
       .then(function(response){
         var cart = response.data;
         if (cart) {
+
           cachedCartItems = cachedCartItems.concat(cart.items)
           .map(function(item, i){
             item.itemId = ++i;
             return item;
           });
           localStorage.setItem('cartItems', makeJSON(cachedCartItems));
+
         }
       })
       .catch($log.error)
@@ -81,7 +83,7 @@ app.factory('CartFactory', function($http, $log){
     purchase: function(){
       return $http.post('/api/orders/purchase', {items: cachedCartItems})
       .then(function(){
-        clearCart();
+        clearCart();   
       })
       .catch($log.error);
     },

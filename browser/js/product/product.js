@@ -79,8 +79,3 @@ app.controller('ProductController', function ($scope, $q, ProductFactory, CartFa
   }
 
 });
-
-
-
-
-
