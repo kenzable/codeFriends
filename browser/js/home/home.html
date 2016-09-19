@@ -1,6 +1,6 @@
 <section id="home">
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" ng-controller="ProductController">
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">codeFriends</p>
@@ -36,7 +36,7 @@
                 <tags-input ng-model="tags"></tags-input>
 
                 <!-- Individual product thumbnails -->
-                <div class="row" ng-controller="ProductController">
+                <div class="row">
                     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="friend in allFriends">
                         <div class="thumbnail">
                             <img src="{{friend.imageUrl}}" alt="{{friend.name}}">
@@ -47,15 +47,17 @@
                                 <p>{{ friend.description.length > 96 ? friend.description.substring(0,95) + '...' : friend.description }}</p>
                             </div>
                             <div class="ratings">
-                                <!-- FIX THIS: # reviews and star rating -->
-                                <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs > 1 ? 'Reviews' : 'Review' }}</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
+
+                                <p class="pull-right">{{ getNumRevs(friend.id) }} {{ getNumRevs(friend.id) === 1 ? 'Review' : 'Reviews' }}</p>
+                                <p class="star-rating">
+                                    <span class="glyphicon" ng-repeat="star in getStars(getAvgRating(friend.id)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
+                                </p>                                
+
+                                <!-- <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs === 1 ? 'Review' : 'Reviews' }}</p>
+                                <p class="star-rating">
+                                    <span class="glyphicon" ng-repeat="star in getStars(friend.avgRating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
+                                </p> -->
+
                             </div>
                         </div>
                     </div>
