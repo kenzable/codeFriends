@@ -17,8 +17,6 @@ describe('Cart model', function () {
 
         describe('items', function () {
 
-          var Cart;
-
           var cartData = [{itemId: 1,
                           friendId: 10,
                           name: 'Champlin',
@@ -26,12 +24,20 @@ describe('Cart model', function () {
                           hours: 18,
                           qty: 1}];
 
-          beforeEach(function () {
-            Cart.create({items: cartData});
+          beforeEach(function (done) {
+            Cart.create({items: cartData})
+            .then()
+            .catch(done);
           });
 
-          it('should be parsed back to JS from JSON when retreived', function () {
-              expect(User.generateSalt()).to.be.a('string');
+          it('should be able to stringify into JSON', function (done) {
+            Cart.findById(1)
+            .then(function(cart){
+                var comparison = JSON.stringify(cart.items) === JSON.stringify(cartData);
+                expect(comparison).to.be.true;
+                done();
+            })
+            .catch(done);
           });
         });
 
