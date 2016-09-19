@@ -52,7 +52,7 @@ router.post('/purchase', function(req, res, next){
       to: "z1660218@students.niu.edu", 
     //Subject and text data  
       subject: 'Hello from Code Friends',
-      html: 'We received your order and are working on it now. We will email you when it is shipped!  <a href="http://0.0.0.0:3030/validate?' + req.params.mail + '">Click here to add your email address to a mailing list</a>'
+      html: 'We received your order and are working on it now. We will email you when it is shipped!' 
     }
 
     //Invokes the method to send emails given the above data with the helper library

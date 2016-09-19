@@ -14,6 +14,13 @@ app.config(function ($stateProvider) {
     });
 });
 
+app.config(function($windowProvider) {
+  var $window = $windowProvider.$get();
+  
+  $window.Stripe.setPublishableKey('pk_test_73ZevvA04jKbRErkAsZLmBJT'); //test publishable key
+});
+
+
 app.controller('CartController', function ($scope, CartFactory, $log, $rootScope, $state) {
   function updateCartScope() {
     $scope.items = CartFactory.getItems();
@@ -53,4 +60,18 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
     updateCartScope();
   };
   $scope.getItemTotal = CartFactory.getItemTotal;
+
+  $scope.stripeCallback = function (code, result) {
+    if (result.error) {
+        window.alert('it failed! error: ' + result.error.message);
+    } else {
+        window.alert('success! token: ' + result.id);
+        CartFactory.purchase()
+        .then(function(){
+          $state.go('complete');
+        })
+        .catch($log.error);
+    }
+  };
+
 });
