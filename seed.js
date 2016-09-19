@@ -2,7 +2,7 @@
 
 var chalk = require('chalk');
 var Promise = require('sequelize').Promise;
-var faker = require('./Faker.js/faker');
+var faker = require('./faker');
 
 var db = require('./server/db');
 var User = db.model('user');
@@ -29,7 +29,7 @@ var seedUser = function() {
 
 	for (var i = 0; i < 15; i++) {
 		UserPromises.push(User.create(createUser()));
-	};
+	}
 
 	return UserPromises;
 };
@@ -50,9 +50,9 @@ var seedFriend = function() {
 
 	for (var i = 0; i < 20; i++) {
 		FriendPromises.push(Friend.create(createFriend()));
-	};
+	}
 
-	return FriendPromises;	
+	return FriendPromises;
 };
 
 var seedCart = function() {
@@ -60,9 +60,9 @@ var seedCart = function() {
 		var numItems = faker.random.number(10);
 		var cart = { items: [] };
 
-		for (var i =0; i < numItems; i++) {
+		for (var i = 0; i < numItems; i++) {
 			cart.items.push(faker.random.number(100000))
-		};
+		}
 
 		return cart;
 	};
@@ -70,9 +70,9 @@ var seedCart = function() {
 
 	for (var i = 0; i < 20; i++) {
 		CartPromises.push(Cart.create(createCart()));
-	};
+	}
 
-	return CartPromises;	
+	return CartPromises;
 };
 
 var seedOrder = function() {
@@ -83,9 +83,9 @@ var seedOrder = function() {
 			items: []
 		};
 
-		for (var i =0; i < numItems; i++) {
+		for (var i = 0; i < numItems; i++) {
 			order.items.push(faker.random.number(10000))
-		};
+		}
 
 		return order;
 	};
@@ -93,7 +93,7 @@ var seedOrder = function() {
 
 	for (var i = 0; i < 20; i++) {
 		OrderPromises.push(Order.create(createOrder()));
-	};
+	}
 
 	return OrderPromises;
 };
@@ -111,7 +111,7 @@ var seedFeedback = function() {
 
 	for (var i = 0; i < 20; i++) {
 		FeedbackPromises.push(Feedback.create(createFeedback()));
-	};
+	}
 
 	return FeedbackPromises;
 };
