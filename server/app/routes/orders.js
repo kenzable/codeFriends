@@ -4,6 +4,8 @@ var router = require('express').Router();
 module.exports = router;
 
 var Order = require('../../db/models/order.js');
+var Friend = require('../../db/models/friend.js');
+var Promise = require('bluebird');
 
 router.get('/', function (req, res, next) {
 	Order.findAll()
@@ -11,6 +13,30 @@ router.get('/', function (req, res, next) {
 		res.json(orders);
 	})
 	.catch(next);
+});
+
+router.post('/purchase', function(req, res, next){
+  var items = req.body.items;
+  var order = Order.build({items: items});
+
+  order.calculateTotal()
+  .then(function(orderTotal){
+    order.total = orderTotal;
+    return order.save();
+  })
+  .then(function(){
+    return order.setUser(req.user);
+  })
+  .then(function(){
+    if (req.user) return req.user.getCart();
+  })
+  .then(function(cart){
+    if (cart) return cart.destroy();
+  })
+  .then(function(){
+    res.json(order);
+  })
+  .catch(next);
 });
 
 router.get('/:id', function (req, res, next) {

@@ -5,62 +5,60 @@ app.factory('CartFactory', function($http, $log){
     else return [];
   }
 
-  function getCartTotal(){
-    var currentTotal = localStorage.getItem('cartTotal');
-    if (currentTotal) return JSON.parse(currentTotal);
-    else return 0;
-  }
-
   var cachedCartItems = getCartItems();
-  var cachedCartTotal = getCartTotal();
-
-  function calculateTotal(itemsArray){
-    return itemsArray.reduce(function(a, b){
-      return a + b.price;
-    }, 0);
-  }
 
   function makeJSON(array){
   //convert the items array into a json string of an array-like object
     return JSON.stringify(Object.assign({length: array.length}, array));
   }
 
+  function getItemIndex(itemId){
+    return cachedCartItems.findIndex(function(item){
+      return item.itemId === itemId;
+    });
+  }
+
   function clearCart(){
     cachedCartItems = [];
-    cachedCartTotal = 0;
     localStorage.removeItem('cartItems');
-    localStorage.removeItem('cartTotal');
   }
 
   return {
-    getUserCart: function(){
-      return $http.get('/api/cart')
+    getCartTotal: function() {
+      if (cachedCartItems.length) {
+        return cachedCartItems.reduce(function(a, b){
+          return a + (b.price * b.qty);
+        }, 0);
+      }
+      else return 0;
+    },
+    getSavedItems: function(){
+      return $http.get('/api/userCart')
       .then(function(response){
-        if (typeof response.data === 'object') {
-          cachedCartItems = cachedCartItems.concat(response.data);
-          //update local storage to relect the cached values
-          cachedCartTotal = calculateTotal(cachedCartItems)
+        var cart = response.data;
+        if (cart) {
+          cachedCartItems = cachedCartItems.concat(cart.items)
+          .map(function(item, i){
+            item.itemId = ++i;
+            return item;
+          });
           localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-          localStorage.setItem('cartTotal', cachedCartTotal);
         }
-        return {items: cachedCartItems, total: cachedCartTotal};
       })
       .catch($log.error)
     },
-    addFriendToCart: function(friendId){
+    addFriendToCart: function(friendId, qty){
       return $http.get('/api/friends/' + friendId)
       .then(function(response){
         var friend = response.data;
-        cachedCartTotal += friend.price;
-        cachedCartItems.push({friendId: friend.id, name: friend.name, price: friend.price, hours: friend.numHours});
-        localStorage.setItem('cartTotal', cachedCartTotal);
+        cachedCartItems.push({itemId: (cachedCartItems.length + 1), friendId: friend.id, name: friend.name, price: friend.price,
+          hours: friend.numHours, qty: +qty});
         localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-        return {items: cachedCartItems, total: cachedCartTotal};
       })
       .catch($log.error);
     },
     saveCart: function(){
-      return $http.post('/api/cart', {items: cachedCartItems})
+      return $http.post('/api/userCart', {items: cachedCartItems})
       .then(function(){
         clearCart();
       })
@@ -69,31 +67,36 @@ app.factory('CartFactory', function($http, $log){
     getItems: function(){
       return cachedCartItems;
     },
-    getTotal: function(){
-      return cachedCartTotal;
-    },
     clearCart: function(){
       clearCart();
-      return {items: cachedCartItems, total: cachedCartTotal};
     },
-    deleteItem: function(friendId){
-      var index = cachedCartItems.findIndex(function(item){
-        return item.friendId === friendId;
+    deleteItem: function(itemId){
+      cachedCartItems.splice(getItemIndex(itemId), 1);
+      cachedCartItems = cachedCartItems.map(function(item, i){
+        item.itemId = ++i;
+        return item;
       });
-      cachedCartItems.splice(index, 1);
-      cachedCartTotal = calculateTotal(cachedCartItems);
-      localStorage.setItem('cartTotal', cachedCartTotal);
       localStorage.setItem('cartItems', makeJSON(cachedCartItems));
-
-      return {items: cachedCartItems, total: cachedCartTotal};
     },
     purchase: function(){
-      return $http.post('/api/cart/purchase', {items: cachedCartItems})
-      .then(function(response){
+      return $http.post('/api/orders/purchase', {items: cachedCartItems})
+      .then(function(){
         clearCart();
-        return response.data;
       })
       .catch($log.error);
+    },
+    updateQty: function(itemId, diff){
+      var index = getItemIndex(itemId)
+      var item = cachedCartItems[index];
+      item.qty += diff;
+      if (item.qty === 0) {
+        cachedCartItems.splice(index, 1);
+      }
+      localStorage.setItem('cartItems', makeJSON(cachedCartItems));
+    },
+    getItemTotal(itemId){
+      var item = cachedCartItems[getItemIndex(itemId)];
+      if (item) return item.price * item.qty;
     }
   }
 });
