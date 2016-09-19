@@ -16,15 +16,18 @@ app.config(function ($stateProvider) {
 
 
 app.controller('ProductController', function($scope, $log, ProductFactory, $stateParams) {
-    $scope.friendId = $stateParams.friendId;
+    $scope.id = $stateParams.friendId;
+
 
     $scope.getStars = ProductFactory.getStars;
 
-    ProductFactory.getFriend($scope.friendId)
+
+    ProductFactory.getFriend($scope.id)
     .then(function(friend) {
         $scope.friend = friend;
     })
-    .catch($log.error)
+    .catch($log.error);
+
 
     ProductFactory.getFriendReviews($scope.friendId)
     .then(function(feedback) {
@@ -33,5 +36,4 @@ app.controller('ProductController', function($scope, $log, ProductFactory, $stat
         $scope.friend.avgRating = ProductFactory.getAvgRating(feedback.rows);
     })
     .catch($log.error)
-
 });

@@ -17,9 +17,9 @@ router.get('/submit/:mail', function(req,res) {
 
     var data = {
     //Specify email data
-      from: "Code Friends",
+      from: "z1660218@gmail.com", //"Code Friends",
     //The email to contact
-      to: req.params.mail,
+      to: req.params.mail, //"z1660218@students.niu.edu", //req.params.mail,
     //Subject and text data  
       subject: 'Hello from Mailgun',
       html: 'Hello, This is not a plain-text email, I wanted to test some spicy Mailgun sauce in NodeJS! <a href="http://0.0.0.0:3030/validate?' + req.params.mail + '">Click here to add your email address to a mailing list</a>'
@@ -29,7 +29,7 @@ router.get('/submit/:mail', function(req,res) {
     mailgun.messages().send(data, function (err, body) {
         //If there is an error, render the error page
         if (err) {
-            res.render('error', { error : err});
+            //res.render('error', { error : err});
             console.log("got an error: ", err);
         }
         //Else we can greet    and leave

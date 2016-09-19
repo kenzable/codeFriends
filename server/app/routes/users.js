@@ -5,7 +5,7 @@ module.exports = router;
 var User = require('../../db/models/user.js');
 var Auth = require('../utils/auth.middleware');
 
-router.get('/', Auth.assertAuthenticated, function (req, res, next) {
+router.get('/', Auth.assertAdmin, function (req, res, next) {
 
 	User.findAll({})
 	.then(function (users) {
