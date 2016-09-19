@@ -1,0 +1,17 @@
+<form id="profile-form" name="profileForm" ng-submit="loginForm.$valid && updateProfile(profile)">
+
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="text" ng-model="profile.email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="profile-password">Password</label>
+        <input type="password" ng-model="profile.password" class="form-control" id="profile-password" placeholder="Password">
+    </div>
+    <!-- NEED NG-CLICK! -->
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

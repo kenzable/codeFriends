@@ -10,3 +10,4 @@ app.controller('CheckoutController', function ($scope) {
 	$scope.total = 80; //test
 });
 
+
