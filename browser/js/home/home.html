@@ -1,6 +1,6 @@
 <section id="home">
     <!-- Page Content -->
-    <div class="container" ng-controller="ProductController">
+    <div class="container" ng-controller="HomeController">
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">codeFriends</p>
@@ -46,7 +46,7 @@
                                 </h4>
                                 <p>{{ friend.description.length > 96 ? friend.description.substring(0,95) + '...' : friend.description }}</p>
                             </div>
-                            
+
                             <div class="ratings">
                                 <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs === 1 ? 'Review' : 'Reviews' }}</p>
                                 <p class="star-rating">

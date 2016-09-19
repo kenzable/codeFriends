@@ -37,6 +37,22 @@ app.factory('ProductFactory', function($http, $log){
       .catch($log.error);
     },
 
+    getAvgRating: function(feedbackRows) {
+      var friendRating = feedbackRows.map(function(row) {
+          return row.rating;
+      });
+
+      var avgRating;
+
+      if (friendRating.length) {
+          var sum = friendRating.reduce(function(a, b) { return a + b});
+          avgRating = Math.floor(sum / friendRating.length);
+      }
+      else { avgRating = 0 }
+
+      return avgRating;
+    }
+
   }; //end of return
 
 });
