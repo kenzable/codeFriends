@@ -26,59 +26,42 @@ app.config(function ($stateProvider) {
 app.controller('ProductController', function ($scope, $q, ProductFactory, CartFactory, $log, $stateParams) {
 
     ProductFactory.getAllFriends()
-
     .then(function(friends) {
         if (friends) {
             $scope.allFriends = friends;
+            // returns an array of product feedback [{count: xx, rows: yy}]
             return $q.all($scope.allFriends.map(function(friend) {
-                return ProductFactory.getNumRevs(friend.id)
+                return ProductFactory.getFriendReviews(friend.id)
             }))
         }
     })
     .then(function(feedback) {
-     for (var i = 0; i < feedback.length; i++) {
-         // Get number of reviews
-         allFriends[i].dataValues.numRevs = feedback[i].count;
+        for (var i = 0; i < feedback.length; i++) {
+            // Attach number of reviews to each friend
+            $scope.allFriends[i].numRevs = feedback[i].count;
 
-         // Get average rating
-         var friendRating = feedback[i].rows.map(function(row) {
-             return row.dataValues.rating;
-         });
+           // Calculate average rating
+            var friendRating = feedback[i].rows.map(function(row) {
+                return row.rating;
+            });
 
-         var avgRating;
+            var avgRating;
 
-         if (friendRating.length) {
-             var sum = friendRating.reduce(function(a, b) { return a + b});
-             avgRating = Math.floor(sum / friendRating.length);
-         }
-         else { avgRating = 0 }
+            if (friendRating.length) {
+                var sum = friendRating.reduce(function(a, b) { return a + b});
+                avgRating = Math.floor(sum / friendRating.length);
+            }
+            else { avgRating = 0 }
 
-         allFriends[i].dataValues.avgRating = avgRating;
-     }
-     res.json(allFriends);
+            $scope.allFriends[i].avgRating = avgRating;
+        }
     })
-
     .catch($log.error);
 
 
     $scope.id = $stateParams.friendId;
 
     $scope.getStars = ProductFactory.getStars;
-
-    // ProductFactory.getNumRevs()
-    // .then(function(numRevs) {
-    //     $scope.getNumRevs = numRevs
-    // })
-    // .catch($log.error);
-
-    // $scope.getAvgRating = ProductFactory.getAvgRating;
-
-
-    // ProductFactory.getFriendReviews($scope.id)
-    // .then(function(reviews) {
-    //     $scope.friendReviews = reviews.rows;
-    // })
-    // .catch($log.error)
 
 
     ProductFactory.getFriend($scope.id)
