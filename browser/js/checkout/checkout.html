@@ -1,77 +1,79 @@
-
 <div style="font-family: 'Open Sans', sans-serif;">
-    <div class="container">
-        <div class="centered title">
+   <div class="container">
+       <div class="centered title">
 
-    </div>
-    <hr class="featurette-divider"></hr>
-    <div class="container">
-        <div class="row">
-         <div class="col-sm-4">
-                <h2>Shipping Details</h2>
-                <br>
-                    <div class='form-row'>
-                        <div class='form-group shipping required'>
-                            <label class='control-label'>Name</label>
-                            <input autocomplete='off' class='form-control' size='20' type='text'>
-                        </div>
-                    </div>
+   </div>
+   <hr class="featurette-divider"></hr>
+   <div class="container">
+       <div class="row">
+        <div class="col-sm-4">
+               <h2>Shipping Details</h2>
+               <br>
+                   <div class='form-row'>
+                       <div class='form-group shipping required'>
+                           <label class='control-label'>Name</label>
+                           <input autocomplete='off' class='form-control' size='20' type='text'>
+                       </div>
+                   </div>
 
-                    <div class='form-row'>
-                        <div class='form-group shipping required'>
-                            <label class='control-label'>Address</label>
-                            <input autocomplete='off' class='form-control' size='20' type='text'>
-                        </div>
-                    </div>
+                   <div class='form-row'>
+                       <div class='form-group shipping required'>
+                           <label class='control-label'>Address</label>
+                           <input autocomplete='off' class='form-control' size='20' type='text'>
+                       </div>
+                   </div>
 
-                    <div class='form-row'>
-                        <div class='form-group shipping required'>
-                            <label class='control-label'>Email</label>
-                            <input autocomplete='off' class='form-control' size='20' type='text'>
-                        </div>
-                    </div>
-            </div>
+                   <div class='form-row'>
+                       <div class='form-group shipping required'>
+                           <label class='control-label'>Email</label>
+                           <input autocomplete='off' class='form-control' size='20' type='text'>
+                       </div>
+                   </div>
+           </div>
 
-            <div class="col-sm-4">
-               <h2>Payment Details</h2>
-                <div class="tab-content">
-                    <div id="stripe" class="tab-pane fade in active">
-                                
-                        <form stripe-form="stripeCallback">
-                            <input ng-model="number" placeholder="Card Number" />
-                            <input ng-model="expiry" placeholder="Expiration" />
-                            <input ng-model="cvc" placeholder="CVC" />
+           <div class="col-sm-4">
+              <h2>Payment Details</h2>
+               <div class="tab-content">
+                   <div id="stripe" class="tab-pane fade in active">
+                               
+                       <form stripe-form="stripeCallback">
+                           <input ng-model="number" placeholder="Card Number" />
+                           <input ng-model="expiry" placeholder="Expiration" />
+                           <input ng-model="cvc" placeholder="CVC" />
 
-
-                            <button class='form-control btn btn-primary' type='submit'> Complete your order →</button>
-                            <!-- ng-click="purchase()" -->
-                        </form>
-
+                           <button class='form-control btn btn-primary' type='submit'> Complete your order →</button>
+                           <!-- ng-click="purchase()" -->
+                       </form>
 
 
 
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <label class='control-label'></label>
-                <br>
-                <br>
-                <!-- spacing -->
-                <div class="alert alert-info">Please choose your method of payment and hit continue. You will then be sent down to pay using your selected payment option.</div>
-                <div class="jumbotron jumbotron-flat">
-                    <div class="center ">
-                        <h2><i>BALANCE DUE:</i></h2>
-                    </div>
-                    <div class="paymentAmt ">
-                        <p style="font-size: 50px">{{ total | currency }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                                 <div class='form-row'>
+                               <div class='form-group'>
+                                   <label class='control-label'></label>
+                                   <button class='form-control btn btn-primary' type='submit' ng-click="purchase()"> Complete your order →</button>
+-->
+                       </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col-sm-4">
+               <label class='control-label'></label>
+               <br>
+               <br>
+               <!-- spacing -->
+               <div class="alert alert-info">Please choose your method of payment and hit continue. You will then be sent down to pay using your selected payment option.</div>
+               <div class="jumbotron jumbotron-flat">
+                   <div class="center ">
+                       <h2><i>BALANCE DUE:</i></h2>
+                   </div>
+                   <div class="paymentAmt ">
+                       <p style="font-size: 50px">{{ total | currency }}</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
 </div>
 </form>
 </div>
