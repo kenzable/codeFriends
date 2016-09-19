@@ -1,27 +1,22 @@
 <div class="container" id="product-section">
-  <div class="row">
+  <h1>{{ friend.name }}</h1>
+
+  <div class="row image-container">
    <div class="col-md-6">
-   	<div class="product-image">
-   		<img src="{{ friend.imageUrl }}">
-   	</div>
+   	  <img class="product-image" src="{{ friend.imageUrl }}">
+	
+	  <div class="row">
+	    <div class="col-md-12">
+
+	      <span class="glyphicon product" ng-repeat="star in getStars(friend.avgRating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }" aria-hidden="true"></span>
+
+	    </div> <!-- end column -->
+	
+	  </div><!-- end row -->
    </div>
 
-   <div class="col-md-6">
-<!--    	<notification></notification> -->
-	 <div class="row">
-	  <div class="col-md-12">
-	   <h1>{{ friend.name }}</h1>
-	 </div>
-	</div><!-- end row-->
+  <div class="col-md-6">
 
-	<div class="row">
-	 <div class="col-md-3">
-
-	  <span class="glyphicon" ng-repeat="star in getStars(friend.avgRating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }" aria-hidden="true"></span>
-
-	 </div> <!-- end column -->
-	
-	</div><!-- end row -->
 
 	<div class="row">
 	 <div class="col-md-12 bottom-rule">

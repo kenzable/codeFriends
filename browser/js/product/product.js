@@ -26,6 +26,8 @@ app.config(function ($stateProvider) {
 app.controller('ProductController', function($scope, $log, ProductFactory, $stateParams) {
     $scope.friendId = $stateParams.friendId;
 
+    $scope.getStars = ProductFactory.getStars;
+
     ProductFactory.getFriend($scope.friendId)
     .then(function(friend) {
         $scope.friend = friend;
