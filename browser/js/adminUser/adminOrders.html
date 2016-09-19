@@ -18,7 +18,7 @@
 	        <td>
             <td>{{ order.id }}</td>
             <td>{{ order.items }}</td>
-            <td>${{ order.total }}</td>
+            <td>{{ order.total | currency }}</td>
             <td>{{ order.userId }}</td>
             <td>{{ order.createdAt }}</td>
         </tr>

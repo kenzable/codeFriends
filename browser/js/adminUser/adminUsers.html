@@ -16,9 +16,9 @@
         		<span ng-click="deleteAUser(user.id)" class="btn btn-default btn-sm glyphicon glyphicon-remove">
 	        	</span>
 	        <td>
-	  
+
             <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
+            <td><a ui-sref="profile(user.id)">{{ user.name }}</a></td>
             <td>{{ user.email }}</td>
             <td>{{ user.isAdmin }}</td>
         </tr>
