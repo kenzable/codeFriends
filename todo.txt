@@ -10,3 +10,9 @@ for 9/13
 - lay out states, directives, etc >> start building
 - GUI
 - brainstorm product detail
+
+
+for 9/16
+- html for checkout/orders/etc
+- product page
+- home page
