@@ -9,7 +9,7 @@ module.exports = router;
 
 // Get all friends
 router.get('/', function(req, res, next) {
-	// var allFriends;
+
 	Friend.findAll()
 	.then(function(friends) {
 		res.json(friends)
