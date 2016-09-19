@@ -65,6 +65,11 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
         window.alert('it failed! error: ' + result.error.message);
     } else {
         window.alert('success! token: ' + result.id);
+        CartFactory.purchase()
+        .then(function(){
+          $state.go('complete');
+        })
+        .catch($log.error);
     }
   };
 
