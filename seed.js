@@ -127,6 +127,10 @@ db.sync({ force: true })
 })
 .catch(function(err) {
 	console.log(chalk.red(err));
+})
+.finally(function() {
+	db.close();
+	return null;
 });
 
 
