@@ -1,7 +1,8 @@
 'use strict';
 
 var chalk = require('chalk');
-var Promise = require('sequelize').Promise;
+// var Promise = require('sequelize').Promise;
+var Promise = require('bluebird');
 var Faker = require('faker');
 
 var db = require('./server/db');
@@ -42,7 +43,7 @@ var seedFriend = function() {
 			numHours: Faker.random.number(24),
 			price: Faker.random.number(1000),
 			imageUrl: Faker.image.animals(),
-			tags: Faker.lorem.words()
+			tags: Faker.lorem.words().split(" ")
 		}
 		return friend;
 	};

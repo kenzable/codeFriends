@@ -53,6 +53,7 @@ module.exports = db.define('friend', {
 	// },
 	classMethods: {
 		findFriendsByTag: function(tag) {
+			console.log('test');
 			return this.findAll({
 				where: {
 					tags: { $overlap: [tag] }
