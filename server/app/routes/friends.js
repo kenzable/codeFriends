@@ -3,33 +3,52 @@ var router = express.Router();
 var Friend = require('../../db/models/friend.js');
 var Feedback = require('../../db/models/feedback.js');
 var Promise = require('sequelize').Promise;
-
+var Auth = require('../utils/auth.middleware');
 module.exports = router;
 
 
 // Get all friends
 router.get('/', function(req, res, next) {
-	var allFriends;
+	// var allFriends;
 	Friend.findAll()
 	.then(function(friends) {
-		if (friends) {
-			allFriends = friends;
-			return Promise.map(allFriends, function(friend) {
-				return Feedback.findAndCount({
-					where: {
-						friendId: friend.id
-					}
-				})
-			})
-		}
-		else res.sendStatus(404);
+		res.json(friends)
 	})
-	.then(function(feedback) {
-		for (var i = 0; i < feedback.length; i++) {
-			allFriends[i].dataValues.numRevs = feedback[i].count;
-		}
-		res.json(allFriends);
-	})
+	// .then(function(friends) {
+	// 	if (friends) {
+	// 		allFriends = friends;
+	// 		return Promise.map(allFriends, function(friend) {
+	// 			return Feedback.findAndCount({
+	// 				where: {
+	// 					friendId: friend.id
+	// 				}
+	// 			})
+	// 		})
+	// 	}
+	// 	else { res.sendStatus(404) }
+	// })
+	// .then(function(feedback) {
+	// 	for (var i = 0; i < feedback.length; i++) {
+	// 		// Get number of reviews
+	// 		allFriends[i].dataValues.numRevs = feedback[i].count;
+
+	// 		// Get average rating
+	// 		var friendRating = feedback[i].rows.map(function(row) {
+	// 			return row.dataValues.rating;
+	// 		});
+
+	// 		var avgRating;
+
+	// 		if (friendRating.length) {
+	// 			var sum = friendRating.reduce(function(a, b) { return a + b});
+	// 			avgRating = Math.floor(sum / friendRating.length);
+	// 		}
+	// 		else { avgRating = 0 }
+
+	// 		allFriends[i].dataValues.avgRating = avgRating;
+	// 	}
+	// 	res.json(allFriends);
+	// })
 	.catch(next);
 });
 
@@ -73,7 +92,7 @@ router.put('/:friendId', function(req, res, next) {
 });
 
 // Delete a friend
-router.delete('/:friendId', function(req, res, next) {
+router.delete('/:friendId', Auth.assertAuthenticated, function(req, res, next) {
 	Friend.destroy({
 		where: {
 			id: req.params.friendId

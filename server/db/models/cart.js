@@ -13,10 +13,4 @@ module.exports = db.define('cart', {
           return this.setDataValue('items', JSON.stringify(val));
       }
     }
-  }, {
-    instanceMethods: {
-      addToCart: function(friendId){
-        this.items.push(friendId);
-      }
-    }
-});
+  });

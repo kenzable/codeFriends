@@ -6,14 +6,15 @@ var Friend = require('../../db').model('friend');
 var Promise = require('bluebird');
 
 router.get('/', function(req, res, next){
-  req.user.getCart()
-  .then(function(cart){
-    if (cart) {
-      res.json(cart);
-    }
-    else res.end();
-  })
-  .catch(next);
+  if (req.user) {
+    req.user.getCart()
+    .then(function(cart){
+      if (cart) res.json(cart);
+      else res.sendStatus(204);
+    })
+    .catch(next);
+  }
+  else res.sendStatus(401);
 });
 
 router.post('/', function(req, res, next){
