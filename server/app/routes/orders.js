@@ -85,6 +85,20 @@ router.get('/:id', function (req, res, next) {
 	.catch(next);
 });
 
+router.get('/history/:userId', function (req, res, next) {
+  Order.findAll({
+    where: {
+      userId: req.params.userId
+    }
+  })
+  .then(function(orders) {
+    if (!orders) res.sendStatus(400); //throw HTTP_Error(404, 'order not found');
+    res.json(orders);
+  })
+  .catch(next);
+});
+
+
 router.delete('/:id', function (req, res, next) {
 	Order.destroy({
 		where: {id: req.params.id}
