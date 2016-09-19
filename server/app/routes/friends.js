@@ -3,7 +3,7 @@ var router = express.Router();
 var Friend = require('../../db/models/friend.js');
 var Feedback = require('../../db/models/feedback.js');
 var Promise = require('sequelize').Promise;
-
+var Auth = require('../utils/auth.middleware');
 module.exports = router;
 
 
@@ -92,7 +92,7 @@ router.put('/:friendId', function(req, res, next) {
 });
 
 // Delete a friend
-router.delete('/:friendId', function(req, res, next) {
+router.delete('/:friendId', Auth.assertAuthenticated, function(req, res, next) {
 	Friend.destroy({
 		where: {
 			id: req.params.friendId
