@@ -5,6 +5,55 @@ app.config(function ($stateProvider) {
     });
 });
 
+// For product presentation on home page
+app.controller('HomeController', function ($scope, $q, ProductFactory, CartFactory, $log, $stateParams) {
+
+  ProductFactory.getAllFriends()
+  .then(function(friends) {
+    if (friends) {
+      $scope.allFriends = friends;
+      // returns an array of product feedback [{count: xx, rows: yy}]
+      return $q.all($scope.allFriends.map(function(friend) {
+        return ProductFactory.getFriendReviews(friend.id)
+      }))
+    }
+  })
+  .then(function(feedback) {
+    for (var i = 0; i < feedback.length; i++) {
+      // Attach number of reviews to each friend
+      $scope.allFriends[i].numRevs = feedback[i].count;
+
+      // Calculate average rating
+      $scope.allFriends[i].avgRating = ProductFactory.getAvgRating(feedback[i].rows);
+    }
+  })
+  .catch($log.error);
+
+
+  $scope.id = $stateParams.friendId;
+
+  $scope.getStars = ProductFactory.getStars;
+
+
+  ProductFactory.getFriend($scope.id)
+  .then(function(friend) {
+      $scope.friend = friend;
+  })
+  .catch($log.error);
+
+
+  $scope.addToCart = function(friendId, qty){
+    CartFactory.addFriendToCart(friendId, qty)
+    .then(function(){
+        $scope.added = true;
+    })
+    .catch($log.error);
+  }
+
+});
+
+
+// for carousel
 app.controller('CarouselCtrl', function ($scope, $log, ProductFactory) {
 
   $scope.tags = [

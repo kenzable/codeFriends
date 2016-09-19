@@ -1,6 +1,6 @@
 <section id="home">
     <!-- Page Content -->
-    <div class="container" ng-controller="ProductController">
+    <div class="container" ng-controller="HomeController">
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">codeFriends</p>
@@ -53,7 +53,7 @@
                                 <p class="star-rating">
                                     <span class="glyphicon" ng-repeat="star in getStars(friend.avgRating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
                                 </p>                                
-
+                                
                             </div>
 
                         </div>
