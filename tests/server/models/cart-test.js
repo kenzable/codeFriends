@@ -5,26 +5,34 @@ var Sequelize = require('sequelize');
 
 var db = require('../../../server/db');
 
-var User = db.model('user');
+var Cart = db.model('cart');
 
-describe('User model', function () {
+describe('Cart model', function () {
 
     beforeEach('Sync DB', function () {
        return db.sync({ force: true });
     });
 
-    describe('password encryption', function () {
+    describe('adding items to cart', function () {
 
-        describe('generateSalt method', function () {
+        describe('items', function () {
 
-            it('should exist', function () {
-                expect(User.generateSalt).to.be.a('function');
-            });
+          var Cart;
 
-            it('should return a random string basically', function () {
-                expect(User.generateSalt()).to.be.a('string');
-            });
+          var cartData = [{itemId: 1,
+                          friendId: 10,
+                          name: 'Champlin',
+                          price: 674,
+                          hours: 18,
+                          qty: 1}];
 
+          beforeEach(function () {
+            Cart.create({items: cartData});
+          });
+
+          it('should be parsed back to JS from JSON when retreived', function () {
+              expect(User.generateSalt()).to.be.a('string');
+          });
         });
 
         describe('encryptPassword', function () {

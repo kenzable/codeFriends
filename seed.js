@@ -2,7 +2,7 @@
 
 var chalk = require('chalk');
 var Promise = require('sequelize').Promise;
-var faker = require('./Faker.js/faker');
+var faker = require('Faker');
 
 var db = require('./server/db');
 var User = db.model('user');
@@ -52,7 +52,7 @@ var seedFriend = function() {
 		FriendPromises.push(Friend.create(createFriend()));
 	};
 
-	return FriendPromises;	
+	return FriendPromises;
 };
 
 var seedCart = function() {
@@ -72,7 +72,7 @@ var seedCart = function() {
 		CartPromises.push(Cart.create(createCart()));
 	};
 
-	return CartPromises;	
+	return CartPromises;
 };
 
 var seedOrder = function() {
