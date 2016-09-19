@@ -1,8 +1,8 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('product', {
         url: '/product/:friendId',
-        controller: 'ProductController',
-        templateUrl: 'js/product/product.html'
+        templateUrl: 'js/product/product.html',
+        controller: 'ProductController'
     });
 });
 
@@ -23,7 +23,6 @@ app.config(function ($stateProvider) {
 });
 
 
-
 app.controller('ProductController', function ($scope, ProductFactory, CartFactory, $log, $stateParams) {
 
     ProductFactory.getAllFriends()
@@ -32,9 +31,20 @@ app.controller('ProductController', function ($scope, ProductFactory, CartFactor
     })
     .catch($log.error);
 
-    $scope.getNumReviews = ProductFactory.getNumReviews;
+    $scope.id = $stateParams.friendId;
 
-    $scope.id = $stateParams.friendId
+    $scope.getStars = ProductFactory.getStars;
+
+    $scope.getNumRevs = ProductFactory.getNumRevs;
+    $scope.getAvgRating = ProductFactory.getAvgRating;
+
+
+    ProductFactory.getFriendReviews($scope.id)
+    .then(function(reviews) {
+        $scope.friendReviews = reviews.rows;
+    })
+    .catch($log.error)
+
 
     ProductFactory.getFriend($scope.id)
     .then(function(friend) {
@@ -51,4 +61,8 @@ app.controller('ProductController', function ($scope, ProductFactory, CartFactor
   }
 
 });
+
+
+
+
 

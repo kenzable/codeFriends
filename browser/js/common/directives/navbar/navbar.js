@@ -6,11 +6,16 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
+            scope.isAdmin = function() {
+                return AuthService.isAdmin();
+            }
+
             scope.items = [
                 { label: 'Home', state: 'home' },
                 { label: 'About', state: 'about' },
                 { label: 'Checkout', state: 'cart' },
-                { label: 'Members Only', state: 'membersOnly', auth: true }
+                { label: 'Members Only', state: 'membersOnly', auth: true },
+                { label: 'User Only', state: 'profile({id: user.id})'}
             ];
 
             scope.user = null;
@@ -18,6 +23,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
             };
+
 
             scope.logout = function () {
                 CartFactory.saveCart()
@@ -38,6 +44,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
             var removeUser = function () {
                 scope.user = null;
+                scope.isAdmin = null;
             };
 
             setUser();

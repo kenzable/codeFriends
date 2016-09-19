@@ -1,4 +1,12 @@
 
- <div role="tabpanel" class="tab-pane" id="reviews">
-  <p class="top-10"> This is REVIEWWWW</p>
- </div>
+<div role="tabpanel" class="tab-pane" id="reviews">
+
+	<div ng-repeat="review in friendReviews track by $index">
+		<h3>{{ review.title }}</h3>
+		<p class="star-rating">
+            <span class="glyphicon" ng-repeat="star in getStars(review.rating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
+        </p>
+		<p class="top-10"> {{ review.review }}</p>
+	</div>
+
+</div>
