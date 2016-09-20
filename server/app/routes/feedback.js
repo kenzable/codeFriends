@@ -18,7 +18,6 @@ var User = require('../../db/models/user.js');
 router.post('/', function (req, res, next) {
     var review = Feedback.build(req.body);
     review.userId = req.user.id;
-    review.friendId = req.body.friendId;
     review.save()
     .then(function (createdFeedback) {
         res.status(201).json(createdFeedback);
