@@ -15,5 +15,7 @@ app.controller('TagController', function ($scope, ProductFactory, $log, $statePa
 	})
 	.catch($log.error);
 
+	$scope.getAvgRating = ProductFactory.getAvgRating;
+
 	$scope.currentTag = $stateParams.tagName;
 });
