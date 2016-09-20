@@ -9,46 +9,10 @@ module.exports = router;
 
 // Get all friends
 router.get('/', function(req, res, next) {
-
 	Friend.findAll()
 	.then(function(friends) {
 		res.json(friends)
 	})
-	// .then(function(friends) {
-	// 	if (friends) {
-	// 		allFriends = friends;
-	// 		return Promise.map(allFriends, function(friend) {
-	// 			return Feedback.findAndCount({
-	// 				where: {
-	// 					friendId: friend.id
-	// 				}
-	// 			})
-	// 		})
-	// 	}
-	// 	else { res.sendStatus(404) }
-	// })
-	// .then(function(feedback) {
-	// 	for (var i = 0; i < feedback.length; i++) {
-	// 		// Get number of reviews
-	// 		allFriends[i].dataValues.numRevs = feedback[i].count;
-
-	// 		// Get average rating
-	// 		var friendRating = feedback[i].rows.map(function(row) {
-	// 			return row.dataValues.rating;
-	// 		});
-
-	// 		var avgRating;
-
-	// 		if (friendRating.length) {
-	// 			var sum = friendRating.reduce(function(a, b) { return a + b});
-	// 			avgRating = Math.floor(sum / friendRating.length);
-	// 		}
-	// 		else { avgRating = 0 }
-
-	// 		allFriends[i].dataValues.avgRating = avgRating;
-	// 	}
-	// 	res.json(allFriends);
-	// })
 	.catch(next);
 });
 
@@ -64,12 +28,32 @@ router.post('/', function(req, res, next) {
 	.catch(next);
 });
 
+// Get all unique tags for all friends
+router.get('/tags', function(req, res, next) {
+	Friend.getAllTags()
+	.then(function(tagArr) {
+		if (tagArr) res.json(tagArr);
+		else res.sendStatus(204)
+	})
+	.catch(next);
+});
+
+//Get a list of friends filtered by one tag
+router.get('/tags/:tagName', function(req, res, next){
+	Friend.findFriendsByTag(req.params.tagName)
+	.then(function(friends){
+		if (friends) res.json(friends);
+		else res.sendStatus(204);
+	})
+	.catch(next);
+});
+
 // Get specific friend
 router.get('/:friendId', function(req, res, next) {
 	Friend.findById(req.params.friendId)
 	.then(function(foundFriend) {
 		if (foundFriend) res.json(foundFriend);
-		else res.sendStatus(404);
+		else res.sendStatus(204);
 	})
 	.catch(next);
 });
@@ -86,7 +70,7 @@ router.put('/:friendId', function(req, res, next) {
 				res.sendStatus(200).json(updatedFriend);
 			})
 		}
-		else res.sendStatus(404);
+		else { res.sendStatus(204) }
 	})
 	.catch(next);
 });
@@ -114,12 +98,4 @@ router.get('/:friendId/feedback', function(req, res, next) {
 	})
 	.catch(next);
 })
-
-
-
-
-
-
-
-
 
