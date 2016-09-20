@@ -37,6 +37,7 @@ app.factory('ProductFactory', function($http, $log){
       .catch($log.error);
     },
 
+
     getAvgRating: function(feedbackRows) {
       var friendRating = feedbackRows.map(function(row) {
           return row.rating;
@@ -52,7 +53,6 @@ app.factory('ProductFactory', function($http, $log){
 
       return avgRating;
     }
-
   }; //end of return
 
 });

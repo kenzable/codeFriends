@@ -37,3 +37,4 @@ app.controller('ProductController', function($scope, $log, ProductFactory, $stat
     })
     .catch($log.error)
 });
+
