@@ -23,6 +23,18 @@ app.factory('AdminOrdersFactory', function($http, $log){
         });
     }
 
+    function update(newOrder) {
+      cachedOrders.forEach(function(order, idx) {
+        console.log('hihi', order, idx);
+        console.log('new order hihi', newOrder);
+        if (order.id === newOrder.id) {
+          console.log('hello???');
+          angular.copy(newOrder, cachedOrders[idx]);
+          console.log('inside of update', cachedOrders);
+          return;
+        }
+      });
+    }
   return {
 
     getAllOrders: function() {
@@ -41,6 +53,18 @@ app.factory('AdminOrdersFactory', function($http, $log){
             return response.data;
         })
         .catch($log.error);
+    },
+
+    updatedOrderStatus: function(orderId, selected) {
+      return $http.put('/api/orders/' + orderId + "/" + selected)
+      .then(function (response) {
+        //console.log('updated', response);
+        console.log('before updatedOrderStatus', cachedOrders);
+        update(response.data);
+        console.log('after updatedOrderStatus', cachedOrders);
+        return response;
+      })
+      .catch($log.error);
     }
 
   };

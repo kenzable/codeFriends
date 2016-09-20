@@ -14,7 +14,7 @@ var from_who = 'z1660218@gmail.com';
 
 
 router.get('/', function (req, res, next) {
-	Order.findAll()
+	Order.findAll({order: [['id', 'ASC']]})
 	.then(function(orders) {
 		res.json(orders);
 	})
@@ -108,4 +108,19 @@ router.delete('/:id', function (req, res, next) {
 		res.sendStatus(204);
 	})
 	.catch(next);
+});
+
+router.put('/:id/:status', function (req, res, next) {
+  Order.findById(req.params.id)
+  .then(function (foundOrder) {
+    if (foundOrder) {
+      foundOrder.update({status: req.params.status})
+      .then(function(updatedOrder) {
+        console.log('route', updatedOrder);
+        res.status(200).json(updatedOrder);
+      });
+    } 
+    else res.sendStatus(404);
+  })
+  .catch(next);
 });
