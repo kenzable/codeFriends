@@ -55,6 +55,10 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
     })
     .catch($log.error);
   };
+
+  $scope.sendEmail = function (email) {
+    CartFactory.sendEmail(email)
+  }
   $scope.updateQty = function(itemId, diff){
     CartFactory.updateQty(itemId, diff);
     updateCartScope();
@@ -70,6 +74,7 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
         .then(function(){
           $state.go('complete');
         })
+
         .catch($log.error);
     }
   };

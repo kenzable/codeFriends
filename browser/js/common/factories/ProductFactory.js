@@ -2,12 +2,18 @@ app.factory('ProductFactory', function($http, $log){
 
   return {
 
+    getFriendByTag: function(tagName){
+      return $http.get('/api/friends/tags/' + tagName)
+      .then(function(response){
+        return response.data;
+      })
+    },
+
     getAllFriends: function() {
       return $http.get('/api/friends')
       .then(function(response) {
         return response.data;
       })
-      .catch($log.error);
     },
 
     getFriend: function(friendId) {
@@ -15,7 +21,6 @@ app.factory('ProductFactory', function($http, $log){
       .then(function(response){
         return response.data;
       })
-      .catch($log.error)
     },
 
     getStars: function(rating) {
@@ -34,8 +39,8 @@ app.factory('ProductFactory', function($http, $log){
       .then(function(response) {
         return response.data;
       })
-      .catch($log.error);
     },
+
 
     getAvgRating: function(feedbackRows) {
       var friendRating = feedbackRows.map(function(row) {
@@ -51,8 +56,14 @@ app.factory('ProductFactory', function($http, $log){
       else { avgRating = 0 }
 
       return avgRating;
-    }
+    },
 
+    getAllTags: function() {
+      return $http.get('/api/friends/tags')
+      .then(function(response) {
+        return response.data;
+      })
+    }
   }; //end of return
 
 });

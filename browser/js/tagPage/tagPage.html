@@ -6,38 +6,21 @@
                 <p class="lead">codeFriends</p>
                 <!-- MAY CHANGE THIS FOR TAGS -->
                 <div class="list-group">
-                    <a  ui-sref="tag({tagName: tag})" class="list-group-item" ng-repeat="tag in allTags">{{ tag }}</a>
+                    <a href="#" class="list-group-item" ng-repeat="tag in allTags">{{ tag }}</a>
                 </div>
 
             </div>
             <div class="col-md-9">
 
-                <!-- Carousel -->
-                <div class="row carousel-holder" ng-controller="CarouselCtrl">
-                    <div class="col-md-12">
-                        <div>
-                            <div style="height: 305px">
-                                <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-                                    <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                                        <img ng-src="{{slide.image}}" style="margin:auto;width:800px;height:300px;">
-                                        <div class="carousel-caption">
-                                            <h4>Slide {{slide.id}}</h4>
-                                            <p>{{slide.text}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <tags-input ng-model="tags" on-tag-added="addTag($tag)" on-tag-removed="removeTag($tag)">
-                    <auto-complete source="loadItems($query)"></auto-complete>
-                </tags-input>
-
                 <!-- Individual product thumbnails -->
                 <div class="row">
-                    <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="friend in allFriends | tagsFilter:tagList | orderBy:'-avgRating'">
+
+                <h1>{{currentTag}}</h1>
+
+                    <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="friend in tagFriends | orderBy:'-avgRating'">
+
+                        <pre>{{friend.tags}}</pre>
+
                         <div class="thumbnail">
                             <img src="{{friend.imageUrl}}" alt="{{friend.name}}">
                             <div class="caption">
@@ -77,10 +60,6 @@
         </footer>
     </div>
     <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/bootstrap.min.js"></script>
 </section>
-

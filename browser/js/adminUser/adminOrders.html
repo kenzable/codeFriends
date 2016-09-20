@@ -6,6 +6,8 @@
 	        <th></th>
 	        <th>Order ID  </th>
 	        <th>Items</th>
+            <th>Order Status</th>
+            <th>Change the status</th>
 	        <th>Total</th>
 	        <th>User ID</th>
 	        <th>CreatedAt</th>
@@ -17,10 +19,18 @@
         		<span ng-click="deleteAnOrder(order.id)" class="btn btn-default btn-sm glyphicon glyphicon-remove"></span>
 	        <td>
             <td>{{ order.id }}</td>
-            <td>{{ order.items }}</td>
+            <td><span ng-repeat="item in order.items"><a ng-href="/product/{{ item.friendId }}">{{ item.name }}{{ $last ? '' : ', '}}</a></span></td>
+            <td>{{ selected || order.status }}</td>
+            <td><select ng-model="selected" ng-change="hasChanged(order.id, selected)">
+                    <option value="Created">Created</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </td>
             <td>{{ order.total | currency }}</td>
             <td>{{ order.userId }}</td>
-            <td>{{ order.createdAt }}</td>
+            <td>{{ order.createdAt }}</td>""
         </tr>
         <tbody>
     </table>

@@ -28,12 +28,32 @@ router.post('/', function(req, res, next) {
 	.catch(next);
 });
 
+// Get all unique tags for all friends
+router.get('/tags', function(req, res, next) {
+	Friend.getAllTags()
+	.then(function(tagArr) {
+		if (tagArr) res.json(tagArr);
+		else res.sendStatus(204)
+	})
+	.catch(next);
+});
+
+//Get a list of friends filtered by one tag
+router.get('/tags/:tagName', function(req, res, next){
+	Friend.findFriendsByTag(req.params.tagName)
+	.then(function(friends){
+		if (friends) res.json(friends);
+		else res.sendStatus(204);
+	})
+	.catch(next);
+});
+
 // Get specific friend
 router.get('/:friendId', function(req, res, next) {
 	Friend.findById(req.params.friendId)
 	.then(function(foundFriend) {
 		if (foundFriend) res.json(foundFriend);
-		else res.sendStatus(404);
+		else res.sendStatus(204);
 	})
 	.catch(next);
 });
@@ -50,7 +70,7 @@ router.put('/:friendId', function(req, res, next) {
 				res.sendStatus(200).json(updatedFriend);
 			})
 		}
-		else res.sendStatus(404);
+		else { res.sendStatus(204) }
 	})
 	.catch(next);
 });
@@ -78,12 +98,4 @@ router.get('/:friendId/feedback', function(req, res, next) {
 	})
 	.catch(next);
 })
-
-
-
-
-
-
-
-
 

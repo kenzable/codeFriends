@@ -29,6 +29,16 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
   })
   .catch($log.error);
 
+  $scope.tagList = []
+
+  $scope.addTag = function(tag){
+    $scope.tagList.push(tag.text);
+  };
+
+  $scope.removeTag = function(tag){
+    var index = $scope.tagList.indexOf(tag.text);
+    $scope.tagList.splice(index, 1);
+  };
 
   $scope.id = $stateParams.friendId;
 
@@ -41,20 +51,19 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
   })
   .catch($log.error);
 
+  $scope.loadItems = ProductFactory.getAllTags;
 
-  $scope.addToCart = function(friendId, qty){
-    CartFactory.addFriendToCart(friendId, qty)
-    .then(function(){
-        $scope.added = true;
-    })
-    .catch($log.error);
-  }
+  ProductFactory.getAllTags()
+  .then(function(tagArr) {
+    $scope.allTags = tagArr;
+  })
+  .catch($log.error);
 
 });
 
 
 // for carousel
-app.controller('CarouselCtrl', function ($scope, $log, ProductFactory) {
+app.controller('CarouselCtrl', function ($scope, $log) {
 
   $scope.tags = [
     { text: 'just' },

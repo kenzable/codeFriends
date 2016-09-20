@@ -1,8 +1,10 @@
 'use strict';
 var Sequelize = require('sequelize');
 var db = require('../_db');
+// var Friend = db.model('friend');
 
 module.exports = db.define('feedback', {
+    // SCHEMA
     review: {
         type: Sequelize.TEXT,
         allowNull: false
@@ -16,6 +18,12 @@ module.exports = db.define('feedback', {
     }
 }, {
     // OPTIONS
+    // hooks: {
+    //     afterSave: function(review) {
+            
+    //     }
+    // },
+
     classMethods: {
         findByFriendId: function(id) {
             return this.findAndCountAll({   // returns .count and .rows
