@@ -79,4 +79,6 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
     }
   };
 
+  $scope.added=false;
+
 });
