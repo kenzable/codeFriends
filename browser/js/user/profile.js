@@ -10,23 +10,33 @@ app.config(function ($stateProvider) {
 app.config(function ($stateProvider) {
     $stateProvider.state('profile.history', {
         url: '/history',
-        // controller: 'ProfileController',
-        templateUrl: 'js/user/profile_history.html'
+        controller: 'ProfileController',
+        templateUrl: 'js/user/profile_history.html',
     });
 });
 
 app.controller('ProfileController', function ($scope, ProfileFactory, AuthService) {
-
+    
 	$scope.updateProfile = ProfileFactory.updateProfile;
 
     AuthService.getLoggedInUser()
     .then(function (user) {
 
         $scope.user = user;
+        
+        // ProfileFactory.getOrderHistory($scope.user.id)
+        // .then(function (orders) {
+        //     $scope.orders = orders;
+        // });
     });
 
     $scope.updateProfile = ProfileFactory.updateProfile;
-	
+    $scope.getOrderHistory = ProfileFactory.getOrderHistory;
+
+	ProfileFactory.getOrderHistory($scope.user.id)
+    .then(function (orders) {
+        $scope.orders = orders;
+    });
 });
 
 
@@ -42,7 +52,16 @@ app.factory('ProfileFactory', function ($http, $log) {
 			return updated.data;
 		})
 		.catch($log.error)
-	}
+	};
+
+    obj.getOrderHistory = function (userId) {
+        return $http.get('/api/orders/history' + userId)
+        .then(function (updated) {
+            console.log(updated.data);
+            return updated.data;
+        })
+        .catch($log.error);
+    };
 
 	return obj;
 });
