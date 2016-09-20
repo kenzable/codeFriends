@@ -32,8 +32,6 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
   $scope.tagList = []
 
   $scope.addTag = function(tag){
-    console.log('added tag', tag);
-    console.log('tag list', $scope.tagList);
     $scope.tagList.push(tag.text);
   };
 

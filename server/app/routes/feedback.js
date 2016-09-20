@@ -16,17 +16,12 @@ var User = require('../../db/models/user.js');
 
 // Write new feedback for specific friend
 router.post('/', function (req, res, next) {
-    User.findById({
-        where: {id: req.user.id}
-    })
-    .spread(function (user, wasCreatedBool) {
-        return Feedback.create(req.body)
-        .then(function (createdFeedback) {
-            return createdFeedback.setUser(user);
-        });
-    })
+    var review = Feedback.build(req.body);
+    review.userId = req.user.id;
+    review.friendId = req.body.friendId;
+    review.save()
     .then(function (createdFeedback) {
-        res.sendStatus(200);
+        res.status(201).json(createdFeedback);
     })
     .catch(next);
 });

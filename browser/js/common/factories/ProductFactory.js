@@ -2,6 +2,13 @@ app.factory('ProductFactory', function($http, $log){
 
   return {
 
+    getFriendByTag: function(tagName){
+      return $http.get('/api/friends/tags/' + tagName)
+      .then(function(response){
+        return response.data;
+      })
+    },
+
     getAllFriends: function() {
       return $http.get('/api/friends')
       .then(function(response) {
