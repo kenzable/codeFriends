@@ -48,13 +48,15 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
         $scope.added = true;
     })
     .catch($log.error);
-  }
+  };
+
+  $scope.getAllTags = ProductFactory.getAllTags;
 
 });
 
 
 // for carousel
-app.controller('CarouselCtrl', function ($scope, $log, ProductFactory) {
+app.controller('CarouselCtrl', function ($scope, $log) {
 
   $scope.tags = [
     { text: 'just' },

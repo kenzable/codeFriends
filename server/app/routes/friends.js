@@ -50,7 +50,7 @@ router.put('/:friendId', function(req, res, next) {
 				res.sendStatus(200).json(updatedFriend);
 			})
 		}
-		else res.sendStatus(404);
+		else { res.sendStatus(404) }
 	})
 	.catch(next);
 });
@@ -78,12 +78,4 @@ router.get('/:friendId/feedback', function(req, res, next) {
 	})
 	.catch(next);
 })
-
-
-
-
-
-
-
-
 

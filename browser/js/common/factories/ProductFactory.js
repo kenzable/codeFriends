@@ -51,6 +51,22 @@ app.factory('ProductFactory', function($http, $log){
       else { avgRating = 0 }
 
       return avgRating;
+    },
+
+    getAllTags: function() {
+      var tagArr = [];
+      return $http.get('/')
+      .then(function(response) {
+        response.data.forEach(function(friend) {
+          friend.tags.forEach(function(tag) {
+            if (tagArr.indexof(tag) === -1) {
+              tagArr.push(tag)
+            }
+          })
+        })
+        return tagArr;
+      })
+      .catch($log.error)
     }
 
   }; //end of return
