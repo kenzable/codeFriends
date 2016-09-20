@@ -17,8 +17,6 @@ app.config(function ($stateProvider) {
 
 app.controller('ProfileController', function ($scope, ProfileFactory, AuthService) {
     
-	// $scope.updateProfile = ProfileFactory.updateProfile;
-
     AuthService.getLoggedInUser()
     .then(function (user) {
         $scope.user = user; 
@@ -33,34 +31,4 @@ app.controller('ProfileController', function ($scope, ProfileFactory, AuthServic
 
     $scope.updateProfile = ProfileFactory.updateProfile;
 
-
 });
-
-
-app.factory('ProfileFactory', function ($http, $log) {
-	var obj = {};
-	// var cachedUser = [];
-
-	obj.updateProfile = function(profile, profileId) {
-		return $http.put('/api/users/' + profileId, profile)
-		.then(function (updated) {
-			console.log(updated.data);
-			// angular.copy(cachedUser, updated.data);
-			return updated.data;
-		})
-		.catch($log.error)
-	};
-
-    obj.getOrderHistory = function (userId) {
-        return $http.get('/api/orders/history/' + userId)
-        .then(function (updated) {
-            console.log('order history', updated.data);
-            return updated.data;
-
-        })
-        .catch($log.error);
-    };
-
-	return obj;
-});
-
