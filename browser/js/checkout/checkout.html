@@ -26,8 +26,10 @@
                    <div class='form-row'>
                        <div class='form-group shipping required'>
                            <label class='control-label'>Email</label>
-                           <input autocomplete='off' class='form-control' size='20' type='text'>
+                           <input autocomplete='off' class='form-control' size='20' type='text' ng-model="orderemail">
+
                        </div>
+
                    </div>
            </div>
 
@@ -41,7 +43,8 @@
                            <input ng-model="expiry" placeholder="Expiration" />
                            <input ng-model="cvc" placeholder="CVC" />
 
-                           <button class='form-control btn btn-primary' type='submit'> Complete your order →</button>
+                           <button class='form-control btn btn-primary' type='submit' ng-click="sendEmail(orderemail)"> Complete your order →</button>
+              
                            <!-- ng-click="purchase()" -->
                        </form>
 

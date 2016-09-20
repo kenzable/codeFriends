@@ -17,23 +17,23 @@ app.config(function ($stateProvider) {
 
 app.controller('ProfileController', function ($scope, ProfileFactory, AuthService) {
     
-	$scope.updateProfile = ProfileFactory.updateProfile;
+	// $scope.updateProfile = ProfileFactory.updateProfile;
 
     AuthService.getLoggedInUser()
     .then(function (user) {
-
-        $scope.user = user;
-        
-        // ProfileFactory.getOrderHistory($scope.user.id)
-        // .then(function (orders) {
-        //     $scope.orders = orders;
-        // });
-    });
+        $scope.user = user; 
+        return user
+    })
+    .then(function (theUser) {
+        ProfileFactory.getOrderHistory(theUser.id)
+        .then(function (orders) {
+            $scope.orders = orders
+        })
+    })
 
     $scope.updateProfile = ProfileFactory.updateProfile;
-    $scope.getOrderHistory = ProfileFactory.getOrderHistory;
 
-    // $scope.orders = 
+    $scope.getOrderHistory = ProfileFactory.getOrderHistory;
 
 });
 
@@ -57,6 +57,7 @@ app.factory('ProfileFactory', function ($http, $log) {
         .then(function (updated) {
             console.log('order history', updated.data);
             return updated.data;
+
         })
         .catch($log.error);
     };
