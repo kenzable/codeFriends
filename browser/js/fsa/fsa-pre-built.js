@@ -64,7 +64,7 @@
         };
 
         this.isAdmin = function (){
-            return Session.user.isAdmin;
+            if (Session.user) return Session.user.isAdmin;
         };
 
         this.getLoggedInUser = function (fromServer) {
