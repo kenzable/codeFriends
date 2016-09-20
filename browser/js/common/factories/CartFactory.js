@@ -99,6 +99,12 @@ app.factory('CartFactory', function($http, $log){
     getItemTotal(itemId){
       var item = cachedCartItems[getItemIndex(itemId)];
       if (item) return item.price * item.qty;
+    },
+    sendEmail: function (mail) {
+      return $http.get('/api/email/submit/' + mail )
+      .then(function (res) {
+        console.log("is this working?????", mail, res.data)
+      })
     }
   }
 });

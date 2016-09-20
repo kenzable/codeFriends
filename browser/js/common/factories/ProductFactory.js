@@ -34,6 +34,7 @@ app.factory('ProductFactory', function($http, $log){
       })
     },
 
+
     getAvgRating: function(feedbackRows) {
       var friendRating = feedbackRows.map(function(row) {
           return row.rating;
@@ -57,23 +58,6 @@ app.factory('ProductFactory', function($http, $log){
         return response.data;
       })
     }
-
-    // getAllTags: function() {
-    //   var tagArr = [];
-    //   return $http.get('/api/friends')
-    //   .then(function(response) {
-    //     response.data.forEach(function(friend) {
-    //       friend.tags.forEach(function(tag) {
-    //         if (tagArr.indexof(tag) === -1) {
-    //           tagArr.push(tag)
-    //         }
-    //       })
-    //     })
-    //     return tagArr;
-    //   })
-    //   .catch($log.error)
-    // }
-
   }; //end of return
 
 });

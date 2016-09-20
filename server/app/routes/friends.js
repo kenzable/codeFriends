@@ -9,10 +9,46 @@ module.exports = router;
 
 // Get all friends
 router.get('/', function(req, res, next) {
+
 	Friend.findAll()
 	.then(function(friends) {
 		res.json(friends)
 	})
+	// .then(function(friends) {
+	// 	if (friends) {
+	// 		allFriends = friends;
+	// 		return Promise.map(allFriends, function(friend) {
+	// 			return Feedback.findAndCount({
+	// 				where: {
+	// 					friendId: friend.id
+	// 				}
+	// 			})
+	// 		})
+	// 	}
+	// 	else { res.sendStatus(404) }
+	// })
+	// .then(function(feedback) {
+	// 	for (var i = 0; i < feedback.length; i++) {
+	// 		// Get number of reviews
+	// 		allFriends[i].dataValues.numRevs = feedback[i].count;
+
+	// 		// Get average rating
+	// 		var friendRating = feedback[i].rows.map(function(row) {
+	// 			return row.dataValues.rating;
+	// 		});
+
+	// 		var avgRating;
+
+	// 		if (friendRating.length) {
+	// 			var sum = friendRating.reduce(function(a, b) { return a + b});
+	// 			avgRating = Math.floor(sum / friendRating.length);
+	// 		}
+	// 		else { avgRating = 0 }
+
+	// 		allFriends[i].dataValues.avgRating = avgRating;
+	// 	}
+	// 	res.json(allFriends);
+	// })
 	.catch(next);
 });
 
