@@ -18,10 +18,6 @@ var User = require('../../db/models/user.js');
 router.post('/', function (req, res, next) {
     var review = Feedback.build(req.body);
     review.userId = req.user.id;
-<<<<<<< HEAD
-    review.friendId = req.body.friendId;
-=======
->>>>>>> ee9a01c6804d7019c48661c9f07b090baa289ceb
     review.save()
     .then(function (createdFeedback) {
         res.status(201).json(createdFeedback);

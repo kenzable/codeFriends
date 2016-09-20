@@ -45,9 +45,10 @@
 
 	<div class="row add-to-cart">
 	 <div class="col-md-4">
-	  <button class="btn btn-lg btn-brand btn-full-width" ng-click="addToCart(friend.id, 1)">
+	  <button class="btn btn-lg btn-brand btn-full-width" ng-click="addToCart(friend.id, 1); added=true">
 	   Add to Cart
-	  </button>
+	  </button> <br>
+	  <mark ng-show="added"> Item added to cart </mark>
 	 </div>
 	</div><!-- end row -->
 
