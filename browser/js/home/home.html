@@ -50,7 +50,7 @@
                             <div class="ratings">
                                 <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs === 1 ? 'Review' : 'Reviews' }}</p>
                                 <p class="star-rating">
-                                    <span class="glyphicon" ng-repeat="star in getStars(friend.avgRating) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
+                                    <span class="glyphicon" ng-repeat="star in getStars(getAvgRating(friend.ratings)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
                                 </p>                                
                             </div>
 
