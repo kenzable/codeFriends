@@ -1,10 +1,9 @@
 'use strict';
+
 var router = require('express').Router();
 // var HTTP_Error = require('../utils').HTTP_Error;
-module.exports = router;
-
 var Feedback = require('../../db/models/feedback.js');
-var User = require('../../db/models/user.js');
+
 
 // router.get('/', function (req, res, next) {
 // 	Feedback.findAll()
@@ -25,17 +24,6 @@ router.post('/', function (req, res, next) {
     .catch(next);
 });
 
-
-// router.get('/:id', function (req, res, next) {
-// 	Feedback.findById(req.params.id)
-// 	.then(function (feedback) {
-// 		if (!feedback) throw HTTP_Error(404, 'feedback not found');
-// 		res.json(feedback);
-// 	})
-// 	.catch(next);
-// });
-
-
 // Delete review for a particular friend
 router.delete('/:feedbackId', function (req, res, next) {
 	Feedback.destroy({
@@ -47,3 +35,5 @@ router.delete('/:feedbackId', function (req, res, next) {
 	})
 	.catch(next);
 });
+
+module.exports = router;

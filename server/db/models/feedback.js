@@ -1,7 +1,7 @@
 'use strict';
+
 var Sequelize = require('sequelize');
 var db = require('../_db');
-// var Friend = db.model('friend');
 
 module.exports = db.define('feedback', {
     // SCHEMA
@@ -18,11 +18,17 @@ module.exports = db.define('feedback', {
     }
 }, {
     // OPTIONS
-    // hooks: {
-    //     afterSave: function(review) {
-            
-    //     }
-    // },
+    hooks: {
+        afterSave: function(review) {
+            return review.getFriend()
+            .then(function(reviewedFriend) {
+                reviewedFriend.update({
+                    numRevs: ++reviewedFriend.numReviews,
+                    rating: reviewedFriend.avgRating.push(review.rating)
+                })
+            })
+        }
+    },
 
     classMethods: {
         findByFriendId: function(id) {
