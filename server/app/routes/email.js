@@ -7,22 +7,19 @@ var domain = 'sandbox2a9bc24475174d6bab636084b47af603.mailgun.org';
 var from_who = 'z1660218@gmail.com';
 
 
-
 // Send a message to the specified email address when you navigate to /submit/someaddr@email.com
 // The index redirects here
-router.get('/submit/:mail', function(req,res) {
+router.get('/submit/:mail', function(req, res) {
 
     //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
     var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
     var data = {
     //Specify email data
-      from: "z1660218@gmail.com", //"Code Friends",
-    //The email to contact
-      to: req.params.mail, //"z1660218@students.niu.edu", //req.params.mail,
-    //Subject and text data  
-      subject: 'Hello from Mailgun',
-      html: 'Hello, This is not a plain-text email, I wanted to test some spicy Mailgun sauce in NodeJS! <a href="http://0.0.0.0:3030/validate?' + req.params.mail + '">Click here to add your email address to a mailing list</a>'
+      from: 'z1660218@gmail.com', 
+      to: req.params.mail,   
+      subject: 'Your Code Friends order',
+      html: 'Thank you  <a href="http://0.0.0.0:3030/validate?' + req.params.mail + '">Click here to add your email address to a mailing list</a>'
     }
 
     //Invokes the method to send emails given the above data with the helper library
@@ -43,21 +40,4 @@ router.get('/submit/:mail', function(req,res) {
 
 });
 
-
-
 module.exports = router;
-
-
-/*
-
-1.server, routes, index.js (add this router)
-2. add .get request to CartFactory, purchase function (.then)
-3. test!!
-*/
-
-
-
-
-
-
-
