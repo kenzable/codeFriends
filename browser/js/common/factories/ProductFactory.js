@@ -42,16 +42,12 @@ app.factory('ProductFactory', function($http, $log){
     },
 
 
-    getAvgRating: function(feedbackRows) {
-      var friendRating = feedbackRows.map(function(row) {
-          return row.rating;
-      });
-
+    getAvgRating: function(ratingArr) {
       var avgRating;
 
-      if (friendRating.length) {
-          var sum = friendRating.reduce(function(a, b) { return a + b});
-          avgRating = Math.floor(sum / friendRating.length);
+      if (ratingArr.length) {
+          var sum = ratingArr.reduce(function(a, b) { return a + b});
+          avgRating = Math.floor(sum / ratingArr.length);
       }
       else { avgRating = 0 }
 

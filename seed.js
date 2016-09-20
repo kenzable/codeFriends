@@ -61,7 +61,7 @@ var seedCart = function() {
     var cart = { items: [] };
 
     for (var i = 0; i < numItems; i++) {
-      cart.items.push(Faker.random.number(100000))
+      cart.items.push(Faker.random.number(20))
     }
 
     return cart;

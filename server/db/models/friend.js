@@ -37,9 +37,9 @@ module.exports = db.define('friend', {
 		type: Sequelize.INTEGER,
 		defaultValue: 0
 	},
-	avgRating: {
-		type: Sequelize.INTEGER,
-		defaultValue: 3
+	ratings: {
+		type: Sequelize.ARRAY(Sequelize.INTEGER),
+		defaultValue: [3]
 	}
 }, {
 	// OPTIONS HERE
