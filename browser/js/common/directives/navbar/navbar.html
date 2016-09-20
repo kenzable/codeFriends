@@ -11,6 +11,9 @@
             <li ng-if="isAdmin()">
                 <a ui-sref-active="active" ui-sref="admin">Admin</a>
             </li>
+            <li ng-if="isLoggedIn()">
+                <a ui-sref-active="active" ui-sref="profile({id: user.id})">User Profile</a>
+            </li>
         </ul>
 
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
