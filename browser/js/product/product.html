@@ -7,7 +7,7 @@
 	
 	  <div class="row">
 	    <div class="col-md-12">
-	    		<pre>{{friend.ratings}}</pre>
+
 	      <span class="glyphicon product" ng-repeat="star in getStars(getAvgRating(friend.ratings)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }" aria-hidden="true"></span>
 
 	    </div> <!-- end column -->
