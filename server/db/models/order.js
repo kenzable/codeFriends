@@ -18,6 +18,10 @@ module.exports = db.define('order', {
       set: function(val) {
           return this.setDataValue('items', JSON.stringify(val));
       }
+    },
+    status: {
+      type: Sequelize.STRING,
+      defaultValue: "Created"
     }
   },
   {
