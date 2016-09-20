@@ -32,6 +32,14 @@ module.exports = db.define('friend', {
 	},
 	tags: {
 		type: Sequelize.ARRAY(Sequelize.STRING)
+	},
+	numRevs: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0
+	},
+	avgRating: {
+		type: Sequelize.INTEGER,
+		defaultValue: 3
 	}
 }, {
 	// OPTIONS HERE
@@ -53,23 +61,28 @@ module.exports = db.define('friend', {
 	// },
 	classMethods: {
 		findFriendsByTag: function(tag) {
-			console.log('test');
 			return this.findAll({
 				where: {
 					tags: { $overlap: [tag] }
 				}
 			})
+		},
+
+		getAllTags: function() {
+			var tagArr = [];
+			return this.findAll()
+			.then(function(friends) {
+				friends.forEach(function(friend) {
+					friend.tags.forEach(function(tag) {
+						if (tagArr.indexOf(tag) === -1) {
+							tagArr.push(tag);
+						}
+					})
+				})
+				return tagArr;
+			})
 		}
 	}
-	// instanceMethods: {
-	// 	getReviews: function() {
-	// 		return Feedback.findAndCountAll({	// returns .count and .rows
-	// 			where: {
-	// 				friendId: this.id
-	// 			}
-	// 		})
-	// 	}
-	// }
 });
 
 
