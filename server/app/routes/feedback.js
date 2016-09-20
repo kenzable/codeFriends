@@ -16,7 +16,7 @@ var Feedback = require('../../db/models/feedback.js');
 // Write new feedback for specific friend
 router.post('/', function (req, res, next) {
     var review = Feedback.build(req.body);
-    review.userId = req.user.id;
+    review.userId = req.user ? req.user.id : null;
     review.save()
     .then(function (createdFeedback) {
         res.status(201).json(createdFeedback);
