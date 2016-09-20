@@ -54,7 +54,6 @@ app.factory('ProductFactory', function($http, $log){
     getAllTags: function() {
       return $http.get('/api/friends/tags')
       .then(function(response) {
-        console.log('TAGS FROM FACTORY??', response.data);
         return response.data;
       })
     }

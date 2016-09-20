@@ -29,6 +29,18 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
   })
   .catch($log.error);
 
+  $scope.tagList = []
+
+  $scope.addTag = function(tag){
+    console.log('added tag', tag);
+    console.log('tag list', $scope.tagList);
+    $scope.tagList.push(tag.text);
+  };
+
+  $scope.removeTag = function(tag){
+    var index = $scope.tagList.indexOf(tag.text);
+    $scope.tagList.splice(index, 1);
+  };
 
   $scope.id = $stateParams.friendId;
 
@@ -41,14 +53,7 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
   })
   .catch($log.error);
 
-
-  $scope.addToCart = function(friendId, qty){
-    CartFactory.addFriendToCart(friendId, qty)
-    .then(function(){
-        $scope.added = true;
-    })
-    .catch($log.error);
-  };
+  $scope.loadItems = ProductFactory.getAllTags;
 
   ProductFactory.getAllTags()
   .then(function(tagArr) {
