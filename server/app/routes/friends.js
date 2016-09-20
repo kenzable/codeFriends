@@ -28,6 +28,16 @@ router.post('/', function(req, res, next) {
 	.catch(next);
 });
 
+// Get all unique tags for all friends
+router.get('/tags', function(req, res, next) {
+	Friend.getAllTags()
+	.then(function(tagArr) {
+		if (tagArr) res.json(tagArr);
+		else res.sendStatus(204)
+	})
+	.catch(next);
+});
+
 // Get specific friend
 router.get('/:friendId', function(req, res, next) {
 	Friend.findById(req.params.friendId)

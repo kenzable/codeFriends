@@ -50,7 +50,11 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
     .catch($log.error);
   };
 
-  $scope.getAllTags = ProductFactory.getAllTags;
+  ProductFactory.getAllTags()
+  .then(function(tagArr) {
+    $scope.allTags = tagArr;
+  })
+  .catch($log.error);
 
 });
 

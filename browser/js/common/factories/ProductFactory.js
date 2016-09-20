@@ -7,7 +7,6 @@ app.factory('ProductFactory', function($http, $log){
       .then(function(response) {
         return response.data;
       })
-      .catch($log.error);
     },
 
     getFriend: function(friendId) {
@@ -15,7 +14,6 @@ app.factory('ProductFactory', function($http, $log){
       .then(function(response){
         return response.data;
       })
-      .catch($log.error)
     },
 
     getStars: function(rating) {
@@ -34,7 +32,6 @@ app.factory('ProductFactory', function($http, $log){
       .then(function(response) {
         return response.data;
       })
-      .catch($log.error);
     },
 
     getAvgRating: function(feedbackRows) {
@@ -54,20 +51,28 @@ app.factory('ProductFactory', function($http, $log){
     },
 
     getAllTags: function() {
-      var tagArr = [];
-      return $http.get('/')
+      return $http.get('/api/friends/tags')
       .then(function(response) {
-        response.data.forEach(function(friend) {
-          friend.tags.forEach(function(tag) {
-            if (tagArr.indexof(tag) === -1) {
-              tagArr.push(tag)
-            }
-          })
-        })
-        return tagArr;
+        console.log('TAGS FROM FACTORY??', response.data);
+        return response.data;
       })
-      .catch($log.error)
     }
+
+    // getAllTags: function() {
+    //   var tagArr = [];
+    //   return $http.get('/api/friends')
+    //   .then(function(response) {
+    //     response.data.forEach(function(friend) {
+    //       friend.tags.forEach(function(tag) {
+    //         if (tagArr.indexof(tag) === -1) {
+    //           tagArr.push(tag)
+    //         }
+    //       })
+    //     })
+    //     return tagArr;
+    //   })
+    //   .catch($log.error)
+    // }
 
   }; //end of return
 
