@@ -2,6 +2,7 @@
 
 var Sequelize = require('sequelize');
 var db = require('../_db');
+var Friend = db.model('friend');
 
 module.exports = db.define('feedback', {
     // SCHEMA
@@ -19,20 +20,30 @@ module.exports = db.define('feedback', {
 }, {
     // OPTIONS
     hooks: {
-        afterSave: function(review) {
-            return review.getFriend()
+        afterValidate: function(review) {
+            return Friend.findById(review.friendId)
             .then(function(reviewedFriend) {
-                reviewedFriend.update({
-                    numRevs: ++reviewedFriend.numReviews,
-                    rating: reviewedFriend.avgRating.push(review.rating)
-                })
+                var newRatings = reviewedFriend.dataValues.ratings;
+                newRatings.push(review.dataValues.rating);
+
+                var newRevs = ++reviewedFriend.dataValues.numRevs;
+
+                var updateObj = {
+                    numRevs: newRevs,
+                    ratings: newRatings
+                };
+                reviewedFriend.update(updateObj, { fields: ['numRevs', 'ratings']})
+                // .then(function(updatedFriend) {
+                //     console.log('FRAHND???', updatedFriend)
+                // });
             })
+            .catch(console.error.bind(console));
         }
     },
 
     classMethods: {
         findByFriendId: function(id) {
-            return this.findAndCountAll({   // returns .count and .rows
+            return this.findAll({
                 where: {
                     friendId: id
                 }
