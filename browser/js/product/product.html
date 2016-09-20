@@ -7,6 +7,7 @@
 	
 	  <div class="row">
 	    <div class="col-md-12">
+
 	      <span class="glyphicon product" ng-repeat="star in getStars(getAvgRating(friend.ratings)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }" aria-hidden="true"></span>
 
 	    </div> <!-- end column -->
@@ -44,9 +45,10 @@
 
 	<div class="row add-to-cart">
 	 <div class="col-md-4">
-	  <button class="btn btn-lg btn-brand btn-full-width" ng-click="addToCart(friend.id, 1)">
+	  <button class="btn btn-lg btn-brand btn-full-width" ng-click="addToCart(friend.id, 1); added=true">
 	   Add to Cart
-	  </button>
+	  </button> <br>
+	  <mark ng-show="added"> Item added to cart </mark>
 	 </div>
 	</div><!-- end row -->
 
