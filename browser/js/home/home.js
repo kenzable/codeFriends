@@ -10,24 +10,11 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
 
   ProductFactory.getAllFriends()
   .then(function(friends) {
-    if (friends) {
-      $scope.allFriends = friends;
-      // returns an array of product feedback [{count: xx, rows: yy}]
-      return $q.all($scope.allFriends.map(function(friend) {
-        return ProductFactory.getFriendReviews(friend.id)
-      }))
-    }
+    if (friends) $scope.allFriends = friends;
   })
-  .then(function(feedback) {
-    for (var i = 0; i < feedback.length; i++) {
-      // Attach number of reviews to each friend
-      $scope.allFriends[i].numRevs = feedback[i].count;
+  .catch($log.error)
 
-      // Calculate average rating
-      $scope.allFriends[i].avgRating = ProductFactory.getAvgRating(feedback[i].rows);
-    }
-  })
-  .catch($log.error);
+  $scope.getAvgRating = ProductFactory.getAvgRating;
 
   $scope.tagList = []
 
@@ -63,14 +50,7 @@ app.controller('HomeController', function ($scope, $q, ProductFactory, CartFacto
 
 
 // for carousel
-app.controller('CarouselCtrl', function ($scope, $log) {
-
-  $scope.tags = [
-    { text: 'just' },
-    { text: 'some' },
-    { text: 'cool' },
-    { text: 'tags' }
-  ];
+app.controller('CarouselCtrl', function ($scope) {
 
   $scope.myInterval = 5000;
   $scope.noWrapSlides = false;

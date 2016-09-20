@@ -28,13 +28,6 @@ app.controller('ProductController', function($scope, $log, ProductFactory, $stat
     })
     .catch($log.error);
 
-
-    ProductFactory.getFriendReviews($scope.friendId)
-    .then(function(feedback) {
-        $scope.reviewRows = feedback.rows;
-        $scope.friend.numRevs = feedback.count;
-        $scope.friend.avgRating = ProductFactory.getAvgRating(feedback.rows);
-    })
-    .catch($log.error)
+    $scope.getAvgRating = ProductFactory.getAvgRating;
 });
 
