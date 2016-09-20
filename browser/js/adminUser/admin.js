@@ -40,4 +40,8 @@ app.controller('AdminController', function ($scope, AdminUserFactory, $log, Admi
 
     $scope.deleteAnOrder = AdminOrdersFactory.deleteAnOrder;
 
+    $scope.hasChanged = function (orderId, selected) {
+        AdminOrdersFactory.updatedOrderStatus(orderId, selected); 
+    }
+
 });
