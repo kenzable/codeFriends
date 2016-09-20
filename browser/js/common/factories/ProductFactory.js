@@ -60,7 +60,7 @@ app.factory('ProductFactory', function($http, $log){
         return response.data;
       })
     },
-    
+
     submitReview: function(review){
       return $http.post('/api/feedback', review)
       .then(function(response){

@@ -33,9 +33,6 @@ module.exports = db.define('feedback', {
                     ratings: newRatings
                 };
                 reviewedFriend.update(updateObj, { fields: ['numRevs', 'ratings']})
-                // .then(function(updatedFriend) {
-                //     console.log('FRAHND???', updatedFriend)
-                // });
             })
             .catch(console.error.bind(console));
         }

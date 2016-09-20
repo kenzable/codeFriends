@@ -41,7 +41,7 @@ app.controller('ProductController', function($state, $scope, $log, ProductFactor
         formObj.rating = +formObj.rating;
         ProductFactory.submitReview(formObj)
         .then(function(){
-            $scope.$digest();
+            $state.reload();
         })
         .catch($log.error);
     }
