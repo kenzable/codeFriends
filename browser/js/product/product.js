@@ -15,10 +15,10 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('ProductController', function($scope, $log, ProductFactory, $stateParams) {
+app.controller('ProductController', function($scope, $log, ProductFactory, $stateParams, CartFactory) {
     $scope.id = $stateParams.friendId;
 
-
+    $scope.addToCart = CartFactory.addFriendToCart;
     $scope.getStars = ProductFactory.getStars;
 
 
