@@ -1,6 +1,4 @@
 <div class="container" id="product-section">
-  <h1>{{ friend.name }}</h1>
-
   <div class="row image-container">
    <div class="col-md-6">
       <img class="product-image" src="{{ friend.imageUrl }}">
@@ -23,8 +21,17 @@
     <div class="row">
      <div class="col-md-12 bottom-rule">
       <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" ng-model="friend.name">
+      </div>
+     </div>
+    </div><!-- end row -->
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <div class="form-group">
         <label>Description</label>
-        <input type="text" class="form-control" ng-model="friend.description">
+        <input type="textarea" class="form-control" ng-model="friend.description">
       </div>
      </div>
     </div><!-- end row -->
@@ -32,19 +39,45 @@
 
     <div class="row">
      <div class="col-md-12 bottom-rule">
-      <h2 class="product-tag">Tags: <a ng-repeat="tag in friend.tags"> {{tag}}{{ $last ? '' : ','}}</a></h2>
+      <div class="form-group">
+        <label>Tags</label>
+        <input type="text" class="form-control" ng-model="friend.tags">
+      </div>
      </div>
     </div><!-- end row -->
 
     <div class="row">
      <div class="col-md-12 bottom-rule">
-      <h2 class="product-tag">Hours: {{ friend.numHours }}</h2>
+      <div class="form-group">
+        <label>Hours</label>
+        <input type="textarea" class="form-control" ng-model="friend.numHours">
+      </div>
      </div>
     </div><!-- end row -->
 
       <div class="row">
        <div class="col-md-12 bottom-rule">
-        <h2 class="product-price"> Price: {{friend.price | currency }} </h2>
+        <div class="form-group">
+          <label>Price - $</label>
+          <input type="textarea" class="form-control" ng-model="friend.price">
+        </div>
+       </div>
+      </div><!-- end row -->
+
+      <div class="row">
+       <div class="col-md-12 bottom-rule">
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="textarea" class="form-control" ng-model="friend.imageUrl">
+        </div>
+       </div>
+      </div><!-- end row -->
+
+      <div class="row">
+       <div class="col-md-12 bottom-rule">
+        <div class="form-group">
+          <button type="sumbit" ng-click="submitChanges()">Submit Changes</button>
+        </div>
        </div>
       </div><!-- end row -->
 
@@ -53,30 +86,15 @@
 
    </div>
   </div><!-- end row -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; codeFriends 2016 <a href="https://github.com/kenzable/codeFriends">
+                <img src="./image/github-cat-white-black-32.png" border="0"></th></p>
+            </div>
+        </div>
+    </footer>
 </div>
-
-
-
-
-
-<!-- <form>
-    <div class="form-group">
-      <label>Review Title</label>
-      <input type="text" class="form-control" ng-model="review.title" placeholder="Title Here...">
-    </div>
-    <div class="form-group">
-      <label>Review Content</label>
-      <input type="textarea" class="form-control" placeholder="Review Here..." ng-model="review.review">
-    </div>
-    <label>Rating</label>
-    <select class="form-control" ng-model="review.rating">
-        <option value="" disabled selected>Select Rating</option>
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-    <button type="submit" class="btn btn-default" ng-click="submitReview(review)">Submit</button>
-  </form> -->
+<!-- /.container -->
