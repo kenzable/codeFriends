@@ -2,10 +2,10 @@
 
 var chalk = require('chalk');
 var Promise = require('bluebird');
-// var Faker = require('faker');
 
 var db = require('./server/db');
 var Friend = db.model('friend');
+var User = db.model('user');
 
 
 var seedFriend = function() {
@@ -95,9 +95,25 @@ var seedFriend = function() {
 };
 
 
+var seedUser = function() {
+  var user = {
+    email: 'obama@barack.usa',
+    password: 'potus',
+    name: '\'Bama',
+    age: 55,
+    isAdmin: true
+  };
+
+  var UserPromises = [];
+  UserPromises.push(User.create(user));
+
+  return UserPromises;
+};
+
+
 db.sync({ force: true })
 .then(function() {
-  return Promise.all(seedFriend());
+  return Promise.all(seedFriend().concat(seedUser()));
 })
 .then(function() {
   console.log(chalk.green('seed successful'));
