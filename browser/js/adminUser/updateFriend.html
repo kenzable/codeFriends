@@ -1,0 +1,82 @@
+<div class="container" id="product-section">
+  <h1>{{ friend.name }}</h1>
+
+  <div class="row image-container">
+   <div class="col-md-6">
+      <img class="product-image" src="{{ friend.imageUrl }}">
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <span class="glyphicon product" ng-repeat="star in getStars(getAvgRating(friend.ratings)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }" aria-hidden="true"></span>
+
+      </div> <!-- end column -->
+
+    </div><!-- end row -->
+   </div>
+
+  <div class="col-md-6">
+
+<form>
+  <div class="form-group">
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" class="form-control" ng-model="friend.description">
+      </div>
+     </div>
+    </div><!-- end row -->
+
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <h2 class="product-tag">Tags: <a ng-repeat="tag in friend.tags"> {{tag}}{{ $last ? '' : ','}}</a></h2>
+     </div>
+    </div><!-- end row -->
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <h2 class="product-tag">Hours: {{ friend.numHours }}</h2>
+     </div>
+    </div><!-- end row -->
+
+      <div class="row">
+       <div class="col-md-12 bottom-rule">
+        <h2 class="product-price"> Price: {{friend.price | currency }} </h2>
+       </div>
+      </div><!-- end row -->
+
+      </div>
+    </form>
+
+   </div>
+  </div><!-- end row -->
+</div>
+
+
+
+
+
+<!-- <form>
+    <div class="form-group">
+      <label>Review Title</label>
+      <input type="text" class="form-control" ng-model="review.title" placeholder="Title Here...">
+    </div>
+    <div class="form-group">
+      <label>Review Content</label>
+      <input type="textarea" class="form-control" placeholder="Review Here..." ng-model="review.review">
+    </div>
+    <label>Rating</label>
+    <select class="form-control" ng-model="review.rating">
+        <option value="" disabled selected>Select Rating</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button type="submit" class="btn btn-default" ng-click="submitReview(review)">Submit</button>
+  </form> -->

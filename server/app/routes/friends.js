@@ -59,7 +59,7 @@ router.get('/:friendId', function(req, res, next) {
 });
 
 // Modify a friend's details
-router.put('/:friendId', function(req, res, next) {
+router.put('/:friendId', Auth.assertAdmin, function(req, res, next) {
 	Friend.findById(req.params.friendId)
 	.then(function(foundFriend) {
 		if (foundFriend) {
@@ -76,7 +76,7 @@ router.put('/:friendId', function(req, res, next) {
 });
 
 // Delete a friend
-router.delete('/:friendId', Auth.assertAuthenticated, function(req, res, next) {
+router.delete('/:friendId', Auth.assertAdmin, function(req, res, next) {
 	Friend.destroy({
 		where: {
 			id: req.params.friendId
