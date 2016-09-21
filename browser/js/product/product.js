@@ -15,12 +15,18 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('ProductController', function($scope, $log, ProductFactory, $stateParams, CartFactory) {
+app.controller('ProductController', function($state, $scope, $log, ProductFactory, $stateParams, CartFactory) {
     $scope.id = $stateParams.friendId;
 
     $scope.addToCart = CartFactory.addFriendToCart;
     $scope.getStars = ProductFactory.getStars;
 
+
+    ProductFactory.getFriendReviews($scope.id)
+    .then(function(reviews){
+        $scope.reviews = reviews;
+    })
+    .catch($log.error);
 
     ProductFactory.getFriend($scope.id)
     .then(function(friend) {
@@ -29,5 +35,15 @@ app.controller('ProductController', function($scope, $log, ProductFactory, $stat
     .catch($log.error);
 
     $scope.getAvgRating = ProductFactory.getAvgRating;
+
+    $scope.submitReview = function(formObj){
+        formObj.friendId = +$scope.id;
+        formObj.rating = +formObj.rating;
+        ProductFactory.submitReview(formObj)
+        .then(function(){
+            $state.reload();
+        })
+        .catch($log.error);
+    }
 });
 
