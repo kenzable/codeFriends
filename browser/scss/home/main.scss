@@ -42,8 +42,27 @@
     white-space: nowrap;
 }
 
-.thumbnail img {
+.thumbnail {
     width: 100%;
+}
+
+.image-outer {
+position: relative;
+width: 100%;
+height: 250px;
+overflow: hidden;
+float: left;
+}
+
+.image-outer img {
+position: absolute;
+left: 50%;
+top: 50%;
+height: 100%;
+width: 100%;
+-webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
 }
 
 .ratings {

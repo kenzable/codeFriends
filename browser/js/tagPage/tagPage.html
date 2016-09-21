@@ -20,18 +20,20 @@
                     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="friend in tagFriends | orderBy:'-avgRating'">
 
                         <div class="thumbnail">
-                            <img src="{{ friend.imageUrl }}" alt="{{friend.name}}">
+                            <div class="image-outer">
+                                <img src="{{ friend.imageUrl }}" alt="{{friend.name}}">
+                            </div>
                             <div class="caption">
-                                <h4 class="pull-right">${{ friend.price }}</h4>
                                 <h4><a ui-sref="product({friendId: friend.id})">{{ friend.name }}</a>
                                 </h4>
                                 <p>{{ friend.description.length > 96 ? friend.description.substring(0,95) + '...' : friend.description }}</p>
                             </div>
 
                             <div class="ratings">
-                                <p class="pull-right">{{ friend.numRevs }} {{ friend.numRevs === 1 ? 'Review' : 'Reviews' }}</p>
+                                <p class="pull-right">${{ friend.price }}</p>
                                 <p class="star-rating">
-                                    <span class="glyphicon" ng-repeat="star in getStars(getAvgRating(friend.ratings)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span>
+                                    <span class="glyphicon" ng-repeat="star in getStars(getAvgRating(friend.ratings)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }"></span> // 
+                                    {{ friend.numRevs }} {{ friend.numRevs === 1 ? 'Review' : 'Reviews' }}
                                 </p>
                             </div>
 
