@@ -17,7 +17,7 @@
         		<span ng-click="deleteAFriend(friend.id)" class="btn btn-default btn-sm glyphicon glyphicon-remove"></span>
 	        <td>
             <td>{{ friend.id }}</td>
-            <td><a ui-sref="product({friendId: friend.id})">{{ friend.name }}</a><br><img src="{{ friend.imageUrl }}" width="50" height="50"></td>
+            <td><a ui-sref="admin.updateFriend({friendId: friend.id})">{{ friend.name }}</a><br><img src="{{ friend.imageUrl }}" width="50" height="50"></td>
             <td>{{ friend.price }}</td>
             <td>{{ friend.numHours }}</td>
             <td>{{ friend.tags }}</td>
