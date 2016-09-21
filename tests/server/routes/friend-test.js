@@ -10,13 +10,10 @@ var Sequelize = require('sequelize');
 
 var db = require('../../../server/db');
 var Friend = db.model('friend');
-var app = require('../app');
+var app = require('../../../server/app')(db);
 
 describe('Friend Route:', function () {
 
-  /**
-   * First we clear the database before beginning each run
-   */
   before(function () {
     return db.sync({force: true});
   });
