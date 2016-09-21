@@ -19,9 +19,17 @@ body {
   margin: 0 auto;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
 @import 'product/main';
+@import 'cart/main';
+@import 'signup/main';
+@import 'user/main';
+@import 'orderhistory/main';
