@@ -19,6 +19,10 @@ body {
   margin: 0 auto;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

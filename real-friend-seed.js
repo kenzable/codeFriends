@@ -11,7 +11,7 @@ var Friend = db.model('friend');
 var seedFriend = function() {
   var friends = [
     {
-      name: 'Hamill the Pizza Monster',
+      name: 'Hamill the pizzaFriend',
       description: 'Need we say more? Hamill is here for all of your cheesy, gooey, pepperoni-laden binges.',
       numHours: 3,
       price: 2,
@@ -20,7 +20,7 @@ var seedFriend = function() {
     },
 
     {
-      name: 'Guttormson the Late-Night coderFriend',
+      name: 'Gutt the Night Owl',
       description: 'If 3 am is your time to shine, then let Guttormson keep you company until the Sun takes over!',
       numHours: 12,
       price: 35,
@@ -34,20 +34,20 @@ var seedFriend = function() {
       numHours: 12,
       price: 30,
       imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Villainc.svg',
-      tags: ['hack', 'hacker', 'secrecy']
+      tags: ['hack', 'hacker', 'secrecy', 'fun']
     },
 
     {
-      name: 'Bjerk the Necessary-Breaks Friend',
+      name: 'Health Bjerk',
       description: 'Bjerk loves long walks across your screen, Tuesday yoga, and Green Machine Naked Juices.',
       numHours: 3,
       price: 15,
       imageUrl: 'http://www.relaxandrelease.co.uk/wp-content/uploads/2015/06/Yoga-Cartoon-Character-Animation-Drawing-8-1000x562.jpg',
-      tags: ['stress', 'indulge']
+      tags: ['stress', 'indulge', 'fun']
     },
 
     {
-      name: 'Krog the Encouraging Friend',
+      name: 'Krog the Encourager',
       description: 'We all know that coding grind when you just can\'t quite get your program to work. Well, Krog is here to help you through those frustrating times!',
       numHours: 6,
       price: 1,
@@ -70,11 +70,11 @@ var seedFriend = function() {
       numHours: 3,
       price: 67,
       imageUrl: 'http://preview.cutcaster.com/902942954-cartoon-letter-q.jpg',
-      tags: ['queue']
+      tags: ['queue', 'data-structures']
     },
 
     {
-      name: 'Bier the Booze and code-Friend',
+      name: 'Bier the codeFriend',
       description: 'If you like pina coladas, and getting caught in the adverbial rain, Bier is the codeFriend for you! Grab a brew, grab your codeFriend, and settle in for an exciting evening of boozy coding! Must be 21 or older to buy. Pairs great with Hamill the Pizza Monster!',
       numHours: 9,
       price: 39,
