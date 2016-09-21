@@ -27,7 +27,7 @@
 
 	<div class="row">
 	 <div class="col-md-12 bottom-rule">
-	  <h2 class="product-tag">Tags: <a ng-repeat="tag in friend.tags"> {{tag}}{{ $last ? '' : ','}}</a></h2>
+	  <h2 class="product-tag">Tags: <a ng-repeat="tag in friend.tags" ui-sref="tag({tagName: tag})"> {{tag}}{{ $last ? '' : ','}}</a></h2>
 	 </div>
 	</div><!-- end row -->
 
