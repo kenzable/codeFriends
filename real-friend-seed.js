@@ -89,23 +89,61 @@ var seedFriend = function() {
 
   friends.forEach(function(friend) {
     FriendPromises.push(Friend.create(friend))
-  })
+  });
 
   return FriendPromises;
 };
 
 
 var seedUser = function() {
-  var user = {
-    email: 'obama@barack.usa',
-    password: 'potus',
-    name: '\'Bama',
-    age: 55,
-    isAdmin: true
-  };
+  var users = [
+    {
+      email: 'obama@barack.usa',
+      password: 'potus',
+      name: '\'Bama',
+      age: 55,
+      isAdmin: true
+    },
+
+    {
+      email: 'turner.mackenzie.m@gmail.com',
+      password: 'codeFriend',
+      name: 'Mackenzie Turner',
+      age: 24,
+      isAdmin: true
+    },
+
+    {
+      email: 'dyoungsmith@gmail.com',
+      password: 'codeFriend',
+      name: 'Dani YoungSmith',
+      age: 24,
+      isAdmin: true
+    },
+
+    {
+      email: 'angela.minchoi@gmail.com',
+      password: 'codeFriend',
+      name: 'Angela Choi',
+      age: 24,
+      isAdmin: true
+    },
+
+    {
+      email: 'pjm605@gmail.com',
+      password: 'codeFriend',
+      name: 'Janice Park',
+      age: 25,
+      isAdmin: true
+    },
+
+  ];
 
   var UserPromises = [];
-  UserPromises.push(User.create(user));
+
+  users.forEach(function(user) {
+    UserPromises.push(User.create(user))
+  });
 
   return UserPromises;
 };
