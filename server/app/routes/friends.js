@@ -59,24 +59,23 @@ router.get('/:friendId', function(req, res, next) {
 });
 
 // Modify a friend's details
-router.put('/:friendId', function(req, res, next) {
+router.put('/:friendId', Auth.assertAdmin, function(req, res, next) {
 	Friend.findById(req.params.friendId)
 	.then(function(foundFriend) {
 		if (foundFriend) {
-			foundFriend.update({
-				where: req.body
-			})
+      console.log('found friend', foundFriend);
+			foundFriend.update(req.body)
 			.then(function(updatedFriend) {
-				res.sendStatus(200).json(updatedFriend);
+				res.status(200).json(updatedFriend);
 			})
 		}
-		else { res.sendStatus(204) }
+		else res.sendStatus(204);
 	})
 	.catch(next);
 });
 
 // Delete a friend
-router.delete('/:friendId', Auth.assertAuthenticated, function(req, res, next) {
+router.delete('/:friendId', Auth.assertAdmin, function(req, res, next) {
 	Friend.destroy({
 		where: {
 			id: req.params.friendId

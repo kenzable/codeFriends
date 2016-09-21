@@ -94,6 +94,7 @@ var seedFriend = function() {
   return FriendPromises;
 };
 
+
 var seedUser = function() {
   var user = {
     email: 'obama@barack.usa',

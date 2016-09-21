@@ -1,0 +1,100 @@
+<div class="container" id="product-section">
+  <div class="row image-container">
+   <div class="col-md-6">
+      <img class="product-image" src="{{ friend.imageUrl }}">
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <span class="glyphicon product" ng-repeat="star in getStars(getAvgRating(friend.ratings)) track by $index" ng-class="{ 'glyphicon-star': star, 'glyphicon-star-empty': !star }" aria-hidden="true"></span>
+
+      </div> <!-- end column -->
+
+    </div><!-- end row -->
+   </div>
+
+  <div class="col-md-6">
+
+<form>
+  <div class="form-group">
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" ng-model="friend.name">
+      </div>
+     </div>
+    </div><!-- end row -->
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <div class="form-group">
+        <label>Description</label>
+        <input type="textarea" class="form-control" ng-model="friend.description">
+      </div>
+     </div>
+    </div><!-- end row -->
+
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <div class="form-group">
+        <label>Tags</label>
+        <input type="text" class="form-control" ng-model="friend.tags">
+      </div>
+     </div>
+    </div><!-- end row -->
+
+    <div class="row">
+     <div class="col-md-12 bottom-rule">
+      <div class="form-group">
+        <label>Hours</label>
+        <input type="textarea" class="form-control" ng-model="friend.numHours">
+      </div>
+     </div>
+    </div><!-- end row -->
+
+      <div class="row">
+       <div class="col-md-12 bottom-rule">
+        <div class="form-group">
+          <label>Price - $</label>
+          <input type="textarea" class="form-control" ng-model="friend.price">
+        </div>
+       </div>
+      </div><!-- end row -->
+
+      <div class="row">
+       <div class="col-md-12 bottom-rule">
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="textarea" class="form-control" ng-model="friend.imageUrl">
+        </div>
+       </div>
+      </div><!-- end row -->
+
+      <div class="row">
+       <div class="col-md-12 bottom-rule">
+        <div class="form-group">
+          <button type="sumbit" ng-click="submitChanges()">Submit Changes</button>
+        </div>
+       </div>
+      </div><!-- end row -->
+
+      </div>
+    </form>
+
+   </div>
+  </div><!-- end row -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; codeFriends 2016 <a href="https://github.com/kenzable/codeFriends">
+                <img src="./image/github-cat-white-black-32.png" border="0"></th></p>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- /.container -->
