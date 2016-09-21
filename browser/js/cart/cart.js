@@ -16,7 +16,6 @@ app.config(function ($stateProvider) {
 
 app.config(function($windowProvider) {
   var $window = $windowProvider.$get();
-  
   $window.Stripe.setPublishableKey('pk_test_73ZevvA04jKbRErkAsZLmBJT'); //test publishable key
 });
 
@@ -69,14 +68,15 @@ app.controller('CartController', function ($scope, CartFactory, $log, $rootScope
     if (result.error) {
         window.alert('it failed! error: ' + result.error.message);
     } else {
-        window.alert('success! token: ' + result.id);
+        // token: result.id
         CartFactory.purchase()
         .then(function(){
           $state.go('complete');
         })
-
         .catch($log.error);
     }
   };
+
+  $scope.added=false;
 
 });
